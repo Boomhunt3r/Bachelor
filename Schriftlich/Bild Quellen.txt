@@ -1,0 +1,9 @@
+Clonk Rage:
+	menu_main, menu_start, knights_regicide: http://www.clonk.de/cr.php?lng=de
+Minecraft: https://www.minecraft.net/de-de/about-minecraft
+Terraria:
+	Crafting: https://terraria.gamepedia.com/Guide:Crafting_101
+	Start: https://terraria.gamepedia.com/Guide:Getting_started
+	Eye: https://terraria.gamepedia.com/Eye_of_Cthulhu
+WoW:
+	

@@ -7,3 +7,4 @@ Terraria:
 	Eye: https://terraria.gamepedia.com/Eye_of_Cthulhu
 WoW:
 	
+Kingdom: https://www.kingdomthegame.com/kingdom-two-crowns

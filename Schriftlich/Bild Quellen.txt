@@ -6,6 +6,9 @@ Terraria:
 	Start: https://terraria.gamepedia.com/Guide:Getting_started
 	Eye: https://terraria.gamepedia.com/Eye_of_Cthulhu
 WoW:
-	
+	https://www.golem.de/news/world-of-warcraft-fast-reibungsloser-start-von-battle-for-azeroth-1808-136000.html
+	screen 0: https://apkpure.com/wow-guide-professions/techtasys.apps.wowprofessionguide
+	8773: https://www.wowhead.com/legion-professions-overview
+	trainer: https://wow.gamepedia.com/Trainer
 Kingdom: https://www.kingdomthegame.com/kingdom-two-crowns
 Eastern Exorcist: https://store.steampowered.com/app/1120810/_Eastern_Exorcist/

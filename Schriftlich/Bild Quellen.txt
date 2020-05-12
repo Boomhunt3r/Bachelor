@@ -10,5 +10,6 @@ WoW:
 	screen 0: https://apkpure.com/wow-guide-professions/techtasys.apps.wowprofessionguide
 	8773: https://www.wowhead.com/legion-professions-overview
 	trainer: https://wow.gamepedia.com/Trainer
+	character creator: https://www.pcgamer.com/world-of-warcraft-is-changing-its-character-creation-screen-for-the-first-time-ever-and-i-hate-it/
 Kingdom: https://www.kingdomthegame.com/kingdom-two-crowns
 Eastern Exorcist: https://store.steampowered.com/app/1120810/_Eastern_Exorcist/

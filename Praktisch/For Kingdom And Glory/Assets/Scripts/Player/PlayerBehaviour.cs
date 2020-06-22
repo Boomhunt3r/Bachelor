@@ -69,7 +69,7 @@ public class PlayerBehaviour : MonoBehaviour
                 BuildingTest.Instance.Build = true;
             }
         }
-        Debug.Log(CoinsInInventory);
+        //Debug.Log(CoinsInInventory);
         //Debug.Log(CanBuild);
     }
 

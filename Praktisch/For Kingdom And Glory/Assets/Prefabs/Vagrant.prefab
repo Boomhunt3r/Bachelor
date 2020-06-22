@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1974574904250854471}
   - component: {fileID: 5752818490134257270}
   - component: {fileID: 5952111796640908526}
+  - component: {fileID: 1271275444518801114}
   m_Layer: 0
   m_Name: Vagrant
   m_TagString: Vagrant
@@ -48,7 +49,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -66,8 +67,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31b4120f84ef3d4da5604ccc11c0d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Speed: 0.5
+  m_Speed: 20
+  m_NextWaypointDist: 1.5
   m_Waypoints: []
+  m_Sprite: {fileID: 8423711878348790358}
+--- !u!114 &1271275444518801114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1317144251245296273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
 --- !u!1 &4814277042543609020
 GameObject:
   m_ObjectHideFlags: 0

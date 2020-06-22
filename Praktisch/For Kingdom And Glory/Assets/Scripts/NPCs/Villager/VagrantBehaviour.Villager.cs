@@ -9,7 +9,7 @@ public partial class VagrantBehaviour : MonoBehaviour
         m_Render.color = Color.gray;
         m_Target = m_VillagerPoint;
 
-        /*if (m_Hammer == null)
+        if (m_Hammer == null)
         {
             m_Bow = GameObject.FindGameObjectWithTag("Hammer");
         }
@@ -45,6 +45,6 @@ public partial class VagrantBehaviour : MonoBehaviour
                 Debug.Log("In Range");
                 m_Sword = m_Coin;
             }
-        }*/
+        }
     }
 }

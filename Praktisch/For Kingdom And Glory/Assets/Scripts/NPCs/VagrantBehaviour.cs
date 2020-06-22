@@ -139,7 +139,7 @@ public partial class VagrantBehaviour : MonoBehaviour
             m_Target = this.gameObject;
             m_Status = ENPCStatus.VILLAGER;
         }
-        /*if(collision.CompareTag("Hammer"))
+        if(collision.CompareTag("Hammer"))
         {
             Destroy(collision.gameObject);
             m_Target = this.gameObject;
@@ -156,7 +156,7 @@ public partial class VagrantBehaviour : MonoBehaviour
             Destroy(collision.gameObject);
             m_Target = this.gameObject;
             m_Status = ENPCStatus.SWORDSMAN;
-        }*/
+        }
     } 
     #endregion
 }

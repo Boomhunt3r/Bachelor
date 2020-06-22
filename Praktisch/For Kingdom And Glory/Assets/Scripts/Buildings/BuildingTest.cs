@@ -14,6 +14,8 @@ public class BuildingTest : MonoBehaviour
     [SerializeField]
     private int m_CurrentUpgradeCost = 0;
     [SerializeField]
+    private float m_MaxHitPoints = 5;
+    [SerializeField]
     private GameObject m_BuildUI;
     [SerializeField]
     private Slider m_PaySlider;
@@ -27,6 +29,9 @@ public class BuildingTest : MonoBehaviour
     private EBuildingUpgrade m_Building;
     private bool m_Build = false;
     private bool m_Payed = false;
+    private bool m_BeingBuild = false;
+    private float m_Timer = 0.0f;
+    private float m_MaxTimer = 1.5f;
     #endregion
 
     #region private const
@@ -64,7 +69,20 @@ public class BuildingTest : MonoBehaviour
     {
         // Open Function with Current Bool status
         ShowUI(Build);
-    } 
+
+        if (m_BeingBuild)
+        {
+            m_Timer += Time.deltaTime;
+        }
+
+        if (m_Timer >= m_MaxTimer)
+        {
+            m_BeingBuild = false;
+            m_Timer = 0.0f;
+        }
+        Debug.Log($"Time: {m_Timer}");
+        Debug.Log(m_BeingBuild);
+    }
     #endregion
 
     #region private Functions
@@ -85,6 +103,8 @@ public class BuildingTest : MonoBehaviour
                 m_PaySlider.maxValue = m_CurrentUpgradeCost;
                 // Update Slider Text to new MaxValue
                 m_SliderText.text = $"0 / {m_PaySlider.maxValue}";
+                // Increase Max Timer
+                m_MaxTimer = 2.5f;
                 // Set to next Upgrade Level
                 m_Building = EBuildingUpgrade.WOOD;
 
@@ -95,6 +115,7 @@ public class BuildingTest : MonoBehaviour
                 m_PaySlider.value = 0;
                 m_PaySlider.maxValue = m_CurrentUpgradeCost;
                 m_SliderText.text = $"0 / {m_PaySlider.maxValue}";
+                m_MaxTimer = 7.5f;
                 m_Building = EBuildingUpgrade.STONE;
 
                 break;
@@ -104,6 +125,7 @@ public class BuildingTest : MonoBehaviour
                 m_PaySlider.value = 0;
                 m_PaySlider.maxValue = m_CurrentUpgradeCost;
                 m_SliderText.text = $"0 / {m_PaySlider.maxValue}";
+                m_MaxTimer = 10.0f;
                 m_Building = EBuildingUpgrade.IRON;
 
                 break;
@@ -150,7 +172,22 @@ public class BuildingTest : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            PlayerBehaviour.Instance.CanBuild = true;
+            if (!m_BeingBuild)
+                PlayerBehaviour.Instance.CanBuild = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Player"))
+        {
+            if (!m_BeingBuild)
+                PlayerBehaviour.Instance.CanBuild = true;
+            else if(m_BeingBuild)
+            {
+                PlayerBehaviour.Instance.CanBuild = false;
+                m_Build = false;
+            }
         }
     }
 
@@ -159,6 +196,7 @@ public class BuildingTest : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             PlayerBehaviour.Instance.CanBuild = false;
+            m_PaySlider.value = 0;
             Build = false;
         }
     }
@@ -179,11 +217,12 @@ public class BuildingTest : MonoBehaviour
                 return;
             }
             m_Text.text = "";
+            m_BeingBuild = true;
             RemoveCoins((int)m_PaySlider.value);
             UpgradeBuilding();
             Build = false;
         }
-        else if( m_PaySlider.value != m_CurrentUpgradeCost && m_Building != EBuildingUpgrade.IRON)
+        else if (m_PaySlider.value != m_CurrentUpgradeCost && m_Building != EBuildingUpgrade.IRON)
         {
             m_Payed = false;
             m_Text.text = "Not enough Coins!";

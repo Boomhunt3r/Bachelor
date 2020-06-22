@@ -8,6 +8,7 @@ TagManager:
   - Building
   - Vagrant
   - Waypoint
+  - VillagerPoint
   layers:
   - Default
   - TransparentFX

@@ -17,9 +17,4 @@ public class Coin : MonoBehaviour
     {
         // TODO: Sound, Tag for Ground
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-       
-    }
 }

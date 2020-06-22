@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
+    public static PlayerBehaviour Instance { get; private set; }
 
     #region SerzializeField
     [SerializeField]
     private float m_MovementSpeed = 5.0f;
     [SerializeField]
-    private Transform m_CoinSpawn;
+    private Transform m_CoinSpawnRight;
+    [SerializeField]
+    private Transform m_CoinSpawnLeft;
     [SerializeField]
     private GameObject m_CoinPrefab;
     #endregion
@@ -17,17 +20,21 @@ public class PlayerBehaviour : MonoBehaviour
     #region private Variables
     private Rigidbody2D m_Rigid;
 
-    private int m_CoinsInInventory = 5;
-
-    private float m_Timer = 0.0f;
+    private int m_CoinsInInventory = 50;
 
     private bool m_Build = false;
+
+    private bool m_CanBuild = false;
     #endregion
+
+    public int CoinsInInventory { get => m_CoinsInInventory; set => m_CoinsInInventory = value; }
+    public bool CanBuild { get => m_CanBuild; set => m_CanBuild = value; }
 
     // Start is called before the first frame update
     void Start()
     {
         m_Rigid = GetComponent<Rigidbody2D>();
+        Instance = this;
     }
 
     // Update is called once per frame
@@ -40,38 +47,38 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if (m_Build == false)
             {
-                if (m_CoinsInInventory > 0)
+                if (CoinsInInventory > 0)
                 {
-                    Instantiate(m_CoinPrefab, m_CoinSpawn.position, Quaternion.identity);
+                    if (dir.x < 0)
+                        Instantiate(m_CoinPrefab, m_CoinSpawnRight.position, Quaternion.identity);
+                    if (dir.x > 0)
+                        Instantiate(m_CoinPrefab, m_CoinSpawnLeft.position, Quaternion.identity);
 
-                    m_CoinsInInventory--;
+                    if (dir.x == 0)
+                        Instantiate(m_CoinPrefab, m_CoinSpawnRight.position, Quaternion.identity);
+
+                    CoinsInInventory--;
                 }
             }
         }
-        if (Input.GetKey(KeyCode.S))
+
+        if (CanBuild)
         {
-            if (m_CoinsInInventory == 0)
-                return;
-
-            m_Timer += Time.deltaTime;
-
-            if (m_Timer >= 2.0f)
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                m_CoinsInInventory--;
-
-                m_Timer = 0.0f;
-
-                m_Build = true;
+                BuildingTest.Instance.Build = true;
             }
         }
+        Debug.Log(CoinsInInventory);
+        //Debug.Log(CanBuild);
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if(collision.gameObject.tag == "Coin")
-    //    {
-    //        Destroy(collision.gameObject);
-    //        m_CoinsInInventory++;
-    //    }
-    //}
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Coin")
+        {
+            Destroy(collision.gameObject);
+            m_CoinsInInventory++;
+        }
+    }
 }

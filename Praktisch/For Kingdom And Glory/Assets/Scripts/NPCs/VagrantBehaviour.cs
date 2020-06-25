@@ -10,8 +10,6 @@ public partial class VagrantBehaviour : MonoBehaviour
     [SerializeField]
     private float m_NextWaypointDist = 3.0f;
     [SerializeField]
-    private GameObject[] m_Waypoints;
-    [SerializeField]
     private Transform m_Sprite;
     #endregion
 
@@ -27,9 +25,14 @@ public partial class VagrantBehaviour : MonoBehaviour
     /// </summary>
     private GameObject m_Target;
     /// <summary>
-    /// Villager Waypoint
+    /// Villager Waypoints
     /// </summary>
-    private GameObject m_VillagerPoint;
+    [SerializeField]
+    private GameObject[] m_VillagerPoints;
+    /// <summary>
+    /// Vargant Waypoints
+    /// </summary>
+    private GameObject[] m_Waypoints;
     /// <summary>
     /// Bow
     /// </summary>
@@ -50,6 +53,7 @@ public partial class VagrantBehaviour : MonoBehaviour
     private Vector2 m_CurrentVeloc;
     private ENPCStatus m_Status;
     private int m_CurrentDirection;
+    private int m_CurrentWay = 0;
     private float m_Timer = 0.0f;
     private bool m_isIdle = false;
     #endregion
@@ -68,13 +72,19 @@ public partial class VagrantBehaviour : MonoBehaviour
         m_Rigid = GetComponent<Rigidbody2D>();
         m_Seeker = GetComponent<Seeker>();
         m_Render = GetComponentInChildren<SpriteRenderer>();
+
         m_Waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
-        m_VillagerPoint = GameObject.FindGameObjectWithTag("VillagerPoint");
+        m_VillagerPoints = GameObject.FindGameObjectsWithTag("VillagerPoint");
+
         m_CurrentDirection = Random.Range(0, m_Waypoints.Length);
         m_Target = m_Waypoints[m_CurrentDirection];
+        m_Directions.Add(new Vector2(-1, 0));
+        m_Directions.Add(new Vector2(1, 0));
+        m_CurrentVeloc = m_Directions[m_CurrentDirection] * m_Speed * Time.deltaTime;
 
         m_Status = ENPCStatus.VARGANT;
 
+        m_Rigid.velocity = m_CurrentVeloc;
         InvokeRepeating("UpdatePath", 0.0f, 0.5f);
     }
     private void FixedUpdate()
@@ -84,7 +94,6 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         if (m_CurrentWaypoint >= m_Path.vectorPath.Count)
         {
-            Debug.Log("ende");
             m_EndPathReached = true;
         }
         else
@@ -147,7 +156,7 @@ public partial class VagrantBehaviour : MonoBehaviour
         }
         if (collision.CompareTag("Bow"))
         {
-            Destroy(collision.gameObject);
+            Archery.Instance.RemoveBowFromStand(collision.gameObject);
             m_Target = this.gameObject;
             m_Status = ENPCStatus.ARCHER;
         }

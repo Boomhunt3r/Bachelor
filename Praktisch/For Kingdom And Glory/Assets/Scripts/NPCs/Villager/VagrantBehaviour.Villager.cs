@@ -7,11 +7,31 @@ public partial class VagrantBehaviour : MonoBehaviour
     private void Villager()
     {
         m_Render.color = Color.gray;
-        m_Target = m_VillagerPoint;
+        m_Rigid.velocity = m_CurrentVeloc;
 
+        #region Idle Path
+        if (Vector2.SqrMagnitude((Vector2)m_VillagerPoints[m_CurrentWay].transform.position - m_Rigid.position) <= 5.0f)
+        {
+            if (m_CurrentWaypoint == 0)
+            {
+                m_CurrentDirection = 1;
+                m_CurrentVeloc = m_Directions[0] * m_Speed * Time.deltaTime;
+                m_Target = m_VillagerPoints[m_CurrentWay];
+            }
+            else if (m_CurrentWaypoint == 1)
+            {
+                m_CurrentDirection = 0;
+                m_CurrentVeloc = m_Directions[1] * m_Speed * Time.deltaTime;
+                m_Target = m_VillagerPoints[m_CurrentWay];
+            }
+        }
+
+        #endregion
+
+        #region if object is not active
         if (m_Hammer == null)
         {
-            m_Bow = GameObject.FindGameObjectWithTag("Hammer");
+            m_Hammer = GameObject.FindGameObjectWithTag("Hammer");
         }
         else if (m_Bow == null)
         {
@@ -21,12 +41,14 @@ public partial class VagrantBehaviour : MonoBehaviour
         {
             m_Sword = GameObject.FindGameObjectWithTag("Sword");
         }
+        #endregion
 
+        #region If Object is Active
         if (m_Hammer != null)
         {
             if (Vector2.SqrMagnitude((Vector2)m_Hammer.transform.position - m_Rigid.position) <= 45)
             {
-                Debug.Log("In Range");
+                // Set Hammer to Target
                 m_Target = m_Hammer;
             }
         }
@@ -34,17 +56,18 @@ public partial class VagrantBehaviour : MonoBehaviour
         {
             if (Vector2.SqrMagnitude((Vector2)m_Bow.transform.position - m_Rigid.position) <= 45)
             {
-                Debug.Log("In Range");
-                m_Bow = m_Coin;
+                // Set Bow to Target
+                m_Target = m_Bow;
             }
         }
         else if (m_Sword != null)
         {
             if (Vector2.SqrMagnitude((Vector2)m_Sword.transform.position - m_Rigid.position) <= 45)
             {
-                Debug.Log("In Range");
-                m_Sword = m_Coin;
+                // Set Sword to Target
+                m_Target = m_Sword;
             }
-        }
+        } 
+        #endregion
     }
 }

@@ -80,8 +80,6 @@ public class BuildingTest : MonoBehaviour
             m_BeingBuild = false;
             m_Timer = 0.0f;
         }
-        Debug.Log($"Time: {m_Timer}");
-        Debug.Log(m_BeingBuild);
     }
     #endregion
 
@@ -163,7 +161,6 @@ public class BuildingTest : MonoBehaviour
         {
             // Hide
             m_BuildUI.SetActive(false);
-            return;
         }
     }
 

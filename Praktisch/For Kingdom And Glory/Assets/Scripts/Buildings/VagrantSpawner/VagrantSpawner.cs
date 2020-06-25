@@ -34,7 +34,7 @@ public class VagrantSpawner : MonoBehaviour
         {
             for (int i = 0; i < m_VagrantToSpawn; i++)
             {
-                Instantiate(m_VagrantPrefab, new Vector3(this.gameObject.transform.position.x,0.0f,this.transform.position.z), Quaternion.identity);
+                Instantiate(m_VagrantPrefab, new Vector3(this.gameObject.transform.position.x, 0.0f, 0.15f), Quaternion.identity);
                 //Debug.Log("Spawned");
             }
             m_Timer = 0.0f;
@@ -45,7 +45,7 @@ public class VagrantSpawner : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.CompareTag("Vagrant"))
+        if (collision.CompareTag("Vagrant"))
         {
             m_CanSpawn = false;
             //Debug.Log("drin");

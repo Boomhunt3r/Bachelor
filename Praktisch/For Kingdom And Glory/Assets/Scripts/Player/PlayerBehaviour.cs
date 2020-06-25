@@ -25,10 +25,13 @@ public class PlayerBehaviour : MonoBehaviour
     private bool m_Build = false;
 
     private bool m_CanBuild = false;
+
+    private bool m_CanBuyBows = false;
     #endregion
 
     public int CoinsInInventory { get => m_CoinsInInventory; set => m_CoinsInInventory = value; }
     public bool CanBuild { get => m_CanBuild; set => m_CanBuild = value; }
+    public bool CanBuyBows { get => m_CanBuyBows; set => m_CanBuyBows = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -62,11 +65,14 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        if (CanBuild)
+        if (CanBuild || CanBuyBows)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-                BuildingTest.Instance.Build = true;
+                if (CanBuild)
+                    BuildingTest.Instance.Build = true;
+                else if (CanBuyBows)
+                    Archery.Instance.Buy = true;
             }
         }
         //Debug.Log(CoinsInInventory);

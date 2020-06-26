@@ -12,6 +12,11 @@ TagManager:
   - Hammer
   - Bow
   - Sword
+  - Villager
+  - Archer
+  - Swordsman
+  - Builder
+  - Wall
   layers:
   - Default
   - TransparentFX

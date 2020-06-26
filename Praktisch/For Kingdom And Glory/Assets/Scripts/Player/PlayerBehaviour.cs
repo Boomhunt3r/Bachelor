@@ -70,7 +70,7 @@ public class PlayerBehaviour : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 if (CanBuild)
-                    BuildingTest.Instance.Build = true;
+                    Wall.Instance.Build = true;
                 else if (CanBuyBows)
                     Archery.Instance.Buy = true;
             }

@@ -7,7 +7,7 @@ public partial class VagrantBehaviour : MonoBehaviour
     private void Villager()
     {
         m_Render.color = Color.gray;
-
+        this.gameObject.tag = "Villager";
         #region Idle Path
         if (!m_ToolInRange)
         {

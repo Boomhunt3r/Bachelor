@@ -8,5 +8,12 @@ public partial class VagrantBehaviour : MonoBehaviour
     {
         m_Render.color = Color.green;
         this.gameObject.tag = "Builder";
+
+        if (m_BuildWalls.Count != 0 || m_BuildWalls != null)
+        {
+            for (int i = 0; i < m_BuildWalls.Count; i++)
+            {
+            }
+        }
     }
 }

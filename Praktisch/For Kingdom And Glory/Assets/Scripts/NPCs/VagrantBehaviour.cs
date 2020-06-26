@@ -49,6 +49,7 @@ public partial class VagrantBehaviour : MonoBehaviour
 
     private Rigidbody2D m_Rigid;
     private SpriteRenderer m_Render;
+    private List<GameObject> m_BuildWalls = new List<GameObject>();
     private ENPCStatus m_Status;
     private int m_CurrentDirection;
     private bool m_ToolInRange = false;

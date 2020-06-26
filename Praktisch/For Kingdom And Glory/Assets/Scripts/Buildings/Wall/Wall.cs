@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class BuildingTest : MonoBehaviour
+public class Wall : MonoBehaviour
 {
-    public static BuildingTest Instance { get; private set; }
+    public static Wall Instance { get; private set; }
 
     #region private Serialize Variables
     [SerializeField]
@@ -27,11 +27,12 @@ public class BuildingTest : MonoBehaviour
 
     #region private Variables
     private EBuildingUpgrade m_Building;
+    private float m_Timer = 0.0f;
+    private float m_MaxTimer = 1.5f;
     private bool m_Build = false;
     private bool m_Payed = false;
     private bool m_BeingBuild = false;
-    private float m_Timer = 0.0f;
-    private float m_MaxTimer = 1.5f;
+    private bool m_BuilderBuilding = false;
     #endregion
 
     #region private const
@@ -47,6 +48,7 @@ public class BuildingTest : MonoBehaviour
     #endregion
 
     public bool Build { get => m_Build; set => m_Build = value; }
+    public float MaxHitPoints { get => m_MaxHitPoints; set => m_MaxHitPoints = value; }
 
     // Start is called before the first frame update
     #region Unity Functions
@@ -70,9 +72,12 @@ public class BuildingTest : MonoBehaviour
         // Open Function with Current Bool status
         ShowUI(Build);
 
-        if (m_BeingBuild)
+        if (m_BuilderBuilding)
         {
-            m_Timer += Time.deltaTime;
+            if (m_BeingBuild)
+            {
+                m_Timer += Time.deltaTime;
+            }
         }
 
         if (m_Timer >= m_MaxTimer)
@@ -172,15 +177,20 @@ public class BuildingTest : MonoBehaviour
             if (!m_BeingBuild)
                 PlayerBehaviour.Instance.CanBuild = true;
         }
+        if (collision.CompareTag("Builder"))
+        {
+            if (m_BeingBuild)
+                m_BuilderBuilding = true;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             if (!m_BeingBuild)
                 PlayerBehaviour.Instance.CanBuild = true;
-            else if(m_BeingBuild)
+            else if (m_BeingBuild)
             {
                 PlayerBehaviour.Instance.CanBuild = false;
                 m_Build = false;
@@ -195,6 +205,11 @@ public class BuildingTest : MonoBehaviour
             PlayerBehaviour.Instance.CanBuild = false;
             m_PaySlider.value = 0;
             Build = false;
+        }
+        if (collision.CompareTag("Builder"))
+        {
+
+            m_BuilderBuilding = false;
         }
     }
     #endregion

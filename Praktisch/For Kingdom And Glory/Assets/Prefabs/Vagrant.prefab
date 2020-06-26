@@ -67,9 +67,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31b4120f84ef3d4da5604ccc11c0d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Speed: 200
+  m_Speed: 2
   m_NextWaypointDist: 1.5
   m_Sprite: {fileID: 8423711878348790358}
+  m_VillagerPoints: []
 --- !u!114 &1271275444518801114
 MonoBehaviour:
   m_ObjectHideFlags: 0

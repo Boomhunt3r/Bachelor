@@ -43,12 +43,28 @@ public class VagrantSpawner : MonoBehaviour
             m_Timer = 0.0f;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    #region private Trigger collision Function
+    private void OnTriggerEnter2D(Collider2D _Collision)
     {
-        if (collision.CompareTag("Vagrant"))
+        if (_Collision.CompareTag("Vagrant"))
+        {
+            m_CanSpawn = false;
+        }
+    }
+    private void OnTriggerStay2D(Collider2D _Collision)
+    {
+        if (_Collision.CompareTag("Vagrant"))
         {
             m_CanSpawn = false;
             //Debug.Log("drin");
         }
     }
+    private void OnTriggerExit2D(Collider2D _Collision)
+    {
+        if (_Collision.CompareTag("Vagrant"))
+        {
+            m_CanSpawn = true;
+        }
+    } 
+    #endregion
 }

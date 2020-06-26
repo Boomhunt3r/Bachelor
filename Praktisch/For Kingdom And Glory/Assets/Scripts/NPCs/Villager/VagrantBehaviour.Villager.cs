@@ -7,39 +7,32 @@ public partial class VagrantBehaviour : MonoBehaviour
     private void Villager()
     {
         m_Render.color = Color.gray;
-        m_Rigid.velocity = m_CurrentVeloc;
 
         #region Idle Path
-        if (Vector2.SqrMagnitude((Vector2)m_VillagerPoints[m_CurrentWay].transform.position - m_Rigid.position) <= 5.0f)
+        if (!m_ToolInRange)
         {
-            if (m_CurrentWaypoint == 0)
-            {
-                m_CurrentDirection = 1;
-                m_CurrentVeloc = m_Directions[0] * m_Speed * Time.deltaTime;
-                m_Target = m_VillagerPoints[m_CurrentWay];
-            }
-            else if (m_CurrentWaypoint == 1)
-            {
-                m_CurrentDirection = 0;
-                m_CurrentVeloc = m_Directions[1] * m_Speed * Time.deltaTime;
-                m_Target = m_VillagerPoints[m_CurrentWay];
-            }
+            m_Target = m_VillagerPoints[m_CurrentDirection];
         }
-
         #endregion
 
         #region if object is not active
+        // If Hammer is null
         if (m_Hammer == null)
         {
+            // Find Hammer Object
             m_Hammer = GameObject.FindGameObjectWithTag("Hammer");
+            // Set Tool in Range false
+            m_ToolInRange = false;
         }
         else if (m_Bow == null)
         {
             m_Bow = GameObject.FindGameObjectWithTag("Bow");
+            m_ToolInRange = false;
         }
         else if (m_Sword == null)
         {
             m_Sword = GameObject.FindGameObjectWithTag("Sword");
+            m_ToolInRange = false;
         }
         #endregion
 
@@ -50,6 +43,8 @@ public partial class VagrantBehaviour : MonoBehaviour
             {
                 // Set Hammer to Target
                 m_Target = m_Hammer;
+                // Set Tool in Range true
+                m_ToolInRange = true;
             }
         }
         else if (m_Bow != null)
@@ -58,6 +53,7 @@ public partial class VagrantBehaviour : MonoBehaviour
             {
                 // Set Bow to Target
                 m_Target = m_Bow;
+                m_ToolInRange = true;
             }
         }
         else if (m_Sword != null)
@@ -66,8 +62,9 @@ public partial class VagrantBehaviour : MonoBehaviour
             {
                 // Set Sword to Target
                 m_Target = m_Sword;
+                m_ToolInRange = true;
             }
-        } 
+        }
         #endregion
     }
 }

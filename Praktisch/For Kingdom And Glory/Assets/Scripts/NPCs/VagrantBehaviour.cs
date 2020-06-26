@@ -49,13 +49,9 @@ public partial class VagrantBehaviour : MonoBehaviour
 
     private Rigidbody2D m_Rigid;
     private SpriteRenderer m_Render;
-    private List<Vector2> m_Directions = new List<Vector2>();
-    private Vector2 m_CurrentVeloc;
     private ENPCStatus m_Status;
     private int m_CurrentDirection;
-    private int m_CurrentWay = 0;
-    private float m_Timer = 0.0f;
-    private bool m_isIdle = false;
+    private bool m_ToolInRange = false;
     #endregion
 
     #region private Pathfinding Variables
@@ -78,13 +74,9 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         m_CurrentDirection = Random.Range(0, m_Waypoints.Length);
         m_Target = m_Waypoints[m_CurrentDirection];
-        m_Directions.Add(new Vector2(-1, 0));
-        m_Directions.Add(new Vector2(1, 0));
-        m_CurrentVeloc = m_Directions[m_CurrentDirection] * m_Speed * Time.deltaTime;
 
         m_Status = ENPCStatus.VARGANT;
 
-        m_Rigid.velocity = m_CurrentVeloc;
         InvokeRepeating("UpdatePath", 0.0f, 0.5f);
     }
     private void FixedUpdate()
@@ -99,6 +91,18 @@ public partial class VagrantBehaviour : MonoBehaviour
         else
         {
             m_EndPathReached = false;
+        }
+
+        Vector2 Direction = ((Vector2)m_Path.vectorPath[m_CurrentWaypoint] - m_Rigid.position).normalized;
+        Vector2 Force = Direction * m_Speed * Time.deltaTime;
+
+        m_Rigid.AddForce(Force);
+
+        float Distance = Vector2.Distance(m_Rigid.position, m_Path.vectorPath[m_CurrentWaypoint]);
+
+        if(Distance < m_NextWaypointDist)
+        {
+            m_CurrentWaypoint++;
         }
 
         switch (m_Status)

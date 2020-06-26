@@ -1798,8 +1798,8 @@ GameObject:
   - component: {fileID: 466215083}
   - component: {fileID: 466215082}
   m_Layer: 0
-  m_Name: TestBuilding
-  m_TagString: Building
+  m_Name: Wall
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

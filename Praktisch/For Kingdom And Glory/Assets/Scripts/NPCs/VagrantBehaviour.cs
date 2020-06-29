@@ -50,9 +50,13 @@ public partial class VagrantBehaviour : MonoBehaviour
     private Rigidbody2D m_Rigid;
     private SpriteRenderer m_Render;
     private List<GameObject> m_BuildWalls = new List<GameObject>();
+    private GameObject[] m_Rabbit;
+    private Wall m_Wall;
     private ENPCStatus m_Status;
     private int m_CurrentDirection;
     private bool m_ToolInRange = false;
+    private bool m_ReparingWall = false;
+    private bool m_Hunting = false;
     #endregion
 
     #region private Pathfinding Variables

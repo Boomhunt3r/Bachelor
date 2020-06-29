@@ -10,7 +10,7 @@ public class Wall : MonoBehaviour
 
     #region private Serialize Variables
     [SerializeField]
-    private int m_CurrentUpgradeLevel = 1;
+    private EBuildingUpgrade m_Building;
     [SerializeField]
     private int m_CurrentUpgradeCost = 0;
     [SerializeField]
@@ -26,9 +26,9 @@ public class Wall : MonoBehaviour
     #endregion
 
     #region private Variables
-    private EBuildingUpgrade m_Building;
     private float m_Timer = 0.0f;
     private float m_MaxTimer = 1.5f;
+    private float m_CurrentHitPoints;
     private bool m_Build = false;
     private bool m_Payed = false;
     private bool m_BeingBuild = false;
@@ -39,16 +39,14 @@ public class Wall : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    private const int m_MaxUpgrade = 3;
-
-    /// <summary>
-    /// 
-    /// </summary>
     private const int m_CostPerUpgrade = 2;
     #endregion
 
+    #region MyRegion
     public bool Build { get => m_Build; set => m_Build = value; }
     public float MaxHitPoints { get => m_MaxHitPoints; set => m_MaxHitPoints = value; }
+    public float CurrentHitPoints { get => m_CurrentHitPoints; set => m_CurrentHitPoints = value; }
+    #endregion
 
     // Start is called before the first frame update
     #region Unity Functions
@@ -64,6 +62,9 @@ public class Wall : MonoBehaviour
         m_Building = EBuildingUpgrade.NONE;
         // Set Slider text
         m_SliderText.text = $"0 / {m_PaySlider.maxValue}";
+        // Set Current Hit Points to Max Hit Points
+        m_CurrentHitPoints = m_MaxHitPoints;
+
         Instance = this;
     }
 

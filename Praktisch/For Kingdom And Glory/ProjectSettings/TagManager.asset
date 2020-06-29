@@ -17,6 +17,8 @@ TagManager:
   - Swordsman
   - Builder
   - Wall
+  - Rabbit
+  - Enemy
   layers:
   - Default
   - TransparentFX

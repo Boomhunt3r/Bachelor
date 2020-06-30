@@ -6,18 +6,6 @@ public partial class VagrantBehaviour : MonoBehaviour
 {
     private void Vagrant()
     {
-        #region Transform
-
-        if (m_Rigid.velocity.x >= 0.0f)
-        {
-            m_Sprite.localScale = new Vector3(-1f, 1f, 1f);
-        }
-        else if (m_Rigid.velocity.x <= 0.0f)
-        {
-            m_Sprite.localScale = new Vector3(1f, 1f, 1f);
-        }
-        #endregion
-
         #region Coin Behaviour
 
         if (m_Coin == null)

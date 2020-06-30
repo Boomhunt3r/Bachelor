@@ -45,12 +45,15 @@ public partial class VagrantBehaviour : MonoBehaviour
     /// Sword
     /// </summary>
     private GameObject m_Sword;
+    /// <summary>
+    /// Rabbits in Game
+    /// </summary>
+    private GameObject[] m_Rabbit;
     #endregion
 
     private Rigidbody2D m_Rigid;
     private SpriteRenderer m_Render;
     private List<GameObject> m_BuildWalls = new List<GameObject>();
-    private GameObject[] m_Rabbit;
     private Wall m_Wall;
     private ENPCStatus m_Status;
     private int m_CurrentDirection;
@@ -108,6 +111,15 @@ public partial class VagrantBehaviour : MonoBehaviour
         if(Distance < m_NextWaypointDist)
         {
             m_CurrentWaypoint++;
+        }
+
+        if (m_Rigid.velocity.x >= 0.0f)
+        {
+            m_Sprite.localScale = new Vector3(-1f, 1f, 1f);
+        }
+        else if (m_Rigid.velocity.x <= 0.0f)
+        {
+            m_Sprite.localScale = new Vector3(1f, 1f, 1f);
         }
 
         switch (m_Status)

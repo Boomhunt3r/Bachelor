@@ -29,9 +29,11 @@ public class PlayerBehaviour : MonoBehaviour
     private bool m_CanBuyBows = false;
     #endregion
 
+    #region Properties
     public int CoinsInInventory { get => m_CoinsInInventory; set => m_CoinsInInventory = value; }
     public bool CanBuild { get => m_CanBuild; set => m_CanBuild = value; }
-    public bool CanBuyBows { get => m_CanBuyBows; set => m_CanBuyBows = value; }
+    public bool CanBuyBows { get => m_CanBuyBows; set => m_CanBuyBows = value; } 
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +45,7 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 dir = Input.GetAxis("Horizontal") * Vector2.right * m_MovementSpeed;
+        Vector2 dir = Input.GetAxis("Horizontal") * Vector2.right * m_MovementSpeed * Time.deltaTime;
         m_Rigid.velocity = dir;
 
         if (Input.GetKeyUp(KeyCode.S))

@@ -1,0 +1,75 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Rabbit : MonoBehaviour
+{
+    public static Rabbit Instance { get; private set; }
+
+    #region Serializefield
+    [SerializeField]
+    private float m_Health = 1.0f;
+    [SerializeField]
+    private float m_Speed = 5.0f;
+    [SerializeField]
+    private Transform m_LocalScale;
+    #endregion
+
+    #region private Variables
+    private Rigidbody2D m_Rigid;
+    private Vector2 m_CurrentVelocity;
+    private float m_IdleTimer;
+    private float m_Timer = 0.0f;
+    private bool m_GoingForward = true;
+    private GameObject[] m_Archer;
+    #endregion
+
+    #region Properties
+    public float Health { get => m_Health; set => m_Health = value; }
+    #endregion
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        m_Rigid = GetComponent<Rigidbody2D>();
+
+        m_CurrentVelocity = Vector2.right * m_Speed * Time.deltaTime;
+
+        m_Rigid.velocity = m_CurrentVelocity;
+
+        m_IdleTimer = Random.Range(10.0f, 85.0f);
+
+        Instance = this;
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        m_Timer += Time.deltaTime;
+
+        if(m_Timer >= m_IdleTimer)
+        {
+            if(m_GoingForward)
+            {
+                m_CurrentVelocity = Vector2.right * m_Speed * Time.deltaTime;
+                m_GoingForward = false;
+            }
+            else if (!m_GoingForward)
+            {
+                m_CurrentVelocity = Vector2.left * m_Speed * Time.deltaTime;
+                m_GoingForward = true;
+            }
+
+            m_Timer = 0.0f;
+        }
+
+        if (m_Rigid.velocity.x >= 0.0f)
+            m_LocalScale.localScale = new Vector3(-1f, 1f, 1f);
+        else if (m_Rigid.velocity.x <= 0.0f)
+            m_LocalScale.localScale = new Vector3(1f, 1f, 1f);
+
+        Debug.Log(m_Timer);
+
+        m_Rigid.velocity = m_CurrentVelocity;
+    }
+}

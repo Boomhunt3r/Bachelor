@@ -81,7 +81,7 @@ public class Archery : MonoBehaviour
 
     private void RemoveCoins()
     {
-        PlayerBehaviour.Instance.CoinsInInventory -= m_PricePerBow;
+        Inventory.Instance.Coins -= m_PricePerBow;
     }
 
     public void RemoveBowFromStand(GameObject _Bow)
@@ -117,7 +117,7 @@ public class Archery : MonoBehaviour
 
     public void BuyButton()
     {
-        if (m_PaySlider.value == m_PaySlider.maxValue && m_PaySlider.value <= PlayerBehaviour.Instance.CoinsInInventory)
+        if (m_PaySlider.value == m_PaySlider.maxValue && m_PaySlider.value <= Inventory.Instance.Coins)
         {
             if (m_BowsInStand == m_MaxBowsInStand)
             {

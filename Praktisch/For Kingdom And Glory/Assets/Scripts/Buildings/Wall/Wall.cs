@@ -147,7 +147,7 @@ public class Wall : MonoBehaviour
     /// <param name="_Amount">Amount Removed from Inventory</param>
     private void RemoveCoins(int _Amount)
     {
-        PlayerBehaviour.Instance.CoinsInInventory -= _Amount;
+        Inventory.Instance.Coins -= _Amount;
     }
 
     /// <summary>
@@ -220,7 +220,7 @@ public class Wall : MonoBehaviour
     #region UI Functions
     public void BuildButton()
     {
-        if (m_PaySlider.value == m_CurrentUpgradeCost && m_PaySlider.value <= PlayerBehaviour.Instance.CoinsInInventory)
+        if (m_PaySlider.value == m_CurrentUpgradeCost && m_PaySlider.value <= Inventory.Instance.Coins)
         {
             if (m_Building == EBuildingUpgrade.IRON)
             {

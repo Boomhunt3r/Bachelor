@@ -57,6 +57,7 @@ public partial class VagrantBehaviour : MonoBehaviour
     private Wall m_Wall;
     private ENPCStatus m_Status;
     private int m_CurrentDirection;
+    private bool m_IdlePath = true;
     private bool m_ToolInRange = false;
     private bool m_ReparingWall = false;
     private bool m_Hunting = false;

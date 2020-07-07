@@ -20,8 +20,6 @@ public class PlayerBehaviour : MonoBehaviour
     #region private Variables
     private Rigidbody2D m_Rigid;
 
-    private int m_CoinsInInventory = 50;
-
     private bool m_Build = false;
 
     private bool m_CanBuild = false;
@@ -30,7 +28,6 @@ public class PlayerBehaviour : MonoBehaviour
     #endregion
 
     #region Properties
-    public int CoinsInInventory { get => m_CoinsInInventory; set => m_CoinsInInventory = value; }
     public bool CanBuild { get => m_CanBuild; set => m_CanBuild = value; }
     public bool CanBuyBows { get => m_CanBuyBows; set => m_CanBuyBows = value; } 
     #endregion
@@ -52,7 +49,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             if (m_Build == false)
             {
-                if (CoinsInInventory > 0)
+                if (Inventory.Instance.Coins > 0)
                 {
                     if (dir.x < 0)
                         Instantiate(m_CoinPrefab, m_CoinSpawnRight.position, Quaternion.identity);
@@ -62,7 +59,7 @@ public class PlayerBehaviour : MonoBehaviour
                     if (dir.x == 0)
                         Instantiate(m_CoinPrefab, m_CoinSpawnRight.position, Quaternion.identity);
 
-                    CoinsInInventory--;
+                    Inventory.Instance.Coins--;
                 }
             }
         }
@@ -77,8 +74,6 @@ public class PlayerBehaviour : MonoBehaviour
                     Archery.Instance.Buy = true;
             }
         }
-        //Debug.Log(CoinsInInventory);
-        //Debug.Log(CanBuild);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -86,7 +81,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (collision.gameObject.tag == "Coin")
         {
             Destroy(collision.gameObject);
-            m_CoinsInInventory++;
+            Inventory.Instance.Coins++;
         }
     }
 }

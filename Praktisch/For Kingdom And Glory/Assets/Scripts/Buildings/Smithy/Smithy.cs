@@ -28,6 +28,8 @@ public class Smithy : MonoBehaviour
     {
         m_Building = EBuildingUpgrade.NONE;
 
+        m_SmithyUI.SetActive(false);
+
         Instance = this;
     }
 

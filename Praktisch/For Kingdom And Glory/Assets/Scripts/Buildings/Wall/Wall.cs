@@ -235,7 +235,7 @@ public class Wall : MonoBehaviour
             UpgradeBuilding();
             Build = false;
         }
-        else if (m_PaySlider.value != m_CurrentUpgradeCost && m_Building != EBuildingUpgrade.IRON)
+        else if (m_PaySlider.value != m_CurrentUpgradeCost && m_Building != EBuildingUpgrade.IRON || Inventory.Instance.Coins <= m_PaySlider.value)
         {
             m_Payed = false;
             m_Text.text = "Not enough Coins!";

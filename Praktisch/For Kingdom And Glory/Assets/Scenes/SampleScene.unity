@@ -1481,6 +1481,7 @@ GameObject:
   - component: {fileID: 349106516}
   - component: {fileID: 349106517}
   - component: {fileID: 349106518}
+  - component: {fileID: 349106519}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1544,6 +1545,18 @@ MonoBehaviour:
   m_CoinSpawnLeft: {fileID: 704058924}
   m_CoinPrefab: {fileID: 7440314736443808627, guid: 4c290e629d1044045913d789effd7569,
     type: 3}
+--- !u!114 &349106519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349106515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be8b673c2dbd798428b8e2e6908ff305, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &381531243
 GameObject:
   m_ObjectHideFlags: 0
@@ -4118,7 +4131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1792979632
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4448,7 +4461,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1923053253
 RectTransform:
   m_ObjectHideFlags: 0

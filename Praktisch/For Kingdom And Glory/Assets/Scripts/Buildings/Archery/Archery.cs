@@ -54,14 +54,7 @@ public class Archery : MonoBehaviour
 
     private void ShowUI(bool _Buy)
     {
-        if (_Buy)
-        {
-            m_ArcheryUI.SetActive(true);
-        }
-        else
-        {
-            m_ArcheryUI.SetActive(false);
-        }
+        m_ArcheryUI.SetActive(_Buy);
     }
 
     private void AddBowToStand()

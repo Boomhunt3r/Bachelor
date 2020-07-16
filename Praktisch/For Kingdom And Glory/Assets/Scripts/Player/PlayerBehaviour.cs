@@ -25,11 +25,16 @@ public class PlayerBehaviour : MonoBehaviour
     private bool m_CanBuild = false;
 
     private bool m_CanBuyBows = false;
+
+    private bool m_CanCraft = false;
+
+    private bool m_IsCrafting = false;
     #endregion
 
     #region Properties
     public bool CanBuild { get => m_CanBuild; set => m_CanBuild = value; }
-    public bool CanBuyBows { get => m_CanBuyBows; set => m_CanBuyBows = value; } 
+    public bool CanBuyBows { get => m_CanBuyBows; set => m_CanBuyBows = value; }
+    public bool CanCraft { get => m_CanCraft; set => m_CanCraft = value; }
     #endregion
 
     // Start is called before the first frame update
@@ -55,7 +60,6 @@ public class PlayerBehaviour : MonoBehaviour
                         Instantiate(m_CoinPrefab, m_CoinSpawnRight.position, Quaternion.identity);
                     if (dir.x > 0)
                         Instantiate(m_CoinPrefab, m_CoinSpawnLeft.position, Quaternion.identity);
-
                     if (dir.x == 0)
                         Instantiate(m_CoinPrefab, m_CoinSpawnRight.position, Quaternion.identity);
 
@@ -64,7 +68,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        if (CanBuild || CanBuyBows)
+        if (CanBuild || CanBuyBows || CanCraft)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -72,6 +76,19 @@ public class PlayerBehaviour : MonoBehaviour
                     Wall.Instance.Build = true;
                 else if (CanBuyBows)
                     Archery.Instance.Buy = true;
+                else if (CanCraft)
+                {
+                    if (m_IsCrafting == false)
+                    {
+                        CraftingSystem.Instance.IsCrafting = true;
+                        m_IsCrafting = true;
+                    }
+                    else if(m_IsCrafting == true)
+                    {
+                        CraftingSystem.Instance.IsCrafting = false;
+                        m_IsCrafting = false;
+                    }
+                }
             }
         }
     }

@@ -156,18 +156,7 @@ public class Wall : MonoBehaviour
     /// <param name="_Build">boolean to show or hide</param>
     private void ShowUI(bool _Build)
     {
-        // If true
-        if (_Build)
-        {
-            // Show
-            m_BuildUI.SetActive(true);
-        }
-        // else
-        else
-        {
-            // Hide
-            m_BuildUI.SetActive(false);
-        }
+        m_BuildUI.SetActive(_Build);
     }
 
     #region Collision

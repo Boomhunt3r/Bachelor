@@ -5,11 +5,14 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
     public static Inventory Instance { get; private set; }
-   
+
     #region private Variables
     private int m_Coins;
+    [SerializeField]
     private int m_Wood;
+    [SerializeField]
     private int m_Stone;
+    [SerializeField]
     private int m_Iron;
     private EPlayerUpgrade m_Sword;
     private EPlayerUpgrade m_Shield;

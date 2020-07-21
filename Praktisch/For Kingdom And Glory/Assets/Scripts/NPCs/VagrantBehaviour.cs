@@ -56,8 +56,9 @@ public partial class VagrantBehaviour : MonoBehaviour
     private List<GameObject> m_BuildWalls = new List<GameObject>();
     private Wall m_Wall;
     private ENPCStatus m_Status;
+    private float m_Timer = 0.0f;
     private int m_CurrentDirection;
-    private bool m_IdlePath = true;
+    private bool m_IdlePath = false;
     private bool m_ToolInRange = false;
     private bool m_ReparingWall = false;
     private bool m_Hunting = false;
@@ -93,13 +94,50 @@ public partial class VagrantBehaviour : MonoBehaviour
         if (m_Path == null)
             return;
 
-        if (m_CurrentWaypoint >= m_Path.vectorPath.Count)
+        Debug.Log($"Cur: {m_CurrentWaypoint}");
+        Debug.Log($"Tot: {m_Path.vectorPath.Count}");
+        Debug.Log(m_EndPathReached);
+
+        if (m_CurrentWaypoint > m_Path.vectorPath.Count)
         {
             m_EndPathReached = true;
         }
         else
         {
             m_EndPathReached = false;
+        }
+
+        if(m_EndPathReached == true)
+        {
+            if(m_Timer >= 2.5f)
+            {
+                m_IdlePath = true;
+                m_Timer = 0.0f;
+            }
+
+            if (m_IdlePath == true)
+            {
+                switch (m_CurrentDirection)
+                {
+                    case 0:
+                        m_CurrentDirection = 1;
+                        m_Target = m_Waypoints[m_CurrentDirection];
+                        break;
+                    case 1:
+                        m_CurrentDirection = 0;
+                        m_Target = m_Waypoints[m_CurrentDirection];
+                        break;
+                    default:
+                        break;
+                }
+
+                m_IdlePath = false;
+            }
+
+            else if(m_IdlePath == false)
+            {
+                m_Timer += Time.deltaTime;
+            }
         }
 
         Vector2 Direction = ((Vector2)m_Path.vectorPath[m_CurrentWaypoint] - m_Rigid.position).normalized;

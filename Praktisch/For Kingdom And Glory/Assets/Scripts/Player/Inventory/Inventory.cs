@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour
     public static Inventory Instance { get; private set; }
 
     #region private Variables
+    [SerializeField]
     private int m_Coins;
     [SerializeField]
     private int m_Wood;

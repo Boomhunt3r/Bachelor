@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     private bool m_IsDay = true;
     private bool m_IsNight = false;
     private bool m_IsAlive = true;
+    private bool m_RevengeAttack = false;
     #endregion
 
     #region Properties
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
     public bool IsAlive { get => m_IsAlive; set => m_IsAlive = value; }
     public int TotalRabbitsSpawned { get => m_TotalRabbitsSpawned; set => m_TotalRabbitsSpawned = value; }
     public int TotalRabbits { get => m_TotalRabbits; set => m_TotalRabbits = value; }
+    public bool RevengeAttack { get => m_RevengeAttack; set => m_RevengeAttack = value; }
     #endregion
 
     // Start is called before the first frame update
@@ -65,8 +67,22 @@ public class GameManager : MonoBehaviour
 
         m_Timer += Time.deltaTime;
 
+        if(RevengeAttack)
+        {
+            IsDay = false;
+            IsNight = true;
+        }
+
         if (IsDay)
         {
+            if(EnemySpawner.Instance.SpawnedEnemys.Count > 0)
+            {
+                for (int i = 0; i < EnemySpawner.Instance.SpawnedEnemys.Count; i++)
+                {
+                    Destroy(EnemySpawner.Instance.SpawnedEnemys[i]);
+                }
+            }
+
             if (m_Timer >= m_DayLength)
             {
                 IsDay = false;

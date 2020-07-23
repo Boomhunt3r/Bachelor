@@ -27,7 +27,6 @@ public class Archery : MonoBehaviour
 
     #region private Variables
     private int m_BowsInStand = 0;
-    private int m_CurrentIndex = 0;
     private bool m_Buy = false;
     #endregion
 
@@ -59,17 +58,27 @@ public class Archery : MonoBehaviour
 
     private void AddBowToStand()
     {
-        if (m_BowsInStand >= m_MaxBowsInStand)
+        m_BowsInStand++;
+        int Bow = 0;
+
+        if (m_BowsInStand > m_MaxBowsInStand)
         {
             m_Text.text = "Max Bows in Stand Reached.";
             return;
         }
 
-        m_BowObjectsInStand[m_CurrentIndex].SetActive(true);
+        for (int i = 0; i < m_BowObjectsInStand.Length; i++)
+        {
+            Bow++;
 
-        m_CurrentIndex++;
+            if (Bow > m_BowsInStand)
+                return;
 
-        m_BowsInStand++;
+            if (!m_BowObjectsInStand[i].activeSelf)
+            {
+                m_BowObjectsInStand[i].SetActive(true);
+            }
+        }
     }
 
     private void RemoveCoins()
@@ -81,10 +90,9 @@ public class Archery : MonoBehaviour
     {
         for (int i = 0; i < m_BowObjectsInStand.Length; i++)
         {
-            if (_Bow.transform.position == m_BowObjectsInStand[i].transform.position)
+            if (_Bow == m_BowObjectsInStand[i])
             {
                 m_BowObjectsInStand[i].SetActive(false);
-                m_CurrentIndex = i;
             }
         }
         m_BowsInStand--;

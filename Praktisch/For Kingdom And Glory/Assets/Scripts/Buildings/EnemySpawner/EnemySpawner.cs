@@ -1,0 +1,182 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemySpawner : MonoBehaviour
+{
+    public static EnemySpawner Instance { get; private set; }
+
+    #region Serializefield
+    [SerializeField]
+    private int m_Wave = 0;
+    [SerializeField]
+    private int m_MaxHealth = 50;
+    [SerializeField]
+    private GameObject m_EnemyPrefab; 
+    #endregion
+
+    #region private Variables
+    private List<GameObject> m_SpawnedEnemys = new List<GameObject>();
+    private int m_EnemyToSpawn;
+    private int m_CurrentHealth;
+    private int m_SpawnedDefender;
+    private float m_SpawnTimer;
+    private float m_DamageTimer;
+    private bool m_Spawned = false;
+    private bool m_UnderAttack = false;
+    private bool m_Defending = false; 
+    #endregion
+
+    #region private const
+    private const int m_NormalAttack = 2;
+    private const int m_RevengeAttack = 5;
+    #endregion
+
+    #region Properties
+    public List<GameObject> SpawnedEnemys { get => m_SpawnedEnemys; set => m_SpawnedEnemys = value; } 
+    #endregion
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        m_CurrentHealth = m_MaxHealth;
+        m_SpawnTimer = 0.0f;
+        m_DamageTimer = 0.0f;
+        m_SpawnedDefender = 0;
+        m_EnemyToSpawn = 0;
+
+        Instance = this;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (GameManager.Instance.IsDay && m_Spawned)
+        {
+            m_Spawned = false;
+        }
+
+        if(m_UnderAttack)
+        {
+            if(m_DamageTimer >= 5.0f)
+            {
+                m_UnderAttack = false;
+
+                for (int i = 0; i < SpawnedEnemys.Count; i++)
+                {
+                    Destroy(SpawnedEnemys[i]);
+                }
+            }
+
+            m_DamageTimer += Time.deltaTime;
+        }
+
+        if (GameManager.Instance.IsNight && !GameManager.Instance.RevengeAttack && !m_Spawned && !m_UnderAttack)
+        {
+            Spawn(EWaveType.NORMAL);
+            m_Spawned = true;
+        }
+        else if (GameManager.Instance.IsNight && !GameManager.Instance.RevengeAttack && m_Spawned && m_UnderAttack)
+        {
+            Heal();
+            m_UnderAttack = false;
+        }
+        else if (GameManager.Instance.IsDay && !GameManager.Instance.RevengeAttack && m_UnderAttack)
+        {
+            if (!m_Defending)
+                m_Defending = true;
+
+            if (m_Defending)
+            {
+                m_SpawnTimer += Time.deltaTime;
+
+                if (m_SpawnTimer >= 1.5f)
+                {
+                    Spawn(EWaveType.DEFENDING);
+                    m_SpawnTimer = 0.0f;
+                }
+                if (m_SpawnedDefender > 5)
+                {
+                    m_Defending = false;
+                    m_SpawnTimer = 0.0f;
+                }
+            }
+        }
+
+    }
+
+    #region private Functions
+    private void Spawn(EWaveType _Type)
+    {
+
+        switch (_Type)
+        {
+            case EWaveType.NORMAL:
+                m_Wave++;
+
+                m_EnemyToSpawn = m_Wave * m_NormalAttack;
+
+                for (int i = 0; i < m_EnemyToSpawn; i++)
+                {
+                    SpawnedEnemys.Add(Instantiate(m_EnemyPrefab, this.gameObject.transform.position, Quaternion.identity));
+                }
+                break;
+            case EWaveType.DEFENDING:
+                for (int i = 0; i < 1; i++)
+                {
+                    SpawnedEnemys.Add(Instantiate(m_EnemyPrefab, this.gameObject.transform.position, Quaternion.identity));
+                }
+                break;
+            case EWaveType.REVENGE:
+                m_EnemyToSpawn = m_Wave * m_RevengeAttack;
+
+                for (int i = 0; i < m_EnemyToSpawn; i++)
+                {
+                    SpawnedEnemys.Add(Instantiate(m_EnemyPrefab, this.gameObject.transform.position, Quaternion.identity));
+                }
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    private void Heal()
+    {
+        m_CurrentHealth = m_MaxHealth;
+    }
+
+    private void DestroySpawner()
+    {
+        Destroy(this.gameObject);
+    } 
+    #endregion
+
+    #region Public Functions
+    public void ReceiveDamage(int _Amount)
+    {
+        if (!m_UnderAttack)
+            m_UnderAttack = true;
+
+        m_CurrentHealth -= _Amount;
+
+        m_DamageTimer = 0.0f;
+
+        if (m_CurrentHealth <= 0)
+        {
+            DestroySpawner();
+        }
+    }
+
+    public void RemoveEnemyFromList(GameManager _Enemy)
+    {
+        for (int i = 0; i < SpawnedEnemys.Count; i++)
+        {
+            if (_Enemy == SpawnedEnemys[i])
+            {
+                SpawnedEnemys.RemoveAt(i);
+            }
+        }
+    } 
+    #endregion
+}

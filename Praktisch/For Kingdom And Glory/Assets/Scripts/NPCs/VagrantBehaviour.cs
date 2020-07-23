@@ -59,7 +59,8 @@ public partial class VagrantBehaviour : MonoBehaviour
     private float m_Timer = 0.0f;
     private int m_CurrentDirection;
     private bool m_IdlePath = false;
-    private bool m_ToolInRange = false;
+    private bool m_HammerInRange = false;
+    private bool m_BowInRange = false;
     private bool m_ReparingWall = false;
     private bool m_Hunting = false;
     #endregion
@@ -94,8 +95,6 @@ public partial class VagrantBehaviour : MonoBehaviour
         if (m_Path == null)
             return;
 
-        Debug.Log($"Cur: {m_CurrentWaypoint}");
-        Debug.Log($"Tot: {m_Path.vectorPath.Count}");
         Debug.Log(m_EndPathReached);
 
         if (m_CurrentWaypoint > m_Path.vectorPath.Count)
@@ -141,9 +140,8 @@ public partial class VagrantBehaviour : MonoBehaviour
         }
 
         Vector2 Direction = ((Vector2)m_Path.vectorPath[m_CurrentWaypoint] - m_Rigid.position).normalized;
-        Vector2 Force = Direction * m_Speed * Time.deltaTime;
 
-        m_Rigid.AddForce(Force);
+        m_Rigid.velocity = Direction * m_Speed * Time.deltaTime;
 
         float Distance = Vector2.Distance(m_Rigid.position, m_Path.vectorPath[m_CurrentWaypoint]);
 

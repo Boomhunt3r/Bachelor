@@ -7,9 +7,11 @@ public partial class VagrantBehaviour : MonoBehaviour
     private void Villager()
     {
         m_Render.color = Color.gray;
+
         this.gameObject.tag = "Villager";
+
         #region Idle Path
-        if (!m_ToolInRange)
+        if (m_BowInRange == false && m_HammerInRange == false)
         {
             m_Target = m_VillagerPoints[m_CurrentDirection];
         }
@@ -22,17 +24,17 @@ public partial class VagrantBehaviour : MonoBehaviour
             // Find Hammer Object
             m_Hammer = GameObject.FindGameObjectWithTag("Hammer");
             // Set Tool in Range false
-            m_ToolInRange = false;
+            m_HammerInRange = false;
         }
         else if (m_Bow == null)
         {
             m_Bow = GameObject.FindGameObjectWithTag("Bow");
-            m_ToolInRange = false;
+            m_BowInRange = false;
         }
         else if (m_Sword == null)
         {
             m_Sword = GameObject.FindGameObjectWithTag("Sword");
-            m_ToolInRange = false;
+            //m_ToolInRange = false;
         }
         #endregion
 
@@ -44,7 +46,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                 // Set Hammer to Target
                 m_Target = m_Hammer;
                 // Set Tool in Range true
-                m_ToolInRange = true;
+                m_HammerInRange = true;
             }
         }
         else if (m_Bow != null)
@@ -53,7 +55,7 @@ public partial class VagrantBehaviour : MonoBehaviour
             {
                 // Set Bow to Target
                 m_Target = m_Bow;
-                m_ToolInRange = true;
+                m_BowInRange = true;
             }
         }
         else if (m_Sword != null)
@@ -62,7 +64,7 @@ public partial class VagrantBehaviour : MonoBehaviour
             {
                 // Set Sword to Target
                 m_Target = m_Sword;
-                m_ToolInRange = true;
+                //m_ToolInRange = true;
             }
         }
         #endregion

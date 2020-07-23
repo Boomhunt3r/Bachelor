@@ -206,6 +206,18 @@ public class Wall : MonoBehaviour
 
     #endregion
 
+    #region public functions
+    public void GetDamage(int _Damage)
+    {
+        m_CurrentHitPoints -= _Damage;
+    }
+
+    public void GetHealth(int _Health)
+    {
+        m_CurrentHitPoints += _Health;
+    }
+    #endregion
+
     #region UI Functions
     public void BuildButton()
     {

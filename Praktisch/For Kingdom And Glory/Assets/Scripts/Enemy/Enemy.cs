@@ -26,11 +26,12 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_Grid = GameObject.FindGameObjectWithTag("EnemyGrid").GetComponent<GridGraph>();
-        m_Seeker.GetComponent<Seeker>();
+
+
+        //m_Seeker.GetComponent<Seeker>();
         m_Rigid = GetComponent<Rigidbody2D>();
 
-        InvokeRepeating("UpdatePath", 0.0f, 0.5f);
+        //InvokeRepeating("UpdatePath", 0.0f, 0.5f);
     }
 
     // Update is called once per frame

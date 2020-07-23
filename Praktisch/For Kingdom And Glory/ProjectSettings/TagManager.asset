@@ -19,6 +19,7 @@ TagManager:
   - Wall
   - Rabbit
   - Enemy
+  - Graphs
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - 
   - 
   - Obstacles
-  - 
+  - Wall
   - 
   - 
   - 

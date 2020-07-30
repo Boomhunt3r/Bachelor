@@ -1,72 +1,154 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Pathfinding;
+using System.Linq;
 
 public partial class VagrantBehaviour : MonoBehaviour
 {
+    private List<GameObject> m_Bows = new List<GameObject>();
+    private List<GameObject> m_Hammers = new List<GameObject>();
+    private GameObject m_CurrentBow;
+    private GameObject m_CurrentHammer;
+
     private void Villager()
     {
+        Debug.Log(m_Bows.Count);
+
         m_Render.color = Color.gray;
 
         this.gameObject.tag = "Villager";
 
-        #region Idle Path
         if (m_BowInRange == false && m_HammerInRange == false)
         {
             m_Target = m_VillagerPoints[m_CurrentDirection];
-        }
-        #endregion
 
-        #region if object is not active
+            m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
+
+            if (m_Distance <= 2.5f)
+            {
+                m_Timer += Time.deltaTime;
+
+                m_Rigid.velocity = new Vector2(0, 0);
+
+                if (m_Timer >= m_IdleTimer)
+                {
+                    m_CurrentDirection++;
+
+                    if (m_CurrentDirection > 3)
+                        m_CurrentDirection = 0;
+
+                    m_Timer = 0.0f;
+                }
+            }
+        }
+
         // If Hammer is null
-        if (m_Hammer == null)
+        else if (m_Hammers.Count == 0)
         {
             // Find Hammer Object
-            m_Hammer = GameObject.FindGameObjectWithTag("Hammer");
+            m_Hammers = GameObject.FindGameObjectsWithTag("Hammer").OfType<GameObject>().ToList();
             // Set Tool in Range false
             m_HammerInRange = false;
         }
-        else if (m_Bow == null)
+        else if (m_Bows.Count == 0)
         {
-            m_Bow = GameObject.FindGameObjectWithTag("Bow");
+            m_Bows = GameObject.FindGameObjectsWithTag("Bow").OfType<GameObject>().ToList();
             m_BowInRange = false;
         }
-        else if (m_Sword == null)
-        {
-            m_Sword = GameObject.FindGameObjectWithTag("Sword");
-            //m_ToolInRange = false;
-        }
-        #endregion
 
-        #region If Object is Active
-        if (m_Hammer != null)
+        else if (m_Hammers.Count != 0)
         {
-            if (Vector2.SqrMagnitude((Vector2)m_Hammer.transform.position - m_Rigid.position) <= 45)
+            // Set Hammer to Target
+            m_CurrentBow = GetClosestHammer(m_Hammers);
+            // Set Tool in Range true
+            m_HammerInRange = true;
+        }
+        else if (m_Bows.Count != 0)
+        {
+            // Set Bow to Target
+            m_CurrentHammer = GetClosestBow(m_Bows);
+            m_BowInRange = true;
+        }
+
+        else if (m_BowInRange == true && m_HammerInRange == true)
+        {
+            m_Target = GetClosestTool(m_CurrentBow, m_CurrentHammer);
+        }
+        else if (m_BowInRange == true && m_HammerInRange == false)
+        {
+            m_Target = m_CurrentBow;
+        }
+        else if (m_HammerInRange == true && m_BowInRange == false)
+        {
+            m_Target = m_CurrentHammer;
+        }
+
+    }
+
+    private GameObject GetClosestBow(List<GameObject> _Bows)
+    {
+        GameObject Target = null;
+        float MinDist = Mathf.Infinity;
+        Vector2 CurrentPos = transform.position;
+        float Dist = 0.0f;
+
+        for (int i = 0; i < _Bows.Count; i++)
+        {
+            Dist = Vector2.Distance(_Bows[i].transform.position, CurrentPos);
+
+            if (Dist < MinDist)
             {
-                // Set Hammer to Target
-                m_Target = m_Hammer;
-                // Set Tool in Range true
-                m_HammerInRange = true;
+                Target = _Bows[i];
+                MinDist = Dist;
             }
         }
-        else if (m_Bow != null)
+
+        return Target;
+    }
+
+    private GameObject GetClosestHammer(List<GameObject> _Hammers)
+    {
+        GameObject Target = null;
+        float MinDist = Mathf.Infinity;
+        Vector2 CurrentPos = transform.position;
+        float Dist = 0.0f;
+
+        for (int i = 0; i < _Hammers.Count; i++)
         {
-            if (Vector2.SqrMagnitude((Vector2)m_Bow.transform.position - m_Rigid.position) <= 45)
+            Dist = Vector2.Distance(_Hammers[i].transform.position, CurrentPos);
+
+            if (Dist < MinDist)
             {
-                // Set Bow to Target
-                m_Target = m_Bow;
-                m_BowInRange = true;
+                Target = _Hammers[i];
+                MinDist = Dist;
             }
         }
-        else if (m_Sword != null)
+
+        return Target;
+    }
+
+    private GameObject GetClosestTool(GameObject _Bow, GameObject _Hammer)
+    {
+        GameObject Target = null;
+        Vector2 CurrentPos = transform.position;
+        float DistB = 0.0f;
+        float DistH = 0.0f;
+
+        DistB = Vector2.Distance(_Bow.transform.position, CurrentPos);
+        DistH = Vector2.Distance(_Hammer.transform.position, CurrentPos);
+
+        if (DistB < DistH)
         {
-            if (Vector2.SqrMagnitude((Vector2)m_Sword.transform.position - m_Rigid.position) <= 45)
-            {
-                // Set Sword to Target
-                m_Target = m_Sword;
-                //m_ToolInRange = true;
-            }
+            Target = _Bow;
         }
-        #endregion
+        else if (DistH < DistB)
+        {
+            Target = _Hammer;
+        }
+        else if (DistB == DistH)
+        {
+            Target = _Bow;
+        }
+
+        return Target;
     }
 }

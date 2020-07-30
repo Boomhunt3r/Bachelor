@@ -1330,7 +1330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Speed: 25
   m_NextWaypointDist: 3
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1205975143}
 --- !u!1 &302648968
 GameObject:
   m_ObjectHideFlags: 0

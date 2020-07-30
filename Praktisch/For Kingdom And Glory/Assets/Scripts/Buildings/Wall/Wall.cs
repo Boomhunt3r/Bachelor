@@ -14,7 +14,7 @@ public class Wall : MonoBehaviour
     [SerializeField]
     private int m_CurrentUpgradeCost = 0;
     [SerializeField]
-    private float m_MaxHitPoints = 5;
+    private float m_MaxHitPoints = 50;
     [SerializeField]
     private GameObject m_BuildUI;
     [SerializeField]
@@ -46,6 +46,7 @@ public class Wall : MonoBehaviour
     public bool Build { get => m_Build; set => m_Build = value; }
     public float MaxHitPoints { get => m_MaxHitPoints; set => m_MaxHitPoints = value; }
     public float CurrentHitPoints { get => m_CurrentHitPoints; set => m_CurrentHitPoints = value; }
+    public EBuildingUpgrade Building { get => m_Building; set => m_Building = value; }
     #endregion
 
     // Start is called before the first frame update
@@ -62,8 +63,6 @@ public class Wall : MonoBehaviour
         m_Building = EBuildingUpgrade.NONE;
         // Set Slider text
         m_SliderText.text = $"0 / {m_PaySlider.maxValue}";
-        // Set Current Hit Points to Max Hit Points
-        m_CurrentHitPoints = m_MaxHitPoints;
 
         Instance = this;
     }
@@ -109,6 +108,8 @@ public class Wall : MonoBehaviour
                 m_SliderText.text = $"0 / {m_PaySlider.maxValue}";
                 // Increase Max Timer
                 m_MaxTimer = 2.5f;
+                // Set HP for Wall
+                m_CurrentHitPoints = m_MaxHitPoints;
                 // Set to next Upgrade Level
                 m_Building = EBuildingUpgrade.WOOD;
 
@@ -120,6 +121,8 @@ public class Wall : MonoBehaviour
                 m_PaySlider.maxValue = m_CurrentUpgradeCost;
                 m_SliderText.text = $"0 / {m_PaySlider.maxValue}";
                 m_MaxTimer = 7.5f;
+                m_CurrentHitPoints = m_MaxHitPoints * 2;
+                m_MaxHitPoints = m_MaxHitPoints * 2;
                 m_Building = EBuildingUpgrade.STONE;
 
                 break;
@@ -130,6 +133,8 @@ public class Wall : MonoBehaviour
                 m_PaySlider.maxValue = m_CurrentUpgradeCost;
                 m_SliderText.text = $"0 / {m_PaySlider.maxValue}";
                 m_MaxTimer = 10.0f;
+                m_CurrentHitPoints = m_MaxHitPoints * 3;
+                m_MaxHitPoints = m_MaxHitPoints * 3;
                 m_Building = EBuildingUpgrade.IRON;
 
                 break;
@@ -210,6 +215,12 @@ public class Wall : MonoBehaviour
     public void GetDamage(int _Damage)
     {
         m_CurrentHitPoints -= _Damage;
+
+        if(m_CurrentHitPoints <= 0)
+        {
+            this.gameObject.SetActive(false);
+            Enemy.Instance.RemoveWallFromList();
+        }
     }
 
     public void GetHealth(int _Health)

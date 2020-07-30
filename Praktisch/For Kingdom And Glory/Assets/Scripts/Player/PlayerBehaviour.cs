@@ -97,6 +97,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Coin"))
         {
+            VagrantBehaviour.Instance.RemoveCoin();
             Destroy(collision.gameObject);
             Inventory.Instance.Coins++;
         }

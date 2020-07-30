@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public static Enemy Instance { get; private set; }
+
     [SerializeField]
     private float m_Speed = 25.0f;
     [SerializeField]
@@ -44,6 +46,8 @@ public class Enemy : MonoBehaviour
 
         else if (m_Villiger.Count == 0 && m_Walls.Count != 0)
             m_Target = m_ClosestWall;
+
+        Instance = this;
     }
 
     // Update is called once per frame
@@ -168,6 +172,9 @@ public class Enemy : MonoBehaviour
         return Target;
     }
 
+    /// <summary>
+    /// Attack Function
+    /// </summary>
     private void Attack()
     {
 
@@ -187,6 +194,24 @@ public class Enemy : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+    /// <summary>
+    /// If Wall Destroyed
+    /// Remove Current Wall From List
+    /// </summary>
+    public void RemoveWallFromList()
+    {
+        m_Walls.Remove(m_ClosestWall);
+    }
+
+    /// <summary>
+    /// If Villiger Destroyed
+    /// Remove From List
+    /// </summary>
+    public void RemoveVilligerFromList()
+    {
+        m_Villiger.Remove(m_ClosestVilliger);
     }
     #endregion
 }

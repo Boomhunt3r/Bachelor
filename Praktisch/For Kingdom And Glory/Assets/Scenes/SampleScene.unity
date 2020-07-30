@@ -1330,6 +1330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Speed: 25
   m_NextWaypointDist: 3
+  m_Health: 5
   m_Sprite: {fileID: 1205975143}
 --- !u!1 &302648968
 GameObject:
@@ -1616,7 +1617,7 @@ RectTransform:
   - {fileID: 421186718}
   - {fileID: 1792979632}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3222,7 +3223,7 @@ Transform:
   m_LocalScale: {x: 5.062, y: 3.987034, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &951554424
 GameObject:
@@ -7011,7 +7012,7 @@ PrefabInstance:
     - target: {fileID: 8022434121736257395, guid: 827894f2d3eac7643a27e9ad96b532bd,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8022434121736257395, guid: 827894f2d3eac7643a27e9ad96b532bd,
         type: 3}

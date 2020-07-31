@@ -22,6 +22,8 @@ public class Enemy : MonoBehaviour
     private GameObject m_Arrow;
     [SerializeField]
     private Transform m_Sprite;
+    [SerializeField]
+    private Transform m_ThrowPoint;
     #endregion
 
     #region private Variables
@@ -204,9 +206,25 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private void Attack()
     {
-        GameObject Arrow = Instantiate(m_Arrow, this.transform.position, Quaternion.identity);
-        Arrow.GetComponent<Rigidbody2D>().velocity = m_Direction * m_ArrowSpeed * Time.deltaTime;
-        
+        float XDistance;
+        XDistance = Random.Range(m_Target.transform.position.x - m_ThrowPoint.position.x, m_Direction.x * 5.0f);
+
+        float YDistance;
+        YDistance = Random.Range(m_Target.transform.position.y - m_ThrowPoint.position.y, 5.0f);
+
+        float ThrowAngle;
+        ThrowAngle = Mathf.Atan((YDistance + 4.905f) / XDistance);
+
+        float TotalVelo = XDistance / Mathf.Cos(ThrowAngle);
+
+        float XVelo;
+        float YVelo;
+        XVelo = TotalVelo * Mathf.Cos(ThrowAngle);
+        YVelo = TotalVelo * Mathf.Sin(ThrowAngle);
+
+        GameObject Arrow = Instantiate(m_Arrow, m_ThrowPoint.position, Quaternion.Euler(new Vector3(0, 0, 0)));
+        Arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(XVelo, YVelo);
+
         m_Timer = 0.0f;
     }
     #endregion

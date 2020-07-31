@@ -10,7 +10,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private int m_Wave = 0;
     [SerializeField]
-    private int m_MaxHealth = 50;
+    private int m_MaxHealth = 25;
     [SerializeField]
     private GameObject m_EnemyPrefab; 
     #endregion
@@ -148,6 +148,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void DestroySpawner()
     {
+        VagrantBehaviour.Instance.RemoveSpawner();
+
         Destroy(this.gameObject);
     } 
     #endregion

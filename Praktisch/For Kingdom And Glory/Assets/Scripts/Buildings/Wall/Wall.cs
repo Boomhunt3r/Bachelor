@@ -28,6 +28,7 @@ public class Wall : MonoBehaviour
     #region private Variables
     private float m_Timer = 0.0f;
     private float m_MaxTimer = 1.5f;
+    [SerializeField]
     private float m_CurrentHitPoints;
     private bool m_Build = false;
     private bool m_Payed = false;

@@ -93,6 +93,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
+    #region Collision Function
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Coin"))
@@ -102,4 +103,5 @@ public class PlayerBehaviour : MonoBehaviour
             Inventory.Instance.Coins++;
         }
     }
+    #endregion
 }

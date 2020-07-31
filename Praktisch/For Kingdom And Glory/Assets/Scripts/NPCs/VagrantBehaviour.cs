@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using Pathfinding;
 
 public partial class VagrantBehaviour : MonoBehaviour
 {
@@ -21,6 +20,8 @@ public partial class VagrantBehaviour : MonoBehaviour
     private Transform m_Sprite;
     [SerializeField]
     private GameObject m_Arrow;
+    [SerializeField]
+    private Transform m_ThrowPoint;
     [SerializeField]
     private float m_ArrowSpeed = 1000.0f;
     #endregion

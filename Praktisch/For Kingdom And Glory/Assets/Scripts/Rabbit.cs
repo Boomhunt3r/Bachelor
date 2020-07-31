@@ -12,6 +12,9 @@ public class Rabbit : MonoBehaviour
     [SerializeField]
     private float m_Speed = 5.0f;
     [SerializeField]
+    [Range(1, 5)]
+    private int m_CoinAmount = 1;
+    [SerializeField]
     private Transform m_LocalScale;
     #endregion
 
@@ -21,7 +24,6 @@ public class Rabbit : MonoBehaviour
     private float m_IdleTimer;
     private float m_Timer = 0.0f;
     private bool m_GoingForward = true;
-    private GameObject[] m_Archer;
     #endregion
 
     #region Properties
@@ -47,9 +49,9 @@ public class Rabbit : MonoBehaviour
     {
         m_Timer += Time.deltaTime;
 
-        if(m_Timer >= m_IdleTimer)
+        if (m_Timer >= m_IdleTimer)
         {
-            if(m_GoingForward)
+            if (m_GoingForward)
             {
                 m_CurrentVelocity = Vector2.right * m_Speed * Time.deltaTime;
                 m_GoingForward = false;
@@ -68,8 +70,21 @@ public class Rabbit : MonoBehaviour
         else if (m_Rigid.velocity.x <= 0.0f)
             m_LocalScale.localScale = new Vector3(1f, 1f, 1f);
 
-        Debug.Log(m_Timer);
 
         m_Rigid.velocity = m_CurrentVelocity;
+    }
+
+    public void TakeDamage(int _Amount)
+    {
+        m_Health -= _Amount;
+
+        if (m_Health <= 0)
+        {
+            VagrantBehaviour.Instance.RemoveRabbit();
+
+            Inventory.Instance.Coins += m_CoinAmount;
+
+            Destroy(this.gameObject);
+        }
     }
 }

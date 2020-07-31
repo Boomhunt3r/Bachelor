@@ -37,7 +37,7 @@ public partial class VagrantBehaviour : MonoBehaviour
 
                         m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
 
-                        if (m_Distance <= 2.5f)
+                        if (m_Distance <= Random.Range(1.5f, 4.5f))
                         {
                             m_Rigid.velocity = new Vector2(0, 0);
                         }
@@ -60,7 +60,7 @@ public partial class VagrantBehaviour : MonoBehaviour
 
                 m_Target = GetClosestTarget(m_EnemySpawner);
 
-                if(m_Distance <= 2.5f)
+                if(m_Distance <= Random.Range(1.5f, 4.5f))
                 {
                     m_Rigid.velocity = new Vector2(0, 0);
                 }

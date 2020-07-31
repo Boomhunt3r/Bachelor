@@ -39,37 +39,39 @@ public partial class VagrantBehaviour : MonoBehaviour
                     m_Timer = 0.0f;
                 }
             }
+
+            if (m_Hammers.Count != 0)
+            {
+                // Set Hammer to Target
+                m_CurrentHammer = GetClosestHammer(m_Hammers);
+                // Set Tool in Range true
+                m_HammerInRange = true;
+            }
+            if (m_Bows.Count != 0)
+            {
+                // Set Bow to Target
+                m_CurrentBow = GetClosestBow(m_Bows);
+                m_BowInRange = true;
+            }
         }
 
-        // If Hammer is null
-        else if (m_Hammers.Count == 0)
+        if (m_Bows.Count == 0)
         {
-            // Find Hammer Object
-            m_Hammers = GameObject.FindGameObjectsWithTag("Hammer").OfType<GameObject>().ToList();
-            // Set Tool in Range false
-            m_HammerInRange = false;
-        }
-        else if (m_Bows.Count == 0)
-        {
-            m_Bows = GameObject.FindGameObjectsWithTag("Bow").OfType<GameObject>().ToList();
+            Debug.Log("suchen");
+            m_Bows = GameObject.FindGameObjectsWithTag("Bow").ToList();
             m_BowInRange = false;
         }
 
-        else if (m_Hammers.Count != 0)
+        // If Hammer is null
+        if (m_Hammers.Count == 0)
         {
-            // Set Hammer to Target
-            m_CurrentBow = GetClosestHammer(m_Hammers);
-            // Set Tool in Range true
-            m_HammerInRange = true;
-        }
-        else if (m_Bows.Count != 0)
-        {
-            // Set Bow to Target
-            m_CurrentHammer = GetClosestBow(m_Bows);
-            m_BowInRange = true;
+            // Find Hammer Object
+            m_Hammers = GameObject.FindGameObjectsWithTag("Hammer").ToList();
+            // Set Tool in Range false
+            m_HammerInRange = false;
         }
 
-        else if (m_BowInRange == true && m_HammerInRange == true)
+        if (m_BowInRange == true && m_HammerInRange == true)
         {
             m_Target = GetClosestTool(m_CurrentBow, m_CurrentHammer);
         }

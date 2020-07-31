@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
 
         m_Timer += Time.deltaTime;
 
-        if(RevengeAttack)
+        if (RevengeAttack)
         {
             IsDay = false;
             IsNight = true;
@@ -75,11 +75,14 @@ public class GameManager : MonoBehaviour
 
         if (IsDay)
         {
-            if(EnemySpawner.Instance.SpawnedEnemys.Count > 0)
+            if (EnemySpawner.Instance.SpawnedEnemys.Count != 0)
             {
-                for (int i = 0; i < EnemySpawner.Instance.SpawnedEnemys.Count; i++)
+                if (EnemySpawner.Instance.SpawnedEnemys.Count > 0)
                 {
-                    Destroy(EnemySpawner.Instance.SpawnedEnemys[i]);
+                    for (int i = 0; i < EnemySpawner.Instance.SpawnedEnemys.Count; i++)
+                    {
+                        Destroy(EnemySpawner.Instance.SpawnedEnemys[i]);
+                    }
                 }
             }
 

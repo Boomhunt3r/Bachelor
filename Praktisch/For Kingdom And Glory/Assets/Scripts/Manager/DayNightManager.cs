@@ -13,6 +13,7 @@ public class DayNightManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (!GameManager.Instance.IsAlive)
+            return;
     }
 }

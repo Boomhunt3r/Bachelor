@@ -47,6 +47,9 @@ public class Rabbit : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!GameManager.Instance.IsAlive)
+            return;
+
         m_Timer += Time.deltaTime;
 
         if (m_Timer >= m_IdleTimer)

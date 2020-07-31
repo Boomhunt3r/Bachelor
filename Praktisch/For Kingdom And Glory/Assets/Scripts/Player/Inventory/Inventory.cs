@@ -1,25 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Inventory : MonoBehaviour
 {
     public static Inventory Instance { get; private set; }
 
-    #region private Variables
+    #region Serializefield
     [SerializeField]
     private int m_Coins;
     [SerializeField]
+    private TextMeshProUGUI m_CoinsText;
+    [SerializeField]
     private int m_Wood;
+    [SerializeField]
+    private TextMeshProUGUI m_WoodText;
     [SerializeField]
     private int m_Stone;
     [SerializeField]
+    private TextMeshProUGUI m_StoneText;
+    [SerializeField]
     private int m_Iron;
+    [SerializeField]
+    private TextMeshProUGUI m_IronText;
+    [SerializeField]
+    private GameObject m_UI;
+    #endregion
+
+    #region private Variables
     private EPlayerUpgrade m_Sword;
     private EPlayerUpgrade m_Shield;
     private EPlayerUpgrade m_Helmet;
     private EPlayerUpgrade m_Plate;
     private EPlayerUpgrade m_Boots;
+    private bool m_ShowUI = true;
     #endregion
 
     #region Properties
@@ -59,18 +74,42 @@ public class Inventory : MonoBehaviour
     /// Player Boots
     /// </summary>
     public EPlayerUpgrade Boots { get => m_Boots; set => m_Boots = value; }
+    /// <summary>
+    /// 
+    /// </summary>
+    public bool ShowUI { get => m_ShowUI; set => m_ShowUI = value; }
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         // Set Everything at the beginning to None
-        m_Sword  = EPlayerUpgrade.NONE;
+        m_Sword = EPlayerUpgrade.NONE;
         m_Shield = EPlayerUpgrade.NONE;
         m_Helmet = EPlayerUpgrade.NONE;
-        m_Plate  = EPlayerUpgrade.NONE;
-        m_Boots  = EPlayerUpgrade.NONE;
+        m_Plate = EPlayerUpgrade.NONE;
+        m_Boots = EPlayerUpgrade.NONE;
 
-        Instance = this;       
+        Instance = this;
+    }
+
+    void Update()
+    {
+        m_UI.SetActive(ShowUI);
+
+        if (!GameManager.Instance.IsAlive)
+            return;
+
+        UpdateUI();
+
+    }
+
+    private void UpdateUI()
+    {
+        m_CoinsText.text = $"{Coins}";
+        m_WoodText.text  = $"{Wood}";
+        m_StoneText.text = $"{Stone}";
+        m_IronText.text  = $"{Iron}";
+
     }
 }

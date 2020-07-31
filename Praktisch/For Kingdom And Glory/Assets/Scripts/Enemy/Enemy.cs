@@ -80,6 +80,9 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.Instance.IsAlive)
+            return;
+
         if (m_Walls.Count != 0)
             m_ClosestWall = GetClosestTarget(m_Walls);
 
@@ -111,7 +114,7 @@ public class Enemy : MonoBehaviour
         m_Rigid.velocity = m_Direction * m_Speed * Time.deltaTime;
         float Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
 
-        if (Distance < 3.5f)
+        if (Distance < Random.Range(1.0f, 4.5f))
         {
             m_Rigid.velocity = new Vector2(0, 0);
         }

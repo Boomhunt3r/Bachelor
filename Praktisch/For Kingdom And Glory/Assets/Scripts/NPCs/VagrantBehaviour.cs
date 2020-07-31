@@ -98,6 +98,9 @@ public partial class VagrantBehaviour : MonoBehaviour
     }
     private void Update()
     {
+        if (!GameManager.Instance.IsAlive)
+            return;
+
         if (m_Rigid.velocity.x >= 0.0f)
         {
             m_Sprite.localScale = new Vector3(-1f, 1f, 1f);

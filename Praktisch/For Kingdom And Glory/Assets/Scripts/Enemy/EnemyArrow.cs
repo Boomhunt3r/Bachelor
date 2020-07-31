@@ -26,7 +26,9 @@ public class EnemyArrow : MonoBehaviour
         }
         else if (collision.CompareTag("Player"))
         {
+            collision.gameObject.GetComponent<PlayerBehaviour>().GetDamage(m_Damage);
 
+            Destroy(this.gameObject);
         }
         else if (collision.CompareTag("Villager"))
         {

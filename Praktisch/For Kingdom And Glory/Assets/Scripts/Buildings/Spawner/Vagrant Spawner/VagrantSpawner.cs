@@ -20,22 +20,19 @@ public class VagrantSpawner : MonoBehaviour
     private float m_Timer = 0.0f;
     private bool m_CanSpawn = true;
     #endregion
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.Instance.IsAlive)
+            return;
+
         m_Timer += Time.deltaTime;
         if (m_Timer >= m_SpawnTime && m_CanSpawn)
         {
             for (int i = 0; i < m_VagrantToSpawn; i++)
             {
                 Instantiate(m_VagrantPrefab, new Vector3(this.gameObject.transform.position.x, 0.0f, 0.15f), Quaternion.identity);
-                //Debug.Log("Spawned");
             }
             m_Timer = 0.0f;
         }
@@ -56,7 +53,6 @@ public class VagrantSpawner : MonoBehaviour
         if (_Collision.CompareTag("Vagrant"))
         {
             m_CanSpawn = false;
-            //Debug.Log("drin");
         }
     }
     private void OnTriggerExit2D(Collider2D _Collision)

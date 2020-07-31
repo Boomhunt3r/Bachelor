@@ -10,6 +10,9 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField]
     private float m_MovementSpeed = 5.0f;
     [SerializeField]
+    [Range(50, 200)]
+    private int m_Health = 50;
+    [SerializeField]
     private Transform m_CoinSpawnRight;
     [SerializeField]
     private Transform m_CoinSpawnLeft;
@@ -83,7 +86,7 @@ public class PlayerBehaviour : MonoBehaviour
                         CraftingSystem.Instance.IsCrafting = true;
                         m_IsCrafting = true;
                     }
-                    else if(m_IsCrafting == true)
+                    else if (m_IsCrafting == true)
                     {
                         CraftingSystem.Instance.IsCrafting = false;
                         m_IsCrafting = false;
@@ -104,4 +107,15 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
     #endregion
+
+    public void GetDamage(int _Amount)
+    {
+        m_Health -= _Amount;
+
+        if(m_Health >= 0)
+        {
+            GameManager.Instance.IsAlive = false;
+        }
+    }
+
 }

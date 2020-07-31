@@ -51,6 +51,9 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.Instance.IsAlive)
+            return;
+
         if (GameManager.Instance.IsDay && m_Spawned)
         {
             m_Spawned = false;
@@ -108,7 +111,6 @@ public class EnemySpawner : MonoBehaviour
     #region private Functions
     private void Spawn(EWaveType _Type)
     {
-
         switch (_Type)
         {
             case EWaveType.NORMAL:
@@ -149,6 +151,8 @@ public class EnemySpawner : MonoBehaviour
     private void DestroySpawner()
     {
         VagrantBehaviour.Instance.RemoveSpawner();
+
+        GameManager.Instance.RevengeAttack = true;
 
         Destroy(this.gameObject);
     } 

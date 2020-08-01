@@ -17,6 +17,7 @@ public class EnemySpawner : MonoBehaviour
 
     #region private Variables
     private List<GameObject> m_SpawnedEnemys = new List<GameObject>();
+    private ESpawnerSide m_Side;
     private int m_EnemyToSpawn;
     private int m_CurrentHealth;
     private int m_SpawnedDefender;
@@ -24,7 +25,8 @@ public class EnemySpawner : MonoBehaviour
     private float m_DamageTimer;
     private bool m_Spawned = false;
     private bool m_UnderAttack = false;
-    private bool m_Defending = false; 
+    private bool m_Defending = false;
+    private bool m_FirstSpawner = false;
     #endregion
 
     #region private const
@@ -33,7 +35,8 @@ public class EnemySpawner : MonoBehaviour
     #endregion
 
     #region Properties
-    public List<GameObject> SpawnedEnemys { get => m_SpawnedEnemys; set => m_SpawnedEnemys = value; } 
+    public List<GameObject> SpawnedEnemys { get => m_SpawnedEnemys; set => m_SpawnedEnemys = value; }
+    public bool FirstSpawner { get => m_FirstSpawner; set => m_FirstSpawner = value; }
     #endregion
 
     // Start is called before the first frame update
@@ -52,6 +55,9 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         if (!GameManager.Instance.IsAlive)
+            return;
+
+        if (FirstSpawner == false)
             return;
 
         if (GameManager.Instance.IsDay && m_Spawned)
@@ -184,5 +190,10 @@ public class EnemySpawner : MonoBehaviour
             }
         }
     } 
+
+    public void GetSpawnerSide(ESpawnerSide _Side)
+    {
+        m_Side = _Side;
+    }
     #endregion
 }

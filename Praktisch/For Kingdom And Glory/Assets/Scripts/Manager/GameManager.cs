@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
     private int m_EnemySpawner = 2;
     [SerializeField]
     private int m_TotalRabbits = 150;
+    [SerializeField]
+    private Transform[] m_EnemySpawnerPos;
+    [SerializeField]
+    private Transform[] m_VagrantSpawnerPos;
 
     [Header("Prefabs")]
     [SerializeField]
@@ -40,6 +44,9 @@ public class GameManager : MonoBehaviour
     private bool m_IsNight = false;
     private bool m_IsAlive = true;
     private bool m_RevengeAttack = false;
+    private EGameSetting m_Setting;
+    private List<GameObject> m_EnemySpawnerLeftSide = new List<GameObject>();
+    private List<GameObject> m_EnemySpawnerRightSide = new List<GameObject>();
     #endregion
 
     #region Properties
@@ -55,6 +62,12 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Instance = this;
+
+        m_Setting = (EGameSetting)PlayerPrefs.GetInt("Setting");
+
+        Debug.Log(m_Setting);
+
+        StartGame();
     }
 
     // Update is called once per frame
@@ -108,5 +121,94 @@ public class GameManager : MonoBehaviour
     private void UpdateDayCounter()
     {
         m_DayAnnouncer.text = $"Day: {m_DayCount}";
+    }
+
+    private void StartGame()
+    {
+        GameObject Spawner;
+
+        switch (m_Setting)
+        {
+            case EGameSetting.EASY:
+                m_EnemySpawner = 2;
+                m_TotalRabbits = 300;
+
+
+                for (int i = 0; i < m_EnemySpawner; i++)
+                {
+                    if (i % 2 != 0)
+                    {
+                        Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
+                        Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.LEFT);
+
+                        if (m_EnemySpawnerLeftSide.Count == 0)
+                            Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
+
+                        m_EnemySpawnerLeftSide.Add(Spawner);
+                        continue;
+                    }
+
+                    Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
+                    Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.RIGHT);
+
+                    if (m_EnemySpawnerLeftSide.Count == 0)
+                        Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
+
+                    m_EnemySpawnerLeftSide.Add(Spawner);
+                }
+
+                break;
+            case EGameSetting.MEDUIM:
+                m_EnemySpawner = 4;
+                m_TotalRabbits = 200;
+
+                for (int i = 0; i < m_EnemySpawner; i++)
+                {
+                    if (i % 2 != 0)
+                    {
+                        Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
+                        Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.LEFT);
+
+                        if (m_EnemySpawnerLeftSide.Count == 0)
+                            Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
+
+                        m_EnemySpawnerLeftSide.Add(Spawner);
+                        continue;
+                    }
+
+                    Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
+                    Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.RIGHT);
+                    m_EnemySpawnerLeftSide.Add(Spawner);
+                }
+
+                break;
+            case EGameSetting.HARD:
+                m_EnemySpawner = 6;
+                m_TotalRabbits = 150;
+
+                for (int i = 0; i < m_EnemySpawner; i++)
+                {
+                    if (i % 2 != 0)
+                    {
+                        Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
+                        Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.LEFT);
+
+                        if (m_EnemySpawnerLeftSide.Count == 0)
+                            Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
+
+                        m_EnemySpawnerLeftSide.Add(Spawner);
+                        continue;
+                    }
+
+                    Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
+                    Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.RIGHT);
+                    m_EnemySpawnerLeftSide.Add(Spawner);
+                }
+
+                break;
+            default:
+                Debug.LogWarning("Nothing");
+                break;
+        }
     }
 }

@@ -158,6 +158,7 @@ public class EnemySpawner : MonoBehaviour
     {
         VagrantBehaviour.Instance.RemoveSpawner();
 
+        GameManager.Instance.RemoveSpawnerFromList(m_Side, this.gameObject);
         GameManager.Instance.RevengeAttack = true;
 
         Destroy(this.gameObject);

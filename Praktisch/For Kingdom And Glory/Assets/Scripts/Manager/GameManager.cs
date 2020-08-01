@@ -211,4 +211,37 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
+    public void RemoveSpawnerFromList(ESpawnerSide _Side, GameObject _Spawner)
+    {
+        switch (_Side)
+        {
+            case ESpawnerSide.LEFT:
+
+                for (int i = 0; i < m_EnemySpawnerLeftSide.Count; i++)
+                {
+                    if (_Spawner == m_EnemySpawnerLeftSide[i])
+                        m_EnemySpawnerLeftSide.Remove(_Spawner);
+                }
+
+                if (m_EnemySpawnerLeftSide.Count != 0)
+                    m_EnemySpawnerLeftSide[0].GetComponent<EnemySpawner>().FirstSpawner = true;
+
+                break;
+            case ESpawnerSide.RIGHT:
+
+                for (int i = 0; i < m_EnemySpawnerRightSide.Count; i++)
+                {
+                    if (_Spawner == m_EnemySpawnerRightSide[i])
+                        m_EnemySpawnerRightSide.Remove(_Spawner);
+                }
+
+                if (m_EnemySpawnerRightSide.Count != 0)
+                    m_EnemySpawnerRightSide[0].GetComponent<EnemySpawner>().FirstSpawner = true;
+
+                break;
+            default:
+                break;
+        }
+    }
 }

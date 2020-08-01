@@ -130,24 +130,32 @@ public class GameManager : MonoBehaviour
         switch (m_Setting)
         {
             case EGameSetting.EASY:
+                // Set Spawner and Rabbits similiar to Setting
                 m_EnemySpawner = 2;
                 m_TotalRabbits = 300;
 
-
+                // Spawn Spawner
                 for (int i = 0; i < m_EnemySpawner; i++)
                 {
+                    // Left Side
                     if (i % 2 != 0)
                     {
+                        // Spawn
                         Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
+                        // Set side to left
                         Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.LEFT);
 
+                        // If List is empty
                         if (m_EnemySpawnerLeftSide.Count == 0)
+                            // Spawner is First Spawner
                             Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
 
+                        // Add to List
                         m_EnemySpawnerLeftSide.Add(Spawner);
                         continue;
                     }
 
+                    // Right Side
                     Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
                     Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.RIGHT);
 
@@ -212,24 +220,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Remove Spawner from List
+    /// </summary>
+    /// <param name="_Side">Which Side Spawner Was</param>
+    /// <param name="_Spawner">The Spawner</param>
     public void RemoveSpawnerFromList(ESpawnerSide _Side, GameObject _Spawner)
     {
         switch (_Side)
         {
             case ESpawnerSide.LEFT:
-
+                // Search Spawner in List
                 for (int i = 0; i < m_EnemySpawnerLeftSide.Count; i++)
                 {
+                    // If Spawner is the same as in List
                     if (_Spawner == m_EnemySpawnerLeftSide[i])
+                        // Remove Spawner
                         m_EnemySpawnerLeftSide.Remove(_Spawner);
                 }
 
+                // If there are more Spawner
                 if (m_EnemySpawnerLeftSide.Count != 0)
+                    // Next Spawner is First Spawner
                     m_EnemySpawnerLeftSide[0].GetComponent<EnemySpawner>().FirstSpawner = true;
-
                 break;
             case ESpawnerSide.RIGHT:
-
                 for (int i = 0; i < m_EnemySpawnerRightSide.Count; i++)
                 {
                     if (_Spawner == m_EnemySpawnerRightSide[i])
@@ -238,7 +253,6 @@ public class GameManager : MonoBehaviour
 
                 if (m_EnemySpawnerRightSide.Count != 0)
                     m_EnemySpawnerRightSide[0].GetComponent<EnemySpawner>().FirstSpawner = true;
-
                 break;
             default:
                 break;

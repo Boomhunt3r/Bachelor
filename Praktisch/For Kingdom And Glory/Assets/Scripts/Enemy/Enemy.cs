@@ -47,14 +47,14 @@ public class Enemy : MonoBehaviour
     {
         m_Rigid = GetComponent<Rigidbody2D>();
 
-        m_Walls = GameObject.FindGameObjectsWithTag("Wall").OfType<GameObject>().ToList();
-        m_Villiger = GameObject.FindGameObjectsWithTag("Villager").OfType<GameObject>().ToList();
-        m_Builder = GameObject.FindGameObjectsWithTag("Builder").OfType<GameObject>().ToList();
-        m_Archer = GameObject.FindGameObjectsWithTag("Archer").OfType<GameObject>().ToList();
+        m_Walls = GameObject.FindGameObjectsWithTag("Wall").ToList();
+        m_Villiger = GameObject.FindGameObjectsWithTag("Villager").ToList();
+        m_Builder = GameObject.FindGameObjectsWithTag("Builder").ToList();
+        m_Archer = GameObject.FindGameObjectsWithTag("Archer").ToList();
         m_Player = GameObject.FindGameObjectWithTag("Player");
 
         if (m_Walls.Count != 0)
-            m_ClosestWall = GetClosestTarget(m_Walls);
+            m_ClosestWall = GetClosestWall(m_Walls);
 
         if (m_Villiger.Count != 0)
             m_ClosestVilliger = GetClosestTarget(m_Villiger);
@@ -84,7 +84,7 @@ public class Enemy : MonoBehaviour
             return;
 
         if (m_Walls.Count != 0)
-            m_ClosestWall = GetClosestTarget(m_Walls);
+            m_ClosestWall = GetClosestWall(m_Walls);
 
         if (m_Villiger.Count != 0)
             m_ClosestVilliger = GetClosestTarget(m_Villiger);
@@ -129,7 +129,36 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private GameObject GetClosestWall(List<GameObject> _Target)
+    {
+        GameObject Target = null;
+        float MinDist = Mathf.Infinity;
+        Vector2 CurrentPos = transform.position;
+        float Dist = 0.0f;
+
+        for (int i = 0; i < _Target.Count; i++)
+        {
+            Dist = Vector2.Distance(_Target[i].transform.position, CurrentPos);
+
+            if(_Target[i].GetComponent<Wall>().IsActive == true)
+            {
+                if (Dist < MinDist)
+                {
+                    Target = _Target[i];
+                    MinDist = Dist;
+                }
+            }
+        }
+
+        return Target;
+    }
+
     #region private Functions
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="_Target"></param>
+    /// <returns>Closest Target</returns>
     private GameObject GetClosestTarget(List<GameObject> _Target)
     {
         GameObject Target = null;

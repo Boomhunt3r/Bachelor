@@ -16,6 +16,8 @@ public class Wall : MonoBehaviour
     [SerializeField]
     private float m_MaxHitPoints = 50;
     [SerializeField]
+    private Sprite[] m_Sprites;
+    [SerializeField]
     private GameObject m_BuildUI;
     [SerializeField]
     private Slider m_PaySlider;
@@ -26,6 +28,7 @@ public class Wall : MonoBehaviour
     #endregion
 
     #region private Variables
+    private SpriteRenderer m_Renderer;
     private float m_Timer = 0.0f;
     private float m_MaxTimer = 1.5f;
     [SerializeField]
@@ -34,6 +37,7 @@ public class Wall : MonoBehaviour
     private bool m_Payed = false;
     private bool m_BeingBuild = false;
     private bool m_BuilderBuilding = false;
+    private bool m_isActive = false;
     #endregion
 
     #region private const
@@ -48,6 +52,7 @@ public class Wall : MonoBehaviour
     public float MaxHitPoints { get => m_MaxHitPoints; set => m_MaxHitPoints = value; }
     public float CurrentHitPoints { get => m_CurrentHitPoints; set => m_CurrentHitPoints = value; }
     public EBuildingUpgrade Building { get => m_Building; set => m_Building = value; }
+    public bool IsActive { get => m_isActive; set => m_isActive = value; }
     #endregion
 
     // Start is called before the first frame update
@@ -64,6 +69,8 @@ public class Wall : MonoBehaviour
         m_Building = EBuildingUpgrade.NONE;
         // Set Slider text
         m_SliderText.text = $"0 / {m_PaySlider.maxValue}";
+        // Get Sprite Renderer
+        m_Renderer = GetComponent<SpriteRenderer>();
 
         Instance = this;
     }
@@ -72,6 +79,9 @@ public class Wall : MonoBehaviour
     {
         // Open Function with Current Bool status
         ShowUI(Build);
+
+        if (!IsActive)
+            return;
 
         if (m_BuilderBuilding)
         {
@@ -113,7 +123,10 @@ public class Wall : MonoBehaviour
                 m_CurrentHitPoints = m_MaxHitPoints;
                 // Set to next Upgrade Level
                 m_Building = EBuildingUpgrade.WOOD;
-
+                // Set Renderer
+                m_Renderer.color = Color.blue;
+                // Set Active True
+                IsActive = true;
                 break;
             // Status Wood
             case EBuildingUpgrade.WOOD:

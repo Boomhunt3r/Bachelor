@@ -112,6 +112,7 @@ public class Enemy : MonoBehaviour
 
         m_Direction = ((Vector2)m_Target.transform.position - m_Rigid.position).normalized;
         m_Rigid.velocity = m_Direction * m_Speed * Time.deltaTime;
+
         float Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
 
         if (Distance < Random.Range(1.0f, 4.5f))

@@ -17,6 +17,7 @@ public class EnemySpawner : MonoBehaviour
 
     #region private Variables
     private List<GameObject> m_SpawnedEnemys = new List<GameObject>();
+    [SerializeField]
     private ESpawnerSide m_Side;
     private int m_EnemyToSpawn;
     private int m_CurrentHealth;
@@ -26,6 +27,7 @@ public class EnemySpawner : MonoBehaviour
     private bool m_Spawned = false;
     private bool m_UnderAttack = false;
     private bool m_Defending = false;
+    [SerializeField]
     private bool m_FirstSpawner = false;
     #endregion
 
@@ -124,15 +126,21 @@ public class EnemySpawner : MonoBehaviour
 
                 m_EnemyToSpawn = m_Wave * m_NormalAttack;
 
+                GameObject Enemy;
+
                 for (int i = 0; i < m_EnemyToSpawn; i++)
                 {
-                    SpawnedEnemys.Add(Instantiate(m_EnemyPrefab, this.gameObject.transform.position, Quaternion.identity));
+                    Enemy = Instantiate(m_EnemyPrefab, this.gameObject.transform.position, Quaternion.identity);
+                    SpawnedEnemys.Add(Enemy);
+                    GameManager.Instance.AllSpawnedEnemys.Add(Enemy);
                 }
                 break;
             case EWaveType.DEFENDING:
                 for (int i = 0; i < 1; i++)
                 {
-                    SpawnedEnemys.Add(Instantiate(m_EnemyPrefab, this.gameObject.transform.position, Quaternion.identity));
+                    Enemy = Instantiate(m_EnemyPrefab, this.gameObject.transform.position, Quaternion.identity);
+                    SpawnedEnemys.Add(Enemy);
+                    GameManager.Instance.AllSpawnedEnemys.Add(Enemy);
                 }
                 break;
             case EWaveType.REVENGE:
@@ -140,7 +148,9 @@ public class EnemySpawner : MonoBehaviour
 
                 for (int i = 0; i < m_EnemyToSpawn; i++)
                 {
-                    SpawnedEnemys.Add(Instantiate(m_EnemyPrefab, this.gameObject.transform.position, Quaternion.identity));
+                    Enemy = Instantiate(m_EnemyPrefab, this.gameObject.transform.position, Quaternion.identity);
+                    SpawnedEnemys.Add(Enemy);
+                    GameManager.Instance.AllSpawnedEnemys.Add(Enemy);
                 }
                 break;
             default:

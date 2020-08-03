@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     private EGameSetting m_Setting;
     private List<GameObject> m_EnemySpawnerLeftSide = new List<GameObject>();
     private List<GameObject> m_EnemySpawnerRightSide = new List<GameObject>();
+    private List<GameObject> m_AllSpawnedEnemys = new List<GameObject>();
     #endregion
 
     #region Properties
@@ -56,17 +57,20 @@ public class GameManager : MonoBehaviour
     public int TotalRabbitsSpawned { get => m_TotalRabbitsSpawned; set => m_TotalRabbitsSpawned = value; }
     public int TotalRabbits { get => m_TotalRabbits; set => m_TotalRabbits = value; }
     public bool RevengeAttack { get => m_RevengeAttack; set => m_RevengeAttack = value; }
+    public EGameSetting Setting { get => m_Setting; set => m_Setting = value; }
+    public List<GameObject> AllSpawnedEnemys { get => m_AllSpawnedEnemys; set => m_AllSpawnedEnemys = value; }
     #endregion
+
+    private void Awake()
+    {
+        m_Setting = (EGameSetting)PlayerPrefs.GetInt("Setting");
+
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        Instance = this;
-
-        m_Setting = (EGameSetting)PlayerPrefs.GetInt("Setting");
-
-        Debug.Log(m_Setting);
-
         StartGame();
     }
 
@@ -88,17 +92,14 @@ public class GameManager : MonoBehaviour
 
         if (IsDay)
         {
-            if (EnemySpawner.Instance.SpawnedEnemys.Count != 0)
+            if(m_AllSpawnedEnemys.Count != 0)
             {
-                if (EnemySpawner.Instance.SpawnedEnemys.Count > 0)
+                for (int i = 0; i < m_AllSpawnedEnemys.Count; i++)
                 {
-                    for (int i = 0; i < EnemySpawner.Instance.SpawnedEnemys.Count; i++)
-                    {
-                        Destroy(EnemySpawner.Instance.SpawnedEnemys[i]);
-                    }
+                    Destroy(m_AllSpawnedEnemys[i]);
                 }
             }
-
+            
             if (m_Timer >= m_DayLength)
             {
                 IsDay = false;
@@ -144,6 +145,7 @@ public class GameManager : MonoBehaviour
                         Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
                         // Set side to left
                         Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.LEFT);
+                        Spawner.SetActive(true);
 
                         // If List is empty
                         if (m_EnemySpawnerLeftSide.Count == 0)
@@ -158,11 +160,12 @@ public class GameManager : MonoBehaviour
                     // Right Side
                     Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
                     Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.RIGHT);
+                    Spawner.SetActive(true);
 
-                    if (m_EnemySpawnerLeftSide.Count == 0)
+                    if (m_EnemySpawnerRightSide.Count == 0)
                         Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
 
-                    m_EnemySpawnerLeftSide.Add(Spawner);
+                    m_EnemySpawnerRightSide.Add(Spawner);
                 }
 
                 break;
@@ -176,6 +179,7 @@ public class GameManager : MonoBehaviour
                     {
                         Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
                         Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.LEFT);
+                        Spawner.SetActive(true);
 
                         if (m_EnemySpawnerLeftSide.Count == 0)
                             Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
@@ -186,7 +190,12 @@ public class GameManager : MonoBehaviour
 
                     Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
                     Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.RIGHT);
-                    m_EnemySpawnerLeftSide.Add(Spawner);
+                    Spawner.SetActive(true);
+
+                    if (m_EnemySpawnerRightSide.Count == 0)
+                        Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
+
+                    m_EnemySpawnerRightSide.Add(Spawner);
                 }
 
                 break;
@@ -200,6 +209,7 @@ public class GameManager : MonoBehaviour
                     {
                         Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
                         Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.LEFT);
+                        Spawner.SetActive(true);
 
                         if (m_EnemySpawnerLeftSide.Count == 0)
                             Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
@@ -210,7 +220,12 @@ public class GameManager : MonoBehaviour
 
                     Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
                     Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.RIGHT);
-                    m_EnemySpawnerLeftSide.Add(Spawner);
+                    Spawner.SetActive(true);
+
+                    if (m_EnemySpawnerRightSide.Count == 0)
+                        Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
+
+                    m_EnemySpawnerRightSide.Add(Spawner);
                 }
 
                 break;

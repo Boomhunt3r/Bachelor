@@ -24,3 +24,5 @@ https://terraria.gamepedia.com/Guide:Crafting_101
 
 wow:
 https://worldofwarcraft.com/en-us/news/20151961/world-of-warcraft-legion-patch-notes
+https://worldofwarcraft.com/de-de/game/races
+https://worldofwarcraft.com/de-de/game/classes

@@ -5,6 +5,8 @@ https://store.steampowered.com/app/1044700/Forsaken_Realm/
 
 Minecraft:
 https://www.golem.de/news/minecraft-microsoft-kauft-mojang-1409-109256.html
+https://www.minecraft.net/de-de/about-minecraft
+https://www.minecraft.net/de-de/get-minecraft
 https://www.minecraft.net/de-de/article/world-color-released
 
 Clonk:
@@ -12,3 +14,13 @@ http://www.clonk.de/index.php?lng=de
 
 Unity:
 https://store.unity.com/compare-plans?currency=USD
+
+Kingdom:
+https://store.steampowered.com/app/701160/Kingdom_Two_Crowns/
+
+terraria:
+https://terraria.org/about
+https://terraria.gamepedia.com/Guide:Crafting_101
+
+wow:
+https://worldofwarcraft.com/en-us/news/20151961/world-of-warcraft-legion-patch-notes

@@ -713,6 +713,7 @@ MonoBehaviour:
   m_Building: 0
   m_CurrentUpgradeCost: 0
   m_MaxHitPoints: 50
+  m_Sprites: []
   m_BuildUI: {fileID: 1633496388}
   m_PaySlider: {fileID: 1230898121}
   m_SliderText: {fileID: 313268849}
@@ -1037,7 +1038,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 949571316}
   m_Father: {fileID: 349106516}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1367,6 +1369,7 @@ MonoBehaviour:
   m_Building: 0
   m_CurrentUpgradeCost: 0
   m_MaxHitPoints: 50
+  m_Sprites: []
   m_BuildUI: {fileID: 1633496388}
   m_PaySlider: {fileID: 1230898121}
   m_SliderText: {fileID: 313268849}
@@ -1943,10 +1946,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovementSpeed: 450
   m_Health: 0
+  m_Sprite: {fileID: 172854863}
   m_CoinSpawnRight: {fileID: 1105517277}
   m_CoinSpawnLeft: {fileID: 704058924}
   m_CoinPrefab: {fileID: 7440314736443808627, guid: 4c290e629d1044045913d789effd7569,
     type: 3}
+  m_Arrow: {fileID: 1386464674917496407, guid: 00bf8e418cf18ee42a0827d4f7d171c0, type: 3}
+  m_ThrowPoint: {fileID: 949571316}
 --- !u!114 &349106519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2533,6 +2539,7 @@ MonoBehaviour:
   m_Building: 0
   m_CurrentUpgradeCost: 0
   m_MaxHitPoints: 50
+  m_Sprites: []
   m_BuildUI: {fileID: 1633496388}
   m_PaySlider: {fileID: 1230898121}
   m_SliderText: {fileID: 313268849}
@@ -2739,6 +2746,7 @@ MonoBehaviour:
   m_Building: 0
   m_CurrentUpgradeCost: 0
   m_MaxHitPoints: 50
+  m_Sprites: []
   m_BuildUI: {fileID: 1633496388}
   m_PaySlider: {fileID: 1230898121}
   m_SliderText: {fileID: 313268849}
@@ -4222,6 +4230,36 @@ Transform:
   m_Father: {fileID: 2078645811}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &949571315
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 949571316}
+  m_Layer: 0
+  m_Name: ThrowPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &949571316
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 949571315}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.23, y: 0.49, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 172854863}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &949880089
 GameObject:
   m_ObjectHideFlags: 0
@@ -4270,6 +4308,7 @@ MonoBehaviour:
   m_Building: 0
   m_CurrentUpgradeCost: 0
   m_MaxHitPoints: 50
+  m_Sprites: []
   m_BuildUI: {fileID: 1633496388}
   m_PaySlider: {fileID: 1230898121}
   m_SliderText: {fileID: 313268849}
@@ -4762,6 +4801,7 @@ MonoBehaviour:
   m_Building: 0
   m_CurrentUpgradeCost: 0
   m_MaxHitPoints: 50
+  m_Sprites: []
   m_BuildUI: {fileID: 1633496388}
   m_PaySlider: {fileID: 1230898121}
   m_SliderText: {fileID: 313268849}
@@ -5030,7 +5070,7 @@ Transform:
   - {fileID: 949880090}
   - {fileID: 1484708246}
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1031629440
 GameObject:
@@ -5299,6 +5339,7 @@ MonoBehaviour:
   m_Building: 0
   m_CurrentUpgradeCost: 0
   m_MaxHitPoints: 50
+  m_Sprites: []
   m_BuildUI: {fileID: 1633496388}
   m_PaySlider: {fileID: 1230898121}
   m_SliderText: {fileID: 313268849}
@@ -5437,7 +5478,7 @@ Transform:
   m_Children:
   - {fileID: 358219618}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1137063209
 MonoBehaviour:
@@ -5516,6 +5557,7 @@ MonoBehaviour:
   m_Building: 0
   m_CurrentUpgradeCost: 0
   m_MaxHitPoints: 50
+  m_Sprites: []
   m_BuildUI: {fileID: 1633496388}
   m_PaySlider: {fileID: 1230898121}
   m_SliderText: {fileID: 313268849}
@@ -6064,6 +6106,7 @@ MonoBehaviour:
   m_Building: 0
   m_CurrentUpgradeCost: 0
   m_MaxHitPoints: 50
+  m_Sprites: []
   m_BuildUI: {fileID: 1633496388}
   m_PaySlider: {fileID: 1230898121}
   m_SliderText: {fileID: 313268849}
@@ -6723,6 +6766,7 @@ MonoBehaviour:
   m_Building: 0
   m_CurrentUpgradeCost: 0
   m_MaxHitPoints: 50
+  m_Sprites: []
   m_BuildUI: {fileID: 1633496388}
   m_PaySlider: {fileID: 1230898121}
   m_SliderText: {fileID: 313268849}
@@ -7211,6 +7255,7 @@ MonoBehaviour:
   m_Building: 0
   m_CurrentUpgradeCost: 0
   m_MaxHitPoints: 50
+  m_Sprites: []
   m_BuildUI: {fileID: 1633496388}
   m_PaySlider: {fileID: 1230898121}
   m_SliderText: {fileID: 313268849}
@@ -7340,6 +7385,7 @@ MonoBehaviour:
   m_Building: 0
   m_CurrentUpgradeCost: 0
   m_MaxHitPoints: 50
+  m_Sprites: []
   m_BuildUI: {fileID: 1633496388}
   m_PaySlider: {fileID: 1230898121}
   m_SliderText: {fileID: 313268849}
@@ -8645,6 +8691,7 @@ MonoBehaviour:
   m_Building: 0
   m_CurrentUpgradeCost: 0
   m_MaxHitPoints: 50
+  m_Sprites: []
   m_BuildUI: {fileID: 1633496388}
   m_PaySlider: {fileID: 1230898121}
   m_SliderText: {fileID: 313268849}
@@ -8774,6 +8821,7 @@ MonoBehaviour:
   m_Building: 0
   m_CurrentUpgradeCost: 0
   m_MaxHitPoints: 50
+  m_Sprites: []
   m_BuildUI: {fileID: 1633496388}
   m_PaySlider: {fileID: 1230898121}
   m_SliderText: {fileID: 313268849}
@@ -9312,7 +9360,7 @@ Transform:
   - {fileID: 964727457}
   - {fileID: 133417037}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2074465714
 GameObject:
@@ -9378,7 +9426,7 @@ Transform:
   - {fileID: 391876932}
   - {fileID: 358374347}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2082360367
 GameObject:
@@ -10401,72 +10449,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2147103724}
   m_CullTransparentMesh: 0
---- !u!1001 &296049799048808879
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 296049800024295385, guid: 4777aff2c084dd64a92ac9c968f209b4,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -52.87
-      objectReference: {fileID: 0}
-    - target: {fileID: 296049800024295385, guid: 4777aff2c084dd64a92ac9c968f209b4,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 296049800024295385, guid: 4777aff2c084dd64a92ac9c968f209b4,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 296049800024295385, guid: 4777aff2c084dd64a92ac9c968f209b4,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 296049800024295385, guid: 4777aff2c084dd64a92ac9c968f209b4,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 296049800024295385, guid: 4777aff2c084dd64a92ac9c968f209b4,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 296049800024295385, guid: 4777aff2c084dd64a92ac9c968f209b4,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 296049800024295385, guid: 4777aff2c084dd64a92ac9c968f209b4,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 296049800024295385, guid: 4777aff2c084dd64a92ac9c968f209b4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 296049800024295385, guid: 4777aff2c084dd64a92ac9c968f209b4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 296049800024295385, guid: 4777aff2c084dd64a92ac9c968f209b4,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 296049800024295388, guid: 4777aff2c084dd64a92ac9c968f209b4,
-        type: 3}
-      propertyPath: m_Name
-      value: EnemySpawner
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 4777aff2c084dd64a92ac9c968f209b4, type: 3}

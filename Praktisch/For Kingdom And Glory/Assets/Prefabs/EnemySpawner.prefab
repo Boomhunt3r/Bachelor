@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 296049800024295387}
   m_Layer: 0
   m_Name: EnemySpawner
-  m_TagString: Untagged
+  m_TagString: EnemySpawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -156,3 +156,5 @@ MonoBehaviour:
   m_MaxHealth: 50
   m_EnemyPrefab: {fileID: 7346845194420042325, guid: cf35d761b95c3e24d921a2a14931c84f,
     type: 3}
+  m_Side: 0
+  m_FirstSpawner: 0

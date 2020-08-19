@@ -140,7 +140,7 @@ public partial class VagrantBehaviour : MonoBehaviour
     {
         if (collision.CompareTag("Coin"))
         {
-            RemoveCoin();
+            RemoveCoin(collision.gameObject);
             Destroy(collision.gameObject);
             m_Status = ENPCStatus.VILLAGER;
         }

@@ -9,32 +9,38 @@ public class CraftingSystem : MonoBehaviour
     public static CraftingSystem Instance { get; private set; }
 
     #region SerializeField
+    [Header("UI Settings")]
     [SerializeField]
     private GameObject m_CraftingUI;
     [SerializeField]
-    private Button m_CraftSword;
+    private TextMeshProUGUI m_NotificationText;
+    [Header("Bow")]
     [SerializeField]
-    private TextMeshProUGUI m_CraftSwordText;
+    private Button m_CraftBow;
     [SerializeField]
-    private Button m_CraftShield;
-    [SerializeField]
-    private TextMeshProUGUI m_CraftShieldText;
+    private TextMeshProUGUI m_CraftBowText;
+    [Header("Helmet")]
     [SerializeField]
     private Button m_CraftHelmet;
     [SerializeField]
     private TextMeshProUGUI m_CraftHelmetText;
+    [Header("Plate")]
     [SerializeField]
     private Button m_CraftPlate;
     [SerializeField]
     private TextMeshProUGUI m_CraftPlateText;
+    [Header("Boots")]
     [SerializeField]
     private Button m_CraftBoots;
     [SerializeField]
     private TextMeshProUGUI m_CraftBootsText;
+    [Header("Audio Settings")]
     [SerializeField]
-    private Button m_CraftButton;
+    private AudioSource m_Source;
     [SerializeField]
-    private TextMeshProUGUI m_NotificationText;
+    private AudioClip m_BowClip;
+    [SerializeField]
+    private AudioClip m_Smith;
     #endregion
 
     #region private Variables
@@ -42,13 +48,7 @@ public class CraftingSystem : MonoBehaviour
     private bool m_IsCrafting = false;
 
     #region Price Variables
-    private int m_SwordWoodPrice;
-    private int m_SwordStonePrice;
-    private int m_SwordIronPrice;
-
-    private int m_ShieldWoodPrice;
-    private int m_ShieldStonePrice;
-    private int m_ShieldIronPrice;
+    private int m_BowWoodPrice;
 
     private int m_HelmetStonePrice;
     private int m_HelmetIronPrice;
@@ -77,13 +77,7 @@ public class CraftingSystem : MonoBehaviour
     {
         m_CraftingType = ECraftingType.NONE;
 
-        m_SwordWoodPrice  = m_WoodPrice * 3;
-        m_SwordStonePrice = 0;
-        m_SwordIronPrice  = 0;
-
-        m_ShieldWoodPrice  = m_WoodPrice * 3;
-        m_ShieldStonePrice = 0;
-        m_ShieldIronPrice  = 0;
+        m_BowWoodPrice  = m_WoodPrice * 2;
 
         m_HelmetStonePrice = m_StonePrice * 3;
         m_HelmetIronPrice  = 0;
@@ -96,8 +90,7 @@ public class CraftingSystem : MonoBehaviour
 
         m_CraftingUI.SetActive(false);
 
-        m_CraftSwordText.text  = "";
-        m_CraftShieldText.text = "";
+        m_CraftBowText.text  = "";
         m_CraftHelmetText.text = "";
         m_CraftPlateText.text  = "";
         m_CraftBootsText.text  = "";
@@ -113,104 +106,43 @@ public class CraftingSystem : MonoBehaviour
         if (!IsCrafting)
             return;
 
-        m_CraftingUI.SetActive(true);
-
-        switch (Inventory.Instance.Sword)
+        switch (Inventory.Instance.Bow)
         {
             case EPlayerUpgrade.NONE:
-                m_CraftSwordText.text = $"{Inventory.Instance.Wood} Wood / {m_SwordWoodPrice} Wood";
-                if (Inventory.Instance.Wood < m_SwordWoodPrice)
+                m_CraftBowText.text = $"{Inventory.Instance.Wood} Wood / {m_BowWoodPrice} Wood";
+                if (Inventory.Instance.Wood < m_BowWoodPrice)
                 {
-                    m_CraftSword.GetComponent<Image>().color = Color.red;
+                    m_CraftBow.GetComponent<Image>().color = Color.red;
                 }
-                else if (Inventory.Instance.Wood >= m_SwordWoodPrice)
+                else if (Inventory.Instance.Wood >= m_BowWoodPrice)
                 {
-                    m_CraftSword.GetComponent<Image>().color = Color.green;
+                    m_CraftBow.GetComponent<Image>().color = Color.green;
                 }
                 break;
             case EPlayerUpgrade.WOOD:
-                m_CraftSwordText.text = $"{Inventory.Instance.Wood} Wood  / {m_SwordWoodPrice} Wood \n" +
-                                        $"{Inventory.Instance.Stone} Stone / {m_SwordStonePrice} Stone";
-                if (Inventory.Instance.Wood < m_SwordWoodPrice && Inventory.Instance.Stone < m_SwordStonePrice ||
-                    Inventory.Instance.Wood >= m_SwordIronPrice && Inventory.Instance.Stone < m_SwordStonePrice ||
-                    Inventory.Instance.Wood < m_SwordWoodPrice && Inventory.Instance.Stone >= m_SwordStonePrice)
+                m_CraftBowText.text = $"{Inventory.Instance.Wood} Wood  / {m_BowWoodPrice} Wood";
+                if (Inventory.Instance.Wood < m_BowWoodPrice)
                 {
-                    m_CraftSword.GetComponent<Image>().color = Color.red;
+                    m_CraftBow.GetComponent<Image>().color = Color.red;
                 }
-                else if (Inventory.Instance.Wood >= m_SwordWoodPrice && Inventory.Instance.Stone >= m_SwordStonePrice)
+                else if (Inventory.Instance.Wood >= m_BowWoodPrice)
                 {
-                    m_CraftSword.GetComponent<Image>().color = Color.green;
+                    m_CraftBow.GetComponent<Image>().color = Color.green;
                 }
                 break;
             case EPlayerUpgrade.STONE:
-                m_CraftSwordText.text = $"{Inventory.Instance.Wood} Wood  / {m_SwordWoodPrice} Wood \n" +
-                                        $"{Inventory.Instance.Iron} Stone / {m_SwordIronPrice} Stone";
-                if (Inventory.Instance.Wood < m_SwordWoodPrice && Inventory.Instance.Iron < m_SwordIronPrice ||
-                    Inventory.Instance.Wood >= m_SwordIronPrice && Inventory.Instance.Iron < m_SwordIronPrice ||
-                    Inventory.Instance.Wood < m_SwordWoodPrice && Inventory.Instance.Iron >= m_SwordIronPrice)
+                m_CraftBowText.text = $"{Inventory.Instance.Wood} Wood  / {m_BowWoodPrice} Wood";
+                if (Inventory.Instance.Wood < m_BowWoodPrice)
                 {
-                    m_CraftSword.GetComponent<Image>().color = Color.red;
+                    m_CraftBow.GetComponent<Image>().color = Color.red;
                 }
-                else if (Inventory.Instance.Wood >= m_SwordWoodPrice && Inventory.Instance.Iron >= m_SwordIronPrice)
+                else if (Inventory.Instance.Wood >= m_BowWoodPrice)
                 {
-                    m_CraftSword.GetComponent<Image>().color = Color.green;
+                    m_CraftBow.GetComponent<Image>().color = Color.green;
                 }
                 break;
             case EPlayerUpgrade.IRON:
-                m_CraftSword.GetComponent<Image>().color = Color.gray;
-                break;
-            default:
-                break;
-        }
-
-        switch (Inventory.Instance.Shield)
-        {
-            case EPlayerUpgrade.NONE:
-                m_CraftShieldText.text = $"{Inventory.Instance.Wood} Wood / {m_ShieldWoodPrice} Wood";
-                if (Inventory.Instance.Wood < m_ShieldWoodPrice)
-                {
-                    m_CraftShield.GetComponent<Image>().color = Color.red;
-                }
-                else if (Inventory.Instance.Wood >= m_ShieldWoodPrice)
-                {
-                    m_CraftShield.GetComponent<Image>().color = Color.green;
-                }
-                break;
-            case EPlayerUpgrade.WOOD:
-                m_CraftShieldText.text = $"{Inventory.Instance.Wood} Wood / {m_ShieldWoodPrice} Wood \n " +
-                                         $"{Inventory.Instance.Stone} Stone / {m_ShieldStonePrice} Stone";
-                if (Inventory.Instance.Wood < m_ShieldWoodPrice && Inventory.Instance.Stone < m_ShieldStonePrice ||
-                    Inventory.Instance.Wood >= m_ShieldWoodPrice && Inventory.Instance.Stone < m_ShieldStonePrice ||
-                    Inventory.Instance.Wood < m_ShieldWoodPrice && Inventory.Instance.Stone >= m_ShieldStonePrice)
-                {
-                    m_CraftShield.GetComponent<Image>().color = Color.red;
-                }
-                else if (Inventory.Instance.Wood >= m_ShieldWoodPrice && Inventory.Instance.Stone >= m_ShieldStonePrice)
-                {
-                    m_CraftShield.GetComponent<Image>().color = Color.green;
-                }
-                break;
-            case EPlayerUpgrade.STONE:
-                m_CraftShieldText.text = $"{Inventory.Instance.Wood} Wood / {m_ShieldWoodPrice} \n" +
-                    $"{Inventory.Instance.Stone} Stone / {m_ShieldStonePrice} Stone \n" +
-                    $"{Inventory.Instance.Iron} Iron / {m_ShieldIronPrice} Iron";
-                if (Inventory.Instance.Wood < m_ShieldWoodPrice && Inventory.Instance.Stone < m_ShieldStonePrice && Inventory.Instance.Iron < m_ShieldIronPrice ||
-                    Inventory.Instance.Wood >= m_ShieldWoodPrice && Inventory.Instance.Stone < m_ShieldStonePrice && Inventory.Instance.Iron < m_ShieldIronPrice ||
-                    Inventory.Instance.Wood < m_ShieldWoodPrice && Inventory.Instance.Stone >= m_ShieldStonePrice && Inventory.Instance.Iron < m_ShieldIronPrice ||
-                    Inventory.Instance.Wood < m_ShieldWoodPrice && Inventory.Instance.Stone < m_ShieldStonePrice && Inventory.Instance.Iron >= m_ShieldIronPrice ||
-                    Inventory.Instance.Wood >= m_ShieldWoodPrice && Inventory.Instance.Stone >= m_ShieldStonePrice && Inventory.Instance.Iron < m_ShieldIronPrice ||
-                    Inventory.Instance.Wood >= m_ShieldWoodPrice && Inventory.Instance.Stone < m_ShieldStonePrice && Inventory.Instance.Iron >= m_ShieldIronPrice ||
-                    Inventory.Instance.Wood < m_ShieldWoodPrice && Inventory.Instance.Stone >= m_ShieldStonePrice && Inventory.Instance.Iron >= m_ShieldIronPrice)
-                {
-                    m_CraftShield.GetComponent<Image>().color = Color.red;
-                }
-                else if (Inventory.Instance.Wood >= m_ShieldWoodPrice && Inventory.Instance.Stone >= m_ShieldStonePrice && Inventory.Instance.Iron >= m_ShieldIronPrice)
-                {
-                    m_CraftShield.GetComponent<Image>().color = Color.green;
-                }
-                break;
-            case EPlayerUpgrade.IRON:
-                m_CraftShield.GetComponent<Image>().color = Color.gray;
+                m_CraftBow.GetComponent<Image>().color = Color.gray;
                 break;
             default:
                 break;
@@ -313,31 +245,39 @@ public class CraftingSystem : MonoBehaviour
     #endregion
 
     #region public Function
-    public void Sword()
+    public void Bow()
     {
-        m_CraftingType = ECraftingType.SWORD;
-        CraftItem();
-    }
-    public void Shield()
-    {
-        m_CraftingType = ECraftingType.SHIELD;
+        m_CraftingType = ECraftingType.BOW;
+        m_Source.clip = m_BowClip;
+        m_Source.Play();
         CraftItem();
     }
     public void Helmet()
     {
         m_CraftingType = ECraftingType.HELMET;
+        m_Source.clip = m_Smith;
+        m_Source.Play();
         CraftItem();
     }
     public void Plate()
     {
         m_CraftingType = ECraftingType.PLATE;
+        m_Source.clip = m_Smith;
+        m_Source.Play();
         CraftItem();
     }
     public void Boots()
     {
         m_CraftingType = ECraftingType.BOOTS;
+        m_Source.clip = m_Smith;
+        m_Source.Play();
         CraftItem();
     }
+    public void Exit()
+    {
+        IsCrafting = false;
+    }
+
     #endregion
 
     #region Private Functions
@@ -352,13 +292,9 @@ public class CraftingSystem : MonoBehaviour
 
         switch (m_CraftingType)
         {
-            case ECraftingType.SWORD:
-                NewUpgrade = Upgrade(m_CraftingType, Inventory.Instance.Sword);
-                Inventory.Instance.Sword = NewUpgrade;
-                break;
-            case ECraftingType.SHIELD:
-                NewUpgrade = Upgrade(m_CraftingType, Inventory.Instance.Shield);
-                Inventory.Instance.Shield = NewUpgrade;
+            case ECraftingType.BOW:
+                NewUpgrade = Upgrade(m_CraftingType, Inventory.Instance.Bow);
+                Inventory.Instance.Bow = NewUpgrade;
                 break;
             case ECraftingType.HELMET:
                 NewUpgrade = Upgrade(m_CraftingType, Inventory.Instance.Helmet);
@@ -495,119 +431,64 @@ public class CraftingSystem : MonoBehaviour
                     break;
             }
         }
-        else if (_Type == ECraftingType.SWORD || _Type == ECraftingType.SHIELD)
+        else if (_Type == ECraftingType.BOW)
         {
             switch (_CurrentUpgrade)
             {
                 case EPlayerUpgrade.NONE:
-                    if (_Type == ECraftingType.SWORD)
+                    if (_Type == ECraftingType.BOW)
                     {
-                        if (Inventory.Instance.Wood >= m_SwordWoodPrice)
+                        if (Inventory.Instance.Wood >= m_BowWoodPrice)
                         {
-                            Inventory.Instance.Wood -= m_SwordWoodPrice;
+                            Inventory.Instance.Wood -= m_BowWoodPrice;
 
-                            m_SwordWoodPrice = m_WoodPrice * 2;
-                            m_SwordStonePrice = m_StonePrice * 3;
+                            m_BowWoodPrice = m_WoodPrice * 6;
 
                             m_NotificationText.text = "";
 
                             _CurrentUpgrade = EPlayerUpgrade.WOOD;
                         }
-                        else if (Inventory.Instance.Wood < m_SwordWoodPrice)
+                        else if (Inventory.Instance.Wood < m_BowWoodPrice)
                         {
                             m_NotificationText.text = "Not Enough Resources.";
                         }
 
-                    }
-                    else if (_Type == ECraftingType.SHIELD)
-                    {
-                        if (Inventory.Instance.Wood >= m_ShieldWoodPrice)
-                        {
-                            Inventory.Instance.Wood -= m_ShieldWoodPrice;
-
-                            m_ShieldWoodPrice = m_WoodPrice * 2;
-                            m_ShieldStonePrice = m_StonePrice * 3;
-
-                            _CurrentUpgrade = EPlayerUpgrade.WOOD;
-
-                            m_NotificationText.text = "";
-                        }
-                        else if (Inventory.Instance.Wood < m_ShieldWoodPrice)
-                        {
-                            m_NotificationText.text = "Not Enough Resources.";
-                        }
                     }
                     break;
                 case EPlayerUpgrade.WOOD:
-                    if (_Type == ECraftingType.SWORD)
+                    if (_Type == ECraftingType.BOW)
                     {
-                        if (Inventory.Instance.Wood >= m_SwordWoodPrice && Inventory.Instance.Stone >= m_SwordStonePrice)
+                        if (Inventory.Instance.Wood >= m_BowWoodPrice)
                         {
-                            Inventory.Instance.Wood -= m_SwordWoodPrice;
-                            Inventory.Instance.Stone -= m_SwordStonePrice;
+                            Inventory.Instance.Wood -= m_BowWoodPrice;
+                            PlayerBehaviour.Instance.ShootTimer -= 1.5f;
 
-                            m_SwordWoodPrice = m_WoodPrice * 2;
-                            m_SwordIronPrice = m_IronPrice * 3;
+                            m_BowWoodPrice = m_WoodPrice * 8;
 
                             m_NotificationText.text = "";
 
                             _CurrentUpgrade = EPlayerUpgrade.STONE;
                         }
-                        else if (Inventory.Instance.Wood < m_SwordWoodPrice || Inventory.Instance.Stone < m_SwordStonePrice)
-                        {
-                            m_NotificationText.text = "Not Enough Resources.";
-                        }
-                    }
-                    else if (_Type == ECraftingType.SHIELD)
-                    {
-                        if (Inventory.Instance.Wood >= m_ShieldWoodPrice && Inventory.Instance.Stone >= m_ShieldStonePrice)
-                        {
-                            Inventory.Instance.Wood -= m_ShieldWoodPrice;
-                            Inventory.Instance.Stone -= m_ShieldStonePrice;
-
-                            m_ShieldWoodPrice = m_WoodPrice;
-                            m_ShieldStonePrice = m_StonePrice * 2;
-                            m_ShieldIronPrice = m_IronPrice * 3;
-
-                            _CurrentUpgrade = EPlayerUpgrade.STONE;
-                        }
-                        else if (Inventory.Instance.Wood < m_ShieldWoodPrice || Inventory.Instance.Stone < m_ShieldStonePrice)
+                        else if (Inventory.Instance.Wood < m_BowWoodPrice)
                         {
                             m_NotificationText.text = "Not Enough Resources.";
                         }
                     }
                     break;
                 case EPlayerUpgrade.STONE:
-                    if (_Type == ECraftingType.SWORD)
+                    if (_Type == ECraftingType.BOW)
                     {
-                        if (Inventory.Instance.Wood >= m_SwordWoodPrice && Inventory.Instance.Iron >= m_SwordIronPrice)
+                        if (Inventory.Instance.Wood >= m_BowWoodPrice)
                         {
-                            Inventory.Instance.Wood -= m_SwordWoodPrice;
-                            Inventory.Instance.Iron -= m_SwordIronPrice;
+                            Inventory.Instance.Wood -= m_BowWoodPrice;
+                            PlayerBehaviour.Instance.ShootTimer -= 1.5f;
 
                             m_NotificationText.text = "";
-                            m_CraftSwordText.text = "Max upgrade reached.";
+                            m_CraftBowText.text = "Max upgrade reached.";
 
                             _CurrentUpgrade = EPlayerUpgrade.IRON;
                         }
-                        else if (Inventory.Instance.Wood < m_SwordWoodPrice || Inventory.Instance.Iron < m_SwordIronPrice)
-                        {
-                            m_NotificationText.text = "Not Enough Resources.";
-                        }
-                    }
-                    else if (_Type == ECraftingType.SHIELD)
-                    {
-                        if (Inventory.Instance.Wood >= m_ShieldWoodPrice && Inventory.Instance.Stone >= m_ShieldStonePrice && Inventory.Instance.Iron >= m_ShieldIronPrice)
-                        {
-                            Inventory.Instance.Wood -= m_ShieldWoodPrice;
-                            Inventory.Instance.Stone -= m_ShieldStonePrice;
-                            Inventory.Instance.Iron -= m_ShieldIronPrice;
-
-                            m_CraftShieldText.text = "Max upgrade reached.";
-
-                            _CurrentUpgrade = EPlayerUpgrade.IRON;
-                        }
-                        else if (Inventory.Instance.Wood < m_ShieldWoodPrice)
+                        else if (Inventory.Instance.Wood < m_BowWoodPrice)
                         {
                             m_NotificationText.text = "Not Enough Resources.";
                         }

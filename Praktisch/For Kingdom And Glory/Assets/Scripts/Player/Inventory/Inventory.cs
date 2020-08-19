@@ -29,8 +29,8 @@ public class Inventory : MonoBehaviour
     #endregion
 
     #region private Variables
-    private EPlayerUpgrade m_Sword;
-    private EPlayerUpgrade m_Shield;
+    [SerializeField]
+    private EPlayerUpgrade m_Bow;
     private EPlayerUpgrade m_Helmet;
     private EPlayerUpgrade m_Plate;
     private EPlayerUpgrade m_Boots;
@@ -55,13 +55,9 @@ public class Inventory : MonoBehaviour
     /// </summary>
     public int Iron { get => m_Iron; set => m_Iron = value; }
     /// <summary>
-    /// Player Sword
+    /// 
     /// </summary>
-    public EPlayerUpgrade Sword { get => m_Sword; set => m_Sword = value; }
-    /// <summary>
-    /// Player Shield
-    /// </summary>
-    public EPlayerUpgrade Shield { get => m_Shield; set => m_Shield = value; }
+    public EPlayerUpgrade Bow { get => m_Bow; set => m_Bow = value; }
     /// <summary>
     /// Player Helmet
     /// </summary>
@@ -78,17 +74,17 @@ public class Inventory : MonoBehaviour
     /// 
     /// </summary>
     public bool ShowUI { get => m_ShowUI; set => m_ShowUI = value; }
+    
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
         // Set Everything at the beginning to None
-        m_Sword = EPlayerUpgrade.NONE;
-        m_Shield = EPlayerUpgrade.NONE;
-        m_Helmet = EPlayerUpgrade.NONE;
-        m_Plate = EPlayerUpgrade.NONE;
-        m_Boots = EPlayerUpgrade.NONE;
+        Bow = EPlayerUpgrade.NONE;
+        Helmet = EPlayerUpgrade.NONE;
+        Plate = EPlayerUpgrade.NONE;
+        Boots = EPlayerUpgrade.NONE;
 
         Instance = this;
     }

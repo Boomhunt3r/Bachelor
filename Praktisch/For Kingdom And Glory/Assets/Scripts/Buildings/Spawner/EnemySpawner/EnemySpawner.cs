@@ -168,7 +168,6 @@ public class EnemySpawner : MonoBehaviour
         VagrantBehaviour.Instance.RemoveSpawner();
 
         GameManager.Instance.RemoveSpawnerFromList(m_Side, this.gameObject);
-        GameManager.Instance.RevengeAttack = true;
 
         Destroy(this.gameObject);
     } 
@@ -177,9 +176,6 @@ public class EnemySpawner : MonoBehaviour
     #region Public Functions
     public void ReceiveDamage(int _Amount)
     {
-        if (!m_UnderAttack)
-            m_UnderAttack = true;
-
         m_CurrentHealth -= _Amount;
 
         m_DamageTimer = 0.0f;

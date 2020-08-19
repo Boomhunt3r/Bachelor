@@ -5,6 +5,7 @@ public class PlayerBehaviour : MonoBehaviour
     public static PlayerBehaviour Instance { get; private set; }
 
     #region SerzializeField
+    [Header("Player Settings")]
     [SerializeField]
     private float m_MovementSpeed = 5.0f;
     [SerializeField]
@@ -12,16 +13,25 @@ public class PlayerBehaviour : MonoBehaviour
     private int m_Health = 50;
     [SerializeField]
     private Transform m_Sprite;
+    [Header("Coin Settings")]
+    [SerializeField]
+    private GameObject m_CoinPrefab;
     [SerializeField]
     private Transform m_CoinSpawnRight;
     [SerializeField]
     private Transform m_CoinSpawnLeft;
-    [SerializeField]
-    private GameObject m_CoinPrefab;
+    [Header("Bow Settings")]
     [SerializeField]
     private GameObject m_Arrow;
     [SerializeField]
     private Transform m_ThrowPoint;
+    [Header("Audio Setting")]
+    [SerializeField]
+    private AudioSource m_EffectSource;
+    [SerializeField]
+    private AudioSource m_Source;
+    [SerializeField]
+    private AudioClip[] m_BowClips;
     #endregion
 
     #region private Variables
@@ -29,9 +39,15 @@ public class PlayerBehaviour : MonoBehaviour
 
     private SpriteRenderer m_Render;
 
+    private GameObject m_WallObj;
+
     private Vector2 m_PrevDirec;
 
-    private float m_ShootTimer = 3.0f;
+    private int m_BowClip = 0;
+
+    private int m_Armor;
+
+    private float m_ShootTimer = 4.5f;
 
     private float m_Timer = 0.0f;
 
@@ -60,7 +76,13 @@ public class PlayerBehaviour : MonoBehaviour
     public bool CanCraft { get => m_CanCraft; set => m_CanCraft = value; }
     public bool CanTown { get => m_CanTown; set => m_CanTown = value; }
     public float ShootTimer { get => m_ShootTimer; set => m_ShootTimer = value; }
+    public int Armor { get => m_Armor; set => m_Armor = value; }
     #endregion
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -68,24 +90,30 @@ public class PlayerBehaviour : MonoBehaviour
         m_Rigid = GetComponent<Rigidbody2D>();
         m_Render = GetComponentInChildren<SpriteRenderer>();
 
-        Instance = this;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 Dir = Input.GetAxis("Horizontal") * Vector2.right * m_MovementSpeed * Time.deltaTime;
-        m_Rigid.velocity = Dir;
+        Vector2 Dir = Input.GetAxis("Horizontal") * Vector2.right * m_MovementSpeed;
+        m_Rigid.velocity = Dir * Time.deltaTime;
+
+        Debug.Log(ShootTimer);
 
         if (Dir.x > 0.0f)
         {
             m_Sprite.localScale = new Vector3(-1f, 1f, 1f);
             m_PrevDirec = new Vector2(1f, 1f);
+            if (!m_Source.isPlaying)
+                m_Source.Play();
         }
         else if (Dir.x < 0.0f)
         {
             m_Sprite.localScale = new Vector3(1f, 1f, 1f);
             m_PrevDirec = new Vector2(-1f, 1f);
+            if (!m_Source.isPlaying)
+                m_Source.Play();
         }
 
         if (Input.GetKeyUp(KeyCode.S))
@@ -106,14 +134,20 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            if(m_Timer >= ShootTimer)
+            if (m_Timer >= ShootTimer)
             {
+                if (m_BowClip > m_BowClips.Length - 1)
+                    m_BowClip = 0;
+
+                m_EffectSource.clip = m_BowClips[m_BowClip];
                 Shoot(m_PrevDirec);
+                m_BowClip++;
             }
         }
 
+        #region MyRegion
         if (CanBuild || CanBuyBows || CanCraft || CanTown)
         {
             if (Input.GetKeyDown(KeyCode.E))
@@ -122,12 +156,14 @@ public class PlayerBehaviour : MonoBehaviour
                 {
                     if (m_IsBuilding == false)
                     {
-                        Wall.Instance.Build = true;
+                        m_WallObj.GetComponent<Wall>().Build = true;
+                        Debug.Log(m_WallObj.name + ": " + m_WallObj.GetComponent<Wall>().Build);
                         m_IsBuilding = true;
                     }
                     else if (m_IsBuilding == true)
                     {
-                        Wall.Instance.Build = false;
+                        m_WallObj.GetComponent<Wall>().Build = false;
+                        Debug.Log(m_WallObj.name + ": " + m_WallObj.GetComponent<Wall>().Build);
                         m_IsBuilding = false;
                     }
                 }
@@ -157,7 +193,7 @@ public class PlayerBehaviour : MonoBehaviour
                         m_IsCrafting = false;
                     }
                 }
-                else if(CanTown)
+                else if (CanTown)
                 {
                     if (m_IsTown == false)
                     {
@@ -172,6 +208,7 @@ public class PlayerBehaviour : MonoBehaviour
                 }
             }
         }
+        #endregion
 
         m_Timer += Time.deltaTime;
     }
@@ -202,6 +239,8 @@ public class PlayerBehaviour : MonoBehaviour
         GameObject Arrow = Instantiate(m_Arrow, m_ThrowPoint.position, Quaternion.Euler(new Vector3(0, 0, 0)));
         Arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(XVelo, YVelo);
 
+        m_EffectSource.Play();
+
         m_Timer = 0.0f;
     }
     #endregion
@@ -211,21 +250,51 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Coin"))
         {
-            VagrantBehaviour.Instance.RemoveCoin();
-            Destroy(collision.gameObject);
-            Inventory.Instance.Coins++;
+            if (GameManager.Instance.SpawnedVagrants.Count == 0)
+            {
+                Destroy(collision.gameObject);
+                Inventory.Instance.Coins++;
+                return;
+            }
+            else
+            {
+                for (int i = 0; i < GameManager.Instance.SpawnedVagrants.Count; i++)
+                {
+                    GameManager.Instance.SpawnedVagrants[i].GetComponent<VagrantBehaviour>().RemoveCoin(collision.gameObject);
+                }
+                Destroy(collision.gameObject);
+                Inventory.Instance.Coins++;
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Wall"))
+        {
+            m_WallObj = collision.gameObject;
+            WallManager.Instance.WallObj = collision.gameObject;
         }
     }
     #endregion
 
+    #region public functions
     public void GetDamage(int _Amount)
     {
-        m_Health -= _Amount;
+        if (Armor <= 0)
+        {
+            m_Health -= _Amount;
+        }
+        else
+        {
+            Armor -= _Amount;
+        }
 
-        if(m_Health >= 0)
+        if (m_Health >= 0)
         {
             GameManager.Instance.IsAlive = false;
         }
     }
+    #endregion
 
 }

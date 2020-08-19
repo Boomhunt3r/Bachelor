@@ -19,6 +19,7 @@ public class VagrantSpawner : MonoBehaviour
     #region private Virables
     private float m_Timer = 0.0f;
     private bool m_CanSpawn = true;
+    private GameObject m_Vagrant;
     #endregion
 
     // Update is called once per frame
@@ -32,7 +33,8 @@ public class VagrantSpawner : MonoBehaviour
         {
             for (int i = 0; i < m_VagrantToSpawn; i++)
             {
-                Instantiate(m_VagrantPrefab, new Vector3(this.gameObject.transform.position.x, 0.0f, 0.15f), Quaternion.identity);
+                m_Vagrant = Instantiate(m_VagrantPrefab, new Vector3(this.gameObject.transform.position.x, 0.0f, 0.15f), Quaternion.identity);
+                GameManager.Instance.SpawnedVagrants.Add(m_Vagrant);
             }
             m_Timer = 0.0f;
         }
@@ -61,6 +63,6 @@ public class VagrantSpawner : MonoBehaviour
         {
             m_CanSpawn = true;
         }
-    } 
+    }
     #endregion
 }

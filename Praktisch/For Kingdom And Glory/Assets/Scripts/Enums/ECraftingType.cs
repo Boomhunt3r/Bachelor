@@ -2,6 +2,7 @@
 {
     NONE,
     SWORD,
+    BOW,
     SHIELD,
     HELMET,
     PLATE,

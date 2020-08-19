@@ -81,7 +81,7 @@ public partial class VagrantBehaviour : MonoBehaviour
 
             if (!m_IsDefending)
             {
-                m_Target = GetClosestTarget(m_BuildWalls);
+                m_Target = GetClosestWall(m_BuildWalls);
                 m_CurrentSpawner = m_Target;
 
                 m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
@@ -104,6 +104,30 @@ public partial class VagrantBehaviour : MonoBehaviour
 
     }
     private GameObject GetClosestTarget(List<GameObject> _Target)
+    {
+        GameObject Target = null;
+        float MinDist = Mathf.Infinity;
+        Vector2 CurrentPos = transform.position;
+        float Dist = 0.0f;
+
+        for (int i = 0; i < _Target.Count; i++)
+        {
+            if (_Target[i].GetComponent<Wall>().Building == EBuildingUpgrade.NONE)
+                continue;
+
+            Dist = Vector2.Distance(_Target[i].transform.position, CurrentPos);
+
+            if (Dist < MinDist)
+            {
+                Target = _Target[i];
+                MinDist = Dist;
+            }
+        }
+
+        return Target;
+    }
+
+    private GameObject GetClosestWall(List<GameObject> _Target)
     {
         GameObject Target = null;
         float MinDist = Mathf.Infinity;

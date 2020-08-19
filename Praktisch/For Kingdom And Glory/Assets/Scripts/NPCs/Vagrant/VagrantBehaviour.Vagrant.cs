@@ -67,8 +67,14 @@ public partial class VagrantBehaviour : MonoBehaviour
         return Target;
     }
 
-    public void RemoveCoin()
+    public void RemoveCoin(GameObject _Coin)
     {
-        m_Coins.Remove(m_Coin);
+        for (int i = 0; i < m_Coins.Count; i++)
+        {
+            if(_Coin == m_Coins[i])
+            {
+                m_Coins.Remove(_Coin);
+            }
+        }
     }
 }

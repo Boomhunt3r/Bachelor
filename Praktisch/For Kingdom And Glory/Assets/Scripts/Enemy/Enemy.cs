@@ -138,15 +138,16 @@ public class Enemy : MonoBehaviour
 
         for (int i = 0; i < _Target.Count; i++)
         {
+
+            if (_Target[i].GetComponent<Wall>().Building == EBuildingUpgrade.NONE)
+                continue;
+
             Dist = Vector2.Distance(_Target[i].transform.position, CurrentPos);
 
-            if(_Target[i].GetComponent<Wall>().IsActive == true)
+            if (Dist < MinDist)
             {
-                if (Dist < MinDist)
-                {
-                    Target = _Target[i];
-                    MinDist = Dist;
-                }
+                Target = _Target[i];
+                MinDist = Dist;
             }
         }
 

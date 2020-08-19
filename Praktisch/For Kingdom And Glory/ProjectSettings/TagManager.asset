@@ -21,6 +21,7 @@ TagManager:
   - Enemy
   - Graphs
   - EnemySpawner
+  - Ground
   layers:
   - Default
   - TransparentFX

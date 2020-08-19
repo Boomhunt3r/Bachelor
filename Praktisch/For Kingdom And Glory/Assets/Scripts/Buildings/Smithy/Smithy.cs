@@ -10,32 +10,19 @@ public class Smithy : MonoBehaviour
 
     #region SerializeField
     [SerializeField]
-    private GameObject m_SmithyUI;
+    private GameObject m_OuterWall;
     [SerializeField]
-    private Slider m_PaySlider;
-    [SerializeField]
-    private TextMeshProUGUI m_SliderText;
-    [SerializeField]
-    private TextMeshProUGUI m_NotificationText;
-    #endregion
-
-    #region private Variables
-    private EBuildingUpgrade m_Building;
+    private GameObject m_CraftingUI;
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        m_Building = EBuildingUpgrade.NONE;
-
-        m_SmithyUI.SetActive(false);
-
         Instance = this;
     }
 
     // Update is called once per frame
     void Update()
     {
-
     }
 }

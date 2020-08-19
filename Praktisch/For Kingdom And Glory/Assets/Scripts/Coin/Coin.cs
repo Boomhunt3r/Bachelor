@@ -1,20 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
     #region private Variables
     private Rigidbody2D m_Rigid;
+    private AudioSource m_Source;
     #endregion
     // Start is called before the first frame update
     void Start()
     {
         m_Rigid = GetComponent<Rigidbody2D>();
+        m_Source = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // TODO: Sound, Tag for Ground
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            m_Source.Play();
+        }
     }
 }

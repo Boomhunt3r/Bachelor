@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
     private List<GameObject> m_EnemySpawnerLeftSide = new List<GameObject>();
     private List<GameObject> m_EnemySpawnerRightSide = new List<GameObject>();
     private List<GameObject> m_AllSpawnedEnemys = new List<GameObject>();
+    private List<GameObject> m_SpawnedVagrants = new List<GameObject>();
     #endregion
 
     #region Properties
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour
     public bool RevengeAttack { get => m_RevengeAttack; set => m_RevengeAttack = value; }
     public EGameSetting Setting { get => m_Setting; set => m_Setting = value; }
     public List<GameObject> AllSpawnedEnemys { get => m_AllSpawnedEnemys; set => m_AllSpawnedEnemys = value; }
+    public List<GameObject> SpawnedVagrants { get => m_SpawnedVagrants; set => m_SpawnedVagrants = value; }
     #endregion
 
     private void Awake()

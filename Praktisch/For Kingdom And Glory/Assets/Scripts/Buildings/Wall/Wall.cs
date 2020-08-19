@@ -12,23 +12,20 @@ public class Wall : MonoBehaviour
     [SerializeField]
     private EBuildingUpgrade m_Building;
     [SerializeField]
-    private int m_CurrentUpgradeCost = 0;
-    [SerializeField]
-    private float m_MaxHitPoints = 50;
+    private float m_MaxHitPoints = 25;
     [SerializeField]
     private Sprite[] m_Sprites;
     [SerializeField]
     private GameObject m_BuildUI;
-    [SerializeField]
-    private Slider m_PaySlider;
-    [SerializeField]
-    private TextMeshProUGUI m_SliderText;
-    [SerializeField]
-    private TextMeshProUGUI m_Text;
     #endregion
 
     #region private Variables
+    private GameObject m_WallObj;
     private SpriteRenderer m_Renderer;
+    private int m_CoinCost  = 0;
+    private int m_WoodCost  = 0;
+    private int m_StoneCost = 0;
+    private int m_IronCost  = 0;
     private float m_Timer = 0.0f;
     private float m_MaxTimer = 1.5f;
     [SerializeField]
@@ -48,27 +45,28 @@ public class Wall : MonoBehaviour
     #endregion
 
     #region MyRegion
-    public bool Build { get => m_Build; set => m_Build = value; }
+    public bool Build { get => m_Build; set{ m_Build = value; m_BuildUI.SetActive(m_Build); } }
     public float MaxHitPoints { get => m_MaxHitPoints; set => m_MaxHitPoints = value; }
     public float CurrentHitPoints { get => m_CurrentHitPoints; set => m_CurrentHitPoints = value; }
     public EBuildingUpgrade Building { get => m_Building; set => m_Building = value; }
     public bool IsActive { get => m_isActive; set => m_isActive = value; }
+    public GameObject WallObj { get => m_WallObj; set => m_WallObj = value; }
+    public int CoinCost { get => m_CoinCost; set => m_CoinCost = value; }
+    public int WoodCost { get => m_WoodCost; set => m_WoodCost = value; }
+    public int StoneCost { get => m_StoneCost; set => m_StoneCost = value; }
+    public int IronCost { get => m_IronCost; set => m_IronCost = value; }
     #endregion
 
     // Start is called before the first frame update
     #region Unity Functions
     void Start()
     {
-        // Set Current Cost to Cost per Upgrade
-        m_CurrentUpgradeCost = m_CostPerUpgrade;
         // Deactivate UI
         m_BuildUI.SetActive(false);
-        // Slider maxValue = UpgradeCost
-        m_PaySlider.maxValue = m_CurrentUpgradeCost;
+        // Set Resource Cost for first State
+        CoinCost = 2;
         // At Start not Build so None
         m_Building = EBuildingUpgrade.NONE;
-        // Set Slider text
-        m_SliderText.text = $"0 / {m_PaySlider.maxValue}";
         // Get Sprite Renderer
         m_Renderer = GetComponent<SpriteRenderer>();
 
@@ -77,12 +75,6 @@ public class Wall : MonoBehaviour
 
     void Update()
     {
-        // Open Function with Current Bool status
-        ShowUI(Build);
-
-        if (!IsActive)
-            return;
-
         if (m_BuilderBuilding)
         {
             if (m_BeingBuild)
@@ -103,80 +95,86 @@ public class Wall : MonoBehaviour
     /// <summary>
     /// Upgrade Building Funcrion
     /// </summary>
-    private void UpgradeBuilding()
+    public void UpgradeBuilding()
     {
         switch (m_Building)
         {
             // Status None
             case EBuildingUpgrade.NONE:
-                // Increase Upgrade Cost
-                m_CurrentUpgradeCost += m_CostPerUpgrade;
-                // Reset Slider Handle to 0
-                m_PaySlider.value = 0;
-                // Increase Max Value
-                m_PaySlider.maxValue = m_CurrentUpgradeCost;
-                // Update Slider Text to new MaxValue
-                m_SliderText.text = $"0 / {m_PaySlider.maxValue}";
                 // Increase Max Timer
                 m_MaxTimer = 2.5f;
                 // Set HP for Wall
                 m_CurrentHitPoints = m_MaxHitPoints;
-                // Set to next Upgrade Level
-                m_Building = EBuildingUpgrade.WOOD;
+                // Set new Resource Cost
+                CoinCost = 4;
+                WoodCost = 6;
                 // Set Renderer
                 m_Renderer.color = Color.blue;
-                // Set Active True
-                IsActive = true;
+                // Set to next Upgrade Level
+                m_Building = EBuildingUpgrade.PILE;
+                break;
+                // Status Pile
+            case EBuildingUpgrade.PILE:
+                // Increase Max Timer
+                m_MaxTimer = 2.5f;
+                // Set HP for Wall
+                m_CurrentHitPoints = m_MaxHitPoints * 2;
+                // Set new Resource Cost
+                CoinCost = 6;
+                WoodCost = 2;
+                StoneCost = 6;
+                // Set to next Upgrade Level
+                m_Building = EBuildingUpgrade.WOOD;
                 break;
             // Status Wood
             case EBuildingUpgrade.WOOD:
-                m_CurrentUpgradeCost += m_CostPerUpgrade;
-                m_PaySlider.value = 0;
-                m_PaySlider.maxValue = m_CurrentUpgradeCost;
-                m_SliderText.text = $"0 / {m_PaySlider.maxValue}";
                 m_MaxTimer = 7.5f;
-                m_CurrentHitPoints = m_MaxHitPoints * 2;
-                m_MaxHitPoints = m_MaxHitPoints * 2;
+                m_CurrentHitPoints = m_MaxHitPoints * 3;
+                CoinCost = 10;
+                StoneCost = 4;
+                IronCost = 6;
                 m_Building = EBuildingUpgrade.STONE;
-
                 break;
             // Status Stone
             case EBuildingUpgrade.STONE:
-                m_CurrentUpgradeCost += m_CostPerUpgrade;
-                m_PaySlider.value = 0;
-                m_PaySlider.maxValue = m_CurrentUpgradeCost;
-                m_SliderText.text = $"0 / {m_PaySlider.maxValue}";
                 m_MaxTimer = 10.0f;
-                m_CurrentHitPoints = m_MaxHitPoints * 3;
-                m_MaxHitPoints = m_MaxHitPoints * 3;
+                m_CurrentHitPoints = m_MaxHitPoints * 4;
                 m_Building = EBuildingUpgrade.IRON;
-
                 break;
             case EBuildingUpgrade.IRON:
-                m_PaySlider.value = 0;
                 break;
             default:
                 break;
         }
     }
 
-    /// <summary>
-    /// Remove Coins Function
-    /// </summary>
-    /// <param name="_Amount">Amount Removed from Inventory</param>
-    private void RemoveCoins(int _Amount)
+    private void DownGrade()
     {
-        Inventory.Instance.Coins -= _Amount;
+        m_CurrentHitPoints = 0;
+
+        m_Renderer.color = Color.red;
+
+        Building = EBuildingUpgrade.NONE;
+    }
+    #endregion
+
+    #region public functions
+    public void GetDamage(int _Damage)
+    {
+        m_CurrentHitPoints -= _Damage;
+
+        if(m_CurrentHitPoints <= 0)
+        {
+            DownGrade();
+            Enemy.Instance.RemoveWallFromList();
+        }
     }
 
-    /// <summary>
-    /// ShowUI function
-    /// </summary>
-    /// <param name="_Build">boolean to show or hide</param>
-    private void ShowUI(bool _Build)
+    public void GetHealth(int _Health)
     {
-        m_BuildUI.SetActive(_Build);
+        m_CurrentHitPoints += _Health;
     }
+    #endregion
 
     #region Collision
     private void OnTriggerEnter2D(Collider2D collision)
@@ -212,7 +210,6 @@ public class Wall : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             PlayerBehaviour.Instance.CanBuild = false;
-            m_PaySlider.value = 0;
             Build = false;
         }
         if (collision.CompareTag("Builder"))
@@ -223,58 +220,4 @@ public class Wall : MonoBehaviour
     }
     #endregion
 
-    #endregion
-
-    #region public functions
-    public void GetDamage(int _Damage)
-    {
-        m_CurrentHitPoints -= _Damage;
-
-        if(m_CurrentHitPoints <= 0)
-        {
-            this.gameObject.SetActive(false);
-            Enemy.Instance.RemoveWallFromList();
-        }
-    }
-
-    public void GetHealth(int _Health)
-    {
-        m_CurrentHitPoints += _Health;
-    }
-    #endregion
-
-    #region UI Functions
-    public void BuildButton()
-    {
-        if (m_PaySlider.value == m_CurrentUpgradeCost && m_PaySlider.value <= Inventory.Instance.Coins)
-        {
-            if (m_Building == EBuildingUpgrade.IRON)
-            {
-                m_Text.text = "Highest Upgrade Reached";
-                Build = false;
-                m_PaySlider.value = 0;
-                return;
-            }
-            m_Text.text = "";
-            m_BeingBuild = true;
-            RemoveCoins((int)m_PaySlider.value);
-            UpgradeBuilding();
-            Build = false;
-        }
-        else if (m_PaySlider.value != m_CurrentUpgradeCost && m_Building != EBuildingUpgrade.IRON || Inventory.Instance.Coins <= m_PaySlider.value)
-        {
-            m_Payed = false;
-            m_Text.text = "Not enough Coins!";
-        }
-    }
-    public void UpdateText()
-    {
-        m_SliderText.text = $"{m_PaySlider.value} / {m_PaySlider.maxValue}";
-    }
-
-    public void ExitButton()
-    {
-        Build = false;
-    }
-    #endregion
 }

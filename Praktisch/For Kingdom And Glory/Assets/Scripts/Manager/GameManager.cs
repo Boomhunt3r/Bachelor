@@ -19,7 +19,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Transform[] m_EnemySpawnerPos;
     [SerializeField]
-    private Transform[] m_VagrantSpawnerPos;
+    private GameObject[] m_LeftCollider;
+    [SerializeField]
+    private GameObject[] m_RightCollider;
 
     [Header("Prefabs")]
     [SerializeField]
@@ -41,6 +43,7 @@ public class GameManager : MonoBehaviour
     private int m_DayCount = 0;
     private bool m_IsDay = true;
     private bool m_IsNight = false;
+    private bool m_AlmostNight = false;
     private bool m_IsAlive = true;
     private bool m_RevengeAttack = false;
     private EGameSetting m_Setting;
@@ -60,6 +63,9 @@ public class GameManager : MonoBehaviour
     public EGameSetting Setting { get => m_Setting; set => m_Setting = value; }
     public List<GameObject> AllSpawnedEnemys { get => m_AllSpawnedEnemys; set => m_AllSpawnedEnemys = value; }
     public List<GameObject> SpawnedVagrants { get => m_SpawnedVagrants; set => m_SpawnedVagrants = value; }
+    public bool AlmostNight { get => m_AlmostNight; set => m_AlmostNight = value; }
+    public List<GameObject> EnemySpawnerLeftSide { get => m_EnemySpawnerLeftSide; set => m_EnemySpawnerLeftSide = value; }
+    public List<GameObject> EnemySpawnerRightSide { get => m_EnemySpawnerRightSide; set => m_EnemySpawnerRightSide = value; }
     #endregion
 
     private void Awake()
@@ -85,12 +91,6 @@ public class GameManager : MonoBehaviour
 
         m_Timer += Time.deltaTime;
 
-        if (RevengeAttack)
-        {
-            IsDay = false;
-            IsNight = true;
-        }
-
         if (IsDay)
         {
             if(m_AllSpawnedEnemys.Count != 0)
@@ -101,9 +101,15 @@ public class GameManager : MonoBehaviour
                 }
             }
             
+            if(m_Timer >= m_DayLength - 20)
+            {
+                m_AlmostNight = true;
+            }
+
             if (m_Timer >= m_DayLength)
             {
                 IsDay = false;
+                m_AlmostNight = false;
                 IsNight = true;
                 m_Timer = 0.0f;
             }
@@ -112,6 +118,7 @@ public class GameManager : MonoBehaviour
         {
             if (m_Timer >= m_NightLength)
             {
+                m_AlmostNight = false;
                 IsNight = false;
                 IsDay = true;
                 m_DayCount++;
@@ -168,7 +175,10 @@ public class GameManager : MonoBehaviour
 
                     m_EnemySpawnerRightSide.Add(Spawner);
                 }
-
+                m_LeftCollider[1].SetActive(false);
+                m_LeftCollider[2].SetActive(false);
+                m_RightCollider[1].SetActive(false);
+                m_RightCollider[2].SetActive(false);
                 break;
             case EGameSetting.MEDUIM:
                 m_EnemySpawner = 4;
@@ -197,6 +207,11 @@ public class GameManager : MonoBehaviour
                         Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
 
                     m_EnemySpawnerRightSide.Add(Spawner);
+                    m_LeftCollider[0].SetActive(false);
+                    m_LeftCollider[2].SetActive(false);
+                    m_RightCollider[0].SetActive(false);
+                    m_RightCollider[2].SetActive(false);
+
                 }
 
                 break;
@@ -228,7 +243,10 @@ public class GameManager : MonoBehaviour
 
                     m_EnemySpawnerRightSide.Add(Spawner);
                 }
-
+                m_LeftCollider[0].SetActive(false);
+                m_LeftCollider[1].SetActive(false);
+                m_RightCollider[0].SetActive(false);
+                m_RightCollider[1].SetActive(false);
                 break;
             default:
                 Debug.LogWarning("Nothing");

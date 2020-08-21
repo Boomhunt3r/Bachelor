@@ -97,7 +97,6 @@ public class Inventory : MonoBehaviour
             return;
 
         UpdateUI();
-
     }
 
     private void UpdateUI()

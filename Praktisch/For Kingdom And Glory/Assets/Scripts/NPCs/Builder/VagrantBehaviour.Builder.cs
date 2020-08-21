@@ -1,15 +1,27 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Linq;
 
 public partial class VagrantBehaviour : MonoBehaviour
 {
+    /// <summary>
+    /// Time Until Next Step
+    /// </summary>
+    private float m_BuildTime = 2.5f;
+    /// <summary>
+    /// Timer
+    /// </summary>
+    private float m_BuildTimer = 0.0f;
+    /// <summary>
+    /// If he's currently Reparing
+    /// </summary>
+    private bool m_CurrentlyReparing = false;
+
     private void Builder()
     {
         m_Render.color = Color.green;
         this.gameObject.tag = "Builder";
 
-        m_BuildWalls = GameObject.FindGameObjectsWithTag("Wall").OfType<GameObject>().ToList();
+        m_BuildWalls = GameObject.FindGameObjectsWithTag("Wall").ToList();
 
         if (m_BuildWalls.Count != 0 || m_BuildWalls != null)
         {
@@ -28,14 +40,25 @@ public partial class VagrantBehaviour : MonoBehaviour
                 }
             }
 
-            else if(m_ReparingWall)
+            else if (m_ReparingWall)
             {
-                if(m_BuildWalls[m_CurrentReparingWall].GetComponent<Wall>().CurrentHitPoints == m_BuildWalls[m_CurrentReparingWall].GetComponent<Wall>().MaxHitPoints)
+                if (m_CurrentlyReparing)
                 {
-                    m_ReparingWall = false;
+                    if(m_BuildTime >= m_BuildTimer)
+                    {
+                        m_BuildWalls[m_CurrentReparingWall].GetComponent<Wall>().GetHealth(5);
+
+                        m_BuildTimer = 0.0f;
+                    }
+
+                    if (m_BuildWalls[m_CurrentReparingWall].GetComponent<Wall>().CurrentHitPoints == m_BuildWalls[m_CurrentReparingWall].GetComponent<Wall>().MaxHitPoints)
+                    {
+                        m_Target = m_Waypoints[0];
+                        m_ReparingWall = false;
+                    }
+
+                    m_BuildTime += Time.deltaTime;
                 }
-
-
             }
         }
     }

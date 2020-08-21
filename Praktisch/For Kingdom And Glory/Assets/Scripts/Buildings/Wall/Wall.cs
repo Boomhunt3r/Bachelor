@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+﻿using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
@@ -17,6 +13,8 @@ public class Wall : MonoBehaviour
     private Sprite[] m_Sprites;
     [SerializeField]
     private GameObject m_BuildUI;
+    [SerializeField]
+    private GameObject m_DefendPoint;
     #endregion
 
     #region private Variables
@@ -55,6 +53,7 @@ public class Wall : MonoBehaviour
     public int WoodCost { get => m_WoodCost; set => m_WoodCost = value; }
     public int StoneCost { get => m_StoneCost; set => m_StoneCost = value; }
     public int IronCost { get => m_IronCost; set => m_IronCost = value; }
+    public GameObject DefendPoint { get => m_DefendPoint; set => m_DefendPoint = value; }
     #endregion
 
     // Start is called before the first frame update

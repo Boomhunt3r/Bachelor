@@ -47,6 +47,12 @@ public class PlayerBehaviour : MonoBehaviour
 
     private int m_Armor;
 
+    private int m_Helmet;
+
+    private int m_Plate;
+
+    private int m_Boots;
+
     private float m_ShootTimer = 4.5f;
 
     private float m_Timer = 0.0f;
@@ -58,6 +64,8 @@ public class PlayerBehaviour : MonoBehaviour
     private bool m_IsBuilding = false;
 
     private bool m_CanBuyBows = false;
+
+    private bool m_CanBuyHammer = false;
 
     private bool m_IsBuing = false;
 
@@ -77,6 +85,9 @@ public class PlayerBehaviour : MonoBehaviour
     public bool CanTown { get => m_CanTown; set => m_CanTown = value; }
     public float ShootTimer { get => m_ShootTimer; set => m_ShootTimer = value; }
     public int Armor { get => m_Armor; set => m_Armor = value; }
+    public AudioSource EffectSource { get => m_EffectSource; set => m_EffectSource = value; }
+    public AudioSource Source { get => m_Source; set => m_Source = value; }
+    public bool CanBuyHammer { get => m_CanBuyHammer; set => m_CanBuyHammer = value; }
     #endregion
 
     private void Awake()
@@ -99,21 +110,19 @@ public class PlayerBehaviour : MonoBehaviour
         Vector2 Dir = Input.GetAxis("Horizontal") * Vector2.right * m_MovementSpeed;
         m_Rigid.velocity = Dir * Time.deltaTime;
 
-        Debug.Log(ShootTimer);
-
         if (Dir.x > 0.0f)
         {
             m_Sprite.localScale = new Vector3(-1f, 1f, 1f);
             m_PrevDirec = new Vector2(1f, 1f);
-            if (!m_Source.isPlaying)
-                m_Source.Play();
+            if (!Source.isPlaying)
+                Source.Play();
         }
         else if (Dir.x < 0.0f)
         {
             m_Sprite.localScale = new Vector3(1f, 1f, 1f);
             m_PrevDirec = new Vector2(-1f, 1f);
-            if (!m_Source.isPlaying)
-                m_Source.Play();
+            if (!Source.isPlaying)
+                Source.Play();
         }
 
         if (Input.GetKeyUp(KeyCode.S))
@@ -136,19 +145,22 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            if (m_Timer >= ShootTimer)
+            if (Inventory.Instance.Bow > EPlayerUpgrade.NONE)
             {
-                if (m_BowClip > m_BowClips.Length - 1)
-                    m_BowClip = 0;
+                if (m_Timer >= ShootTimer)
+                {
+                    if (m_BowClip > m_BowClips.Length - 1)
+                        m_BowClip = 0;
 
-                m_EffectSource.clip = m_BowClips[m_BowClip];
-                Shoot(m_PrevDirec);
-                m_BowClip++;
+                    EffectSource.clip = m_BowClips[m_BowClip];
+                    Shoot(m_PrevDirec);
+                    m_BowClip++;
+                }
             }
         }
 
         #region MyRegion
-        if (CanBuild || CanBuyBows || CanCraft || CanTown)
+        if (CanBuild || CanBuyBows || CanCraft || CanTown || CanBuyHammer)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -157,28 +169,17 @@ public class PlayerBehaviour : MonoBehaviour
                     if (m_IsBuilding == false)
                     {
                         m_WallObj.GetComponent<Wall>().Build = true;
-                        Debug.Log(m_WallObj.name + ": " + m_WallObj.GetComponent<Wall>().Build);
                         m_IsBuilding = true;
                     }
                     else if (m_IsBuilding == true)
                     {
                         m_WallObj.GetComponent<Wall>().Build = false;
-                        Debug.Log(m_WallObj.name + ": " + m_WallObj.GetComponent<Wall>().Build);
                         m_IsBuilding = false;
                     }
                 }
                 else if (CanBuyBows)
                 {
-                    if (m_IsBuing == false)
-                    {
-                        Archery.Instance.Buy = true;
-                        m_IsBuing = true;
-                    }
-                    else if (m_IsBuing == true)
-                    {
-                        Archery.Instance.Buy = false;
-                        m_IsBuing = false;
-                    }
+                    Archery.Instance.AddBowToStand();
                 }
                 else if (CanCraft)
                 {
@@ -205,6 +206,10 @@ public class PlayerBehaviour : MonoBehaviour
                         TownBuilding.Instance.IsActive = false;
                         m_IsTown = false;
                     }
+                }
+                else if(CanBuyHammer)
+                {
+                    BuilderStand.Instance.AddHammerToStand();
                 }
             }
         }
@@ -239,7 +244,7 @@ public class PlayerBehaviour : MonoBehaviour
         GameObject Arrow = Instantiate(m_Arrow, m_ThrowPoint.position, Quaternion.Euler(new Vector3(0, 0, 0)));
         Arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(XVelo, YVelo);
 
-        m_EffectSource.Play();
+        EffectSource.Play();
 
         m_Timer = 0.0f;
     }
@@ -276,6 +281,15 @@ public class PlayerBehaviour : MonoBehaviour
             WallManager.Instance.WallObj = collision.gameObject;
         }
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Wall"))
+        {
+            m_WallObj = null;
+            WallManager.Instance.WallObj = null;
+        }
+    }
     #endregion
 
     #region public functions
@@ -294,6 +308,69 @@ public class PlayerBehaviour : MonoBehaviour
         {
             GameManager.Instance.IsAlive = false;
         }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="_Armor">Armor being Upgraded</param>
+    public void UpgradeArmor(ECraftingType _Armor)
+    {
+        switch (_Armor)
+        {
+            case ECraftingType.HELMET:
+                switch (Inventory.Instance.Helmet)
+                {
+                    case EPlayerUpgrade.NONE:
+                        m_Helmet = 0;
+                        break;
+                    case EPlayerUpgrade.STONE:
+                        m_Helmet = 5;
+                        break;
+                    case EPlayerUpgrade.IRON:
+                        m_Helmet = 10;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case ECraftingType.PLATE:
+                switch (Inventory.Instance.Plate)
+                {
+                    case EPlayerUpgrade.NONE:
+                        m_Plate = 0;
+                        break;
+                    case EPlayerUpgrade.STONE:
+                        m_Plate = 10;
+                        break;
+                    case EPlayerUpgrade.IRON:
+                        m_Plate = 20;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case ECraftingType.BOOTS:
+                switch (Inventory.Instance.Boots)
+                {
+                    case EPlayerUpgrade.NONE:
+                        m_Boots = 0;
+                        break;
+                    case EPlayerUpgrade.STONE:
+                        m_Boots = 5;
+                        break;
+                    case EPlayerUpgrade.IRON:
+                        m_Boots = 10;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+
+        Armor = m_Helmet + m_Plate + m_Boots;
     }
     #endregion
 

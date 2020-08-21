@@ -39,15 +39,28 @@ public class TownBuilding : MonoBehaviour
     [SerializeField]
     private Image m_Iron;
 
+    [Header("Attack Buttons")]
+    [SerializeField]
+    private Button m_LeftAttack;
+    [SerializeField]
+    private Button m_RightAttack;
+
     [Header("Timer")]
     [SerializeField]
     private float m_Timer = 240.0f;
+
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip m_BuildSound;
+    [SerializeField]
+    private AudioClip m_AttackSound;
     #endregion
 
     #region private Variables
     private SpriteRenderer m_Renderer;
     private float m_Time = 0.0f;
     private bool m_IsActive = false;
+    private bool m_AttackIsUnderWay = false;
     #endregion
 
     #region private const
@@ -196,6 +209,8 @@ public class TownBuilding : MonoBehaviour
                                $"{m_StonePerDay} Stone \n" +
                                $"0 Iron \n";
                     m_Upgrade = EBuildingUpgrade.WOOD;
+                    PlayerBehaviour.Instance.EffectSource.clip = m_BuildSound;
+                    PlayerBehaviour.Instance.EffectSource.Play();
                 }
                 break;
             case EBuildingUpgrade.WOOD:
@@ -220,6 +235,8 @@ public class TownBuilding : MonoBehaviour
                     m_Timer /= 2;
 
                     m_Upgrade = EBuildingUpgrade.STONE;
+                    PlayerBehaviour.Instance.EffectSource.clip = m_BuildSound;
+                    PlayerBehaviour.Instance.EffectSource.Play();
                 }
                 break;
             case EBuildingUpgrade.STONE:
@@ -240,11 +257,27 @@ public class TownBuilding : MonoBehaviour
                                $"{m_IronPerDay} Iron \n";
 
                     m_Upgrade = EBuildingUpgrade.IRON;
+                    PlayerBehaviour.Instance.EffectSource.clip = m_BuildSound;
+                    PlayerBehaviour.Instance.EffectSource.Play();
                 }
                 break;
             default:
                 break;
         }
+    }
+
+    public void LeftAttack()
+    {
+        ArcherManager.Instance.Attack(ESpawnerSide.LEFT);
+        PlayerBehaviour.Instance.EffectSource.clip = m_AttackSound;
+        PlayerBehaviour.Instance.EffectSource.Play();
+    }
+
+    public void RightAttack()
+    {
+        ArcherManager.Instance.Attack(ESpawnerSide.RIGHT);
+        PlayerBehaviour.Instance.EffectSource.clip = m_AttackSound;
+        PlayerBehaviour.Instance.EffectSource.Play();
     }
     #endregion
 
@@ -265,6 +298,11 @@ public class TownBuilding : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             if (IsActive)
+            {
+                PlayerBehaviour.Instance.CanTown = false;
+                IsActive = false;
+            }
+            else
             {
                 PlayerBehaviour.Instance.CanTown = false;
                 IsActive = false;

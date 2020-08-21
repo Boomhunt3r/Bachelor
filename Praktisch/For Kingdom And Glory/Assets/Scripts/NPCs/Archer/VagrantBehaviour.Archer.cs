@@ -6,18 +6,18 @@ public partial class VagrantBehaviour : MonoBehaviour
 {
     private List<GameObject> m_EnemySpawner = new List<GameObject>();
     private GameObject m_CurrentRabbit;
-    private GameObject m_CurrentSpawner;
     private bool m_IsDefending = false;
     private bool m_IsAttacking = false;
 
     public bool IsAttacking { get => m_IsAttacking; set => m_IsAttacking = value; }
+    public List<GameObject> EnemySpawner { get => m_EnemySpawner; set => m_EnemySpawner = value; }
 
     private void Archer()
     {
         m_Render.color = Color.red;
         this.gameObject.tag = "Archer";
 
-        m_Rabbits = GameObject.FindGameObjectsWithTag("Rabbit").OfType<GameObject>().ToList();
+        m_Rabbits = GameObject.FindGameObjectsWithTag("Rabbit").ToList();
 
         if (GameManager.Instance.IsDay)
         {
@@ -40,10 +40,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                         if (m_Distance <= Random.Range(1.5f, 4.5f))
                         {
                             m_Rigid.velocity = new Vector2(0, 0);
-                        }
 
-                        if (m_Rigid.velocity.x == 0)
-                        {
                             if (m_ShootTime >= m_ShootTimer)
                             {
                                 Shoot();
@@ -51,23 +48,25 @@ public partial class VagrantBehaviour : MonoBehaviour
                         }
                     }
                 }
+                if (m_Rabbits.Count == 0)
+                {
+                    m_Target = m_Waypoints[Random.Range(0, m_Waypoints.Length - 1)];
+                }
             }
 
             else if (IsAttacking)
             {
-                if (m_EnemySpawner.Count == 0)
-                    m_EnemySpawner = GameObject.FindGameObjectsWithTag("EnemySpawner").OfType<GameObject>().ToList();
 
                 m_Target = GetClosestTarget(m_EnemySpawner);
 
-                if(m_Distance <= Random.Range(1.5f, 4.5f))
+                if (m_Distance <= Random.Range(1.5f, 4.5f))
                 {
                     m_Rigid.velocity = new Vector2(0, 0);
                 }
 
-                if(m_Rigid.velocity.x == 0)
+                if (m_Rigid.velocity.x == 0)
                 {
-                    if(m_ShootTime >= m_ShootTimer)
+                    if (m_ShootTime >= m_ShootTimer)
                     {
                         Shoot();
                     }
@@ -75,59 +74,53 @@ public partial class VagrantBehaviour : MonoBehaviour
             }
         }
 
-        else if (GameManager.Instance.IsNight)
+        else if (GameManager.Instance.AlmostNight)
         {
             m_Hunting = false;
 
+            if (m_DefendingWall != null)
+                m_Target = m_DefendingWall;
+
+            m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
+
+            if (m_Distance <= Random.Range(1.0f, 2.5f))
+            {
+                m_Rigid.velocity = new Vector2(0, 0);
+                m_IsDefending = true;
+            }
+
+            return;
+        }
+
+        else if (GameManager.Instance.IsNight)
+        {
             if (!m_IsDefending)
             {
-                m_Target = GetClosestWall(m_BuildWalls);
-                m_CurrentSpawner = m_Target;
-
                 m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
 
-                if (m_Distance <= Random.Range(2.5f, 3.5f))
+                if (m_Distance <= Random.Range(1.0f, 2.5f))
                 {
                     m_Rigid.velocity = new Vector2(0, 0);
                     m_IsDefending = true;
                 }
+
                 return;
             }
 
-            m_ShootTime += Time.deltaTime;
-
-            if (m_ShootTime >= m_ShootTimer)
+            if (m_IsDefending)
             {
-                Shoot();
+                m_ShootTime += Time.deltaTime;
+
+                if (m_ShootTime >= m_ShootTimer)
+                {
+                    Shoot();
+                    m_Source.Play();
+                }
             }
         }
-
     }
+
     private GameObject GetClosestTarget(List<GameObject> _Target)
-    {
-        GameObject Target = null;
-        float MinDist = Mathf.Infinity;
-        Vector2 CurrentPos = transform.position;
-        float Dist = 0.0f;
-
-        for (int i = 0; i < _Target.Count; i++)
-        {
-            if (_Target[i].GetComponent<Wall>().Building == EBuildingUpgrade.NONE)
-                continue;
-
-            Dist = Vector2.Distance(_Target[i].transform.position, CurrentPos);
-
-            if (Dist < MinDist)
-            {
-                Target = _Target[i];
-                MinDist = Dist;
-            }
-        }
-
-        return Target;
-    }
-
-    private GameObject GetClosestWall(List<GameObject> _Target)
     {
         GameObject Target = null;
         float MinDist = Mathf.Infinity;
@@ -176,9 +169,9 @@ public partial class VagrantBehaviour : MonoBehaviour
     {
         m_Rabbits.Remove(m_CurrentRabbit);
     }
-    
-    public void RemoveSpawner()
+
+    public void RemoveSpawner(GameObject _Spawner)
     {
-        m_EnemySpawner.Remove(m_CurrentSpawner);
+        m_EnemySpawner.Remove(_Spawner);
     }
 }

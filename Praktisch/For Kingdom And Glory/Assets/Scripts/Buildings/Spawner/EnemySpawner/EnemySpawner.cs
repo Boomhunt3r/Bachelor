@@ -11,7 +11,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private int m_MaxHealth = 25;
     [SerializeField]
-    private GameObject m_EnemyPrefab; 
+    private GameObject m_EnemyPrefab;
     #endregion
 
     #region private Variables
@@ -66,9 +66,9 @@ public class EnemySpawner : MonoBehaviour
             m_Spawned = false;
         }
 
-        if(m_UnderAttack)
+        if (m_UnderAttack)
         {
-            if(m_DamageTimer >= 5.0f)
+            if (m_DamageTimer >= 5.0f)
             {
                 m_UnderAttack = false;
 
@@ -165,12 +165,12 @@ public class EnemySpawner : MonoBehaviour
 
     private void DestroySpawner()
     {
-        VagrantBehaviour.Instance.RemoveSpawner();
-
         GameManager.Instance.RemoveSpawnerFromList(m_Side, this.gameObject);
 
+        ArcherManager.Instance.RemoveSpawner(m_Side, this.gameObject);
+
         Destroy(this.gameObject);
-    } 
+    }
     #endregion
 
     #region Public Functions
@@ -195,7 +195,7 @@ public class EnemySpawner : MonoBehaviour
                 SpawnedEnemys.RemoveAt(i);
             }
         }
-    } 
+    }
 
     public void GetSpawnerSide(ESpawnerSide _Side)
     {

@@ -4,6 +4,7 @@ using UnityEngine;
 public partial class VagrantBehaviour : MonoBehaviour
 {
     public static VagrantBehaviour Instance { get; private set; }
+    public GameObject DefendingWall { get => m_DefendingWall; set => m_DefendingWall = value; }
 
     #region SerializeField
     [SerializeField]
@@ -24,6 +25,8 @@ public partial class VagrantBehaviour : MonoBehaviour
     private Transform m_ThrowPoint;
     [SerializeField]
     private float m_ArrowSpeed = 1000.0f;
+    [SerializeField]
+    private AudioSource m_Source;
     #endregion
 
     #region private Variables
@@ -37,6 +40,10 @@ public partial class VagrantBehaviour : MonoBehaviour
     /// Target Waypoint
     /// </summary>
     private GameObject m_Target;
+    /// <summary>
+    /// Wall Archer is Defending
+    /// </summary>
+    private GameObject m_DefendingWall;
     /// <summary>
     /// Villager Waypoints
     /// </summary>
@@ -78,6 +85,7 @@ public partial class VagrantBehaviour : MonoBehaviour
     private bool m_BowInRange = false;
     private bool m_ReparingWall = false;
     private bool m_Hunting = false;
+    private bool m_HasJob = false;
     #endregion
 
     // Start is called before the first frame update
@@ -138,26 +146,48 @@ public partial class VagrantBehaviour : MonoBehaviour
     #region private Collision Function
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Coin"))
+        if (!m_HasJob)
         {
-            RemoveCoin(collision.gameObject);
-            Destroy(collision.gameObject);
-            m_Status = ENPCStatus.VILLAGER;
+            if (collision.CompareTag("Coin"))
+            {
+                RemoveCoin(collision.gameObject);
+                Destroy(collision.gameObject);
+                m_Status = ENPCStatus.VILLAGER;
+            }
+            if (collision.CompareTag("Hammer"))
+            {
+                BuilderStand.Instance.RemoveHammerFromStand(collision.gameObject);
+                m_HasJob = true;
+                m_Status = ENPCStatus.BUILDER;
+            }
+            if (collision.CompareTag("Bow"))
+            {
+                Archery.Instance.RemoveBowFromStand(collision.gameObject);
+                ArcherManager.Instance.AddToList(this.gameObject);
+                m_HasJob = true;
+                m_Status = ENPCStatus.ARCHER;
+            }
         }
-        if (collision.CompareTag("Hammer"))
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Wall"))
         {
-            Destroy(collision.gameObject);
-            m_Status = ENPCStatus.BUILDER;
+            if (m_Status == ENPCStatus.BUILDER)
+                m_CurrentlyReparing = true;
         }
-        if (collision.CompareTag("Bow"))
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Wall"))
         {
-            Archery.Instance.RemoveBowFromStand(collision.gameObject);
-            m_Status = ENPCStatus.ARCHER;
-        }
-        if (collision.CompareTag("Sword"))
-        {
-            Destroy(collision.gameObject);
-            m_Status = ENPCStatus.SWORDSMAN;
+            if (m_Status == ENPCStatus.BUILDER)
+            {
+                if (m_CurrentlyReparing == true)
+                    m_CurrentlyReparing = false;
+            }
         }
     }
     #endregion

@@ -14,30 +14,16 @@ public class Archery : MonoBehaviour
     [SerializeField]
     private int m_MaxBowsInStand = 4;
     [SerializeField]
-    private GameObject m_ArcheryUI;
-    [SerializeField]
     private GameObject[] m_BowObjectsInStand;
-    [SerializeField]
-    private Slider m_PaySlider;
-    [SerializeField]
-    private TextMeshProUGUI m_SliderText;
-    [SerializeField]
-    private TextMeshProUGUI m_Text;
     #endregion
 
     #region private Variables
     private int m_BowsInStand = 0;
-    private bool m_Buy = false;
     #endregion
-
-    public bool Buy { get => m_Buy; set => m_Buy = value; }
 
     // Start is called before the first frame update
     void Start()
     {
-        m_PaySlider.maxValue = m_PricePerBow;
-        m_SliderText.text = $"0 / {m_PaySlider.maxValue}";
-        m_ArcheryUI.SetActive(false);
         for (int i = 0; i < m_BowObjectsInStand.Length; i++)
         {
             m_BowObjectsInStand[i].SetActive(false);
@@ -45,45 +31,37 @@ public class Archery : MonoBehaviour
         Instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddBowToStand()
     {
-        ShowUI(Buy);
-    }
-
-    private void ShowUI(bool _Buy)
-    {
-        m_ArcheryUI.SetActive(_Buy);
-    }
-
-    private void AddBowToStand()
-    {
-        m_BowsInStand++;
-        int Bow = 0;
-
-        if (m_BowsInStand > m_MaxBowsInStand)
+        if (Inventory.Instance.Coins >= m_PricePerBow)
         {
-            m_Text.text = "Max Bows in Stand Reached.";
-            return;
-        }
+            int PrevAmount = m_BowsInStand;
 
-        for (int i = 0; i < m_BowObjectsInStand.Length; i++)
-        {
-            Bow++;
+            m_BowsInStand++;
 
-            if (Bow > m_BowsInStand)
-                return;
+            int Bow = 0;
 
-            if (!m_BowObjectsInStand[i].activeSelf)
+            if (m_BowsInStand > m_MaxBowsInStand)
             {
-                m_BowObjectsInStand[i].SetActive(true);
+                m_BowsInStand = PrevAmount;
+                return;
+            }
+
+            Inventory.Instance.Coins -= m_PricePerBow;
+
+            for (int i = 0; i < m_BowObjectsInStand.Length; i++)
+            {
+                Bow++;
+
+                if (Bow > m_BowsInStand)
+                    return;
+
+                if (!m_BowObjectsInStand[i].activeSelf)
+                {
+                    m_BowObjectsInStand[i].SetActive(true);
+                }
             }
         }
-    }
-
-    private void RemoveCoins()
-    {
-        Inventory.Instance.Coins -= m_PricePerBow;
     }
 
     public void RemoveBowFromStand(GameObject _Bow)
@@ -111,34 +89,6 @@ public class Archery : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             PlayerBehaviour.Instance.CanBuyBows = false;
-            m_PaySlider.value = 0;
-            Buy = false;
         }
-    }
-
-    public void BuyButton()
-    {
-        if (m_PaySlider.value == m_PaySlider.maxValue && m_PaySlider.value <= Inventory.Instance.Coins)
-        {
-            if (m_BowsInStand == m_MaxBowsInStand)
-            {
-                m_Text.text = "Max Bows in Stand Reached.";
-                return;
-            }
-
-            AddBowToStand();
-            RemoveCoins();
-            m_Text.text = "";
-        }
-    }
-
-    public void UpdateText()
-    {
-        m_SliderText.text = $"{m_PaySlider.value} / {m_PaySlider.maxValue}";
-    }
-
-    public void ExitButton()
-    {
-        Buy = false;
     }
 }

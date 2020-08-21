@@ -69,6 +69,7 @@ public class CraftingSystem : MonoBehaviour
 
     #region Properties
     public bool IsCrafting { get => m_IsCrafting; set => m_IsCrafting = value; }
+    public AudioSource Source { get => m_Source; set => m_Source = value; }
     #endregion
 
     #region Unity Functions
@@ -77,23 +78,23 @@ public class CraftingSystem : MonoBehaviour
     {
         m_CraftingType = ECraftingType.NONE;
 
-        m_BowWoodPrice  = m_WoodPrice * 2;
+        m_BowWoodPrice = m_WoodPrice * 2;
 
         m_HelmetStonePrice = m_StonePrice * 3;
-        m_HelmetIronPrice  = 0;
+        m_HelmetIronPrice = 0;
 
         m_PlateStonePrice = m_StonePrice * 6;
-        m_PlateIronPrice  = 0;
+        m_PlateIronPrice = 0;
 
         m_BootsStonePrice = m_StonePrice * 2;
-        m_BootsIronPrice  = 0;
+        m_BootsIronPrice = 0;
 
         m_CraftingUI.SetActive(false);
 
-        m_CraftBowText.text  = "";
+        m_CraftBowText.text = "";
         m_CraftHelmetText.text = "";
-        m_CraftPlateText.text  = "";
-        m_CraftBootsText.text  = "";
+        m_CraftPlateText.text = "";
+        m_CraftBootsText.text = "";
 
         Instance = this;
     }
@@ -156,7 +157,7 @@ public class CraftingSystem : MonoBehaviour
                 {
                     m_CraftHelmet.GetComponent<Image>().color = Color.red;
                 }
-                else if(Inventory.Instance.Stone >= m_HelmetStonePrice)
+                else if (Inventory.Instance.Stone >= m_HelmetStonePrice)
                 {
                     m_CraftHelmet.GetComponent<Image>().color = Color.green;
                 }
@@ -167,7 +168,7 @@ public class CraftingSystem : MonoBehaviour
                 {
                     m_CraftHelmet.GetComponent<Image>().color = Color.red;
                 }
-                else if(Inventory.Instance.Iron >= m_HelmetIronPrice)
+                else if (Inventory.Instance.Iron >= m_HelmetIronPrice)
                 {
                     m_CraftHelmet.GetComponent<Image>().color = Color.green;
                 }
@@ -187,7 +188,7 @@ public class CraftingSystem : MonoBehaviour
                 {
                     m_CraftPlate.GetComponent<Image>().color = Color.red;
                 }
-                else if(Inventory.Instance.Stone >= m_PlateStonePrice)
+                else if (Inventory.Instance.Stone >= m_PlateStonePrice)
                 {
                     m_CraftPlate.GetComponent<Image>().color = Color.green;
                 }
@@ -198,7 +199,7 @@ public class CraftingSystem : MonoBehaviour
                 {
                     m_CraftPlate.GetComponent<Image>().color = Color.red;
                 }
-                else if(Inventory.Instance.Iron >= m_PlateIronPrice)
+                else if (Inventory.Instance.Iron >= m_PlateIronPrice)
                 {
                     m_CraftPlate.GetComponent<Image>().color = Color.green;
                 }
@@ -218,7 +219,7 @@ public class CraftingSystem : MonoBehaviour
                 {
                     m_CraftBoots.GetComponent<Image>().color = Color.red;
                 }
-                else if(Inventory.Instance.Stone >= m_BootsStonePrice)
+                else if (Inventory.Instance.Stone >= m_BootsStonePrice)
                 {
                     m_CraftBoots.GetComponent<Image>().color = Color.green;
                 }
@@ -229,7 +230,7 @@ public class CraftingSystem : MonoBehaviour
                 {
                     m_CraftBoots.GetComponent<Image>().color = Color.red;
                 }
-                else if(Inventory.Instance.Iron >= m_BootsIronPrice)
+                else if (Inventory.Instance.Iron >= m_BootsIronPrice)
                 {
                     m_CraftBoots.GetComponent<Image>().color = Color.green;
                 }
@@ -299,14 +300,17 @@ public class CraftingSystem : MonoBehaviour
             case ECraftingType.HELMET:
                 NewUpgrade = Upgrade(m_CraftingType, Inventory.Instance.Helmet);
                 Inventory.Instance.Helmet = NewUpgrade;
+                PlayerBehaviour.Instance.UpgradeArmor(m_CraftingType);
                 break;
             case ECraftingType.PLATE:
                 NewUpgrade = Upgrade(m_CraftingType, Inventory.Instance.Plate);
                 Inventory.Instance.Plate = NewUpgrade;
+                PlayerBehaviour.Instance.UpgradeArmor(m_CraftingType);
                 break;
             case ECraftingType.BOOTS:
                 NewUpgrade = Upgrade(m_CraftingType, Inventory.Instance.Boots);
                 Inventory.Instance.Boots = NewUpgrade;
+                PlayerBehaviour.Instance.UpgradeArmor(m_CraftingType);
                 break;
             default:
                 break;
@@ -421,7 +425,7 @@ public class CraftingSystem : MonoBehaviour
 
                             _CurrentUpgrade = EPlayerUpgrade.IRON;
                         }
-                        else if(Inventory.Instance.Iron < m_BootsIronPrice)
+                        else if (Inventory.Instance.Iron < m_BootsIronPrice)
                         {
                             m_NotificationText.text = "Not enough Resources.";
                         }
@@ -523,6 +527,11 @@ public class CraftingSystem : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             if (IsCrafting)
+            {
+                PlayerBehaviour.Instance.CanCraft = false;
+                IsCrafting = false;
+            }
+            else
             {
                 PlayerBehaviour.Instance.CanCraft = false;
                 IsCrafting = false;

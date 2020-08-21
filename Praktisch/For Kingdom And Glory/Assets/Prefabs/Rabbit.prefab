@@ -65,7 +65,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.01978451, y: 0.016487181}
@@ -94,7 +94,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Health: 1
-  m_Speed: 5
+  m_Speed: 10
+  m_CoinAmount: 1
   m_LocalScale: {fileID: 500482983304558661}
 --- !u!1 &500482983304558660
 GameObject:

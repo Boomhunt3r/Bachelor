@@ -5,6 +5,7 @@ using System.Linq;
 public partial class VagrantBehaviour : MonoBehaviour
 {
     private List<GameObject> m_EnemySpawner = new List<GameObject>();
+    private GameObject m_EnemyToShoot;
     private GameObject m_CurrentRabbit;
     private bool m_IsDefending = false;
     private bool m_IsAttacking = false;
@@ -29,6 +30,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                     {
                         m_Target = GetClosestTarget(m_Rabbits);
                         m_CurrentRabbit = m_Target;
+                        m_Hunting = true;
                     }
 
                     else if (m_Hunting)
@@ -43,21 +45,22 @@ public partial class VagrantBehaviour : MonoBehaviour
 
                             if (m_ShootTime >= m_ShootTimer)
                             {
-                                Shoot();
+                                Shoot(m_Target);
                             }
                         }
                     }
                 }
                 if (m_Rabbits.Count == 0)
                 {
-                    m_Target = m_Waypoints[Random.Range(0, m_Waypoints.Length - 1)];
+                    m_Target = m_Waypoints[Random.Range(0, m_Waypoints.Length)];
+                    m_Hunting = false;
                 }
             }
 
             else if (IsAttacking)
             {
-
-                m_Target = GetClosestTarget(m_EnemySpawner);
+                if (m_EnemySpawner.Count != 0)
+                    m_Target = GetClosestTarget(m_EnemySpawner);
 
                 if (m_Distance <= Random.Range(1.5f, 4.5f))
                 {
@@ -68,7 +71,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                 {
                     if (m_ShootTime >= m_ShootTimer)
                     {
-                        Shoot();
+                        Shoot(m_Target);
                     }
                 }
             }
@@ -109,17 +112,29 @@ public partial class VagrantBehaviour : MonoBehaviour
 
             if (m_IsDefending)
             {
+                m_EnemyToShoot = GetClosestTarget(GameManager.Instance.AllSpawnedEnemys);
+
                 m_ShootTime += Time.deltaTime;
 
-                if (m_ShootTime >= m_ShootTimer)
+                m_Distance = Vector2.Distance(m_Rigid.position, m_EnemyToShoot.transform.position);
+
+                if (m_Distance <= 7.5f)
                 {
-                    Shoot();
-                    m_Source.Play();
+                    if (m_ShootTime >= m_ShootTimer)
+                    {
+                        Shoot(m_EnemyToShoot);
+                        m_Source.Play();
+                    }
                 }
             }
         }
     }
 
+    /// <summary>
+    /// Closest Target Function
+    /// </summary>
+    /// <param name="_Target">All Targets</param>
+    /// <returns>Closest Target</returns>
     private GameObject GetClosestTarget(List<GameObject> _Target)
     {
         GameObject Target = null;
@@ -141,15 +156,19 @@ public partial class VagrantBehaviour : MonoBehaviour
         return Target;
     }
 
-    private void Shoot()
+    /// <summary>
+    /// Shoot Function
+    /// </summary>
+    /// <param name="_Target">Target to Shoot at</param>
+    private void Shoot(GameObject _Target)
     {
         m_ShootTime = 0.0f;
 
         float XDistance;
-        XDistance = Random.Range(m_Target.transform.position.x - m_ThrowPoint.position.x, m_Direction.x * 5.0f);
+        XDistance = Random.Range(_Target.transform.position.x - m_ThrowPoint.position.x, m_Direction.x * 5.0f);
 
         float YDistance;
-        YDistance = Random.Range(m_Target.transform.position.y - m_ThrowPoint.position.y, 5.0f);
+        YDistance = Random.Range(_Target.transform.position.y - m_ThrowPoint.position.y, 5.0f);
 
         float ThrowAngle;
         ThrowAngle = Mathf.Atan((YDistance + 4.905f) / XDistance);
@@ -165,11 +184,18 @@ public partial class VagrantBehaviour : MonoBehaviour
         Arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(XVelo, YVelo);
     }
 
+    /// <summary>
+    /// Remove Rabbit Function
+    /// </summary>
     public void RemoveRabbit()
     {
         m_Rabbits.Remove(m_CurrentRabbit);
     }
 
+    /// <summary>
+    /// Remove Spawner Function
+    /// </summary>
+    /// <param name="_Spawner">Spawner to Remove</param>
     public void RemoveSpawner(GameObject _Spawner)
     {
         m_EnemySpawner.Remove(_Spawner);

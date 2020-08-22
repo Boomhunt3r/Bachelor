@@ -292,4 +292,13 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
+
+    public void RemoveEnemyFromList(GameObject _Enemy)
+    {
+        for (int i = 0; i < AllSpawnedEnemys.Count; i++)
+        {
+            if (_Enemy == AllSpawnedEnemys[i])
+                AllSpawnedEnemys.Remove(_Enemy);
+        }
+    }
 }

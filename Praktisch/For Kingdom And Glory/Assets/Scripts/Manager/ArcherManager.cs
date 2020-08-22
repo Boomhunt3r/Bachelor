@@ -6,10 +6,14 @@ public class ArcherManager : MonoBehaviour
 {
     public static ArcherManager Instance { get; private set; }
 
+    #region private List
     private List<GameObject> m_ArcherLeftSide = new List<GameObject>();
     private List<GameObject> m_ArcherRightSide = new List<GameObject>();
+    #endregion
 
+    #region private Variables
     private int m_Amount = 1;
+    #endregion
 
     // Start is called before the first frame update
     void Start()

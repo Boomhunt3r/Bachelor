@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RabbitSpawner : MonoBehaviour
 {
+    public static RabbitSpawner Instance { get; private set; }
+
     #region Serializefield
     [Header("Spawner Settings")]
     [SerializeField]
@@ -19,10 +21,15 @@ public class RabbitSpawner : MonoBehaviour
     #endregion
 
     #region private Variables
+    private GameObject m_Rabbit;
     private float m_Timer = 0.0f;
     private int m_SpawnedRabbitAmount = 0;
     private bool m_SpawnedRabbits = false;
     private bool m_CanSpawn = true;
+    #endregion
+
+    #region Properties
+    public int SpawnedRabbitAmount { get => m_SpawnedRabbitAmount; set => m_SpawnedRabbitAmount = value; } 
     #endregion
 
     // Start is called before the first frame update
@@ -34,6 +41,8 @@ public class RabbitSpawner : MonoBehaviour
         }
 
         m_SpawnedRabbits = true;
+
+        Instance = this;
     }
 
     // Update is called once per frame
@@ -49,7 +58,7 @@ public class RabbitSpawner : MonoBehaviour
 
             if (!m_SpawnedRabbits)
             {
-                if (m_SpawnedRabbitAmount >= m_MaxSpawnedRabbits)
+                if (SpawnedRabbitAmount >= m_MaxSpawnedRabbits)
                     return;
 
                 if(GameManager.Instance.TotalRabbitsSpawned >= GameManager.Instance.TotalRabbits)
@@ -59,10 +68,11 @@ public class RabbitSpawner : MonoBehaviour
 
                 for (int i = 0; i < m_RabbitsToSpawn; i++)
                 {
-                    Instantiate(m_RabbitPrefab, this.transform.position, Quaternion.identity);
+                    m_Rabbit = Instantiate(m_RabbitPrefab, this.transform.position, Quaternion.identity);
+                    m_Rabbit.GetComponent<Rabbit>().GetSpawner(this.gameObject);
                 }
 
-                m_SpawnedRabbitAmount += m_MaxSpawnedRabbits;
+                SpawnedRabbitAmount += m_RabbitsToSpawn;
                 GameManager.Instance.TotalRabbitsSpawned += m_RabbitsToSpawn;
                 m_SpawnedRabbits = true;
             }

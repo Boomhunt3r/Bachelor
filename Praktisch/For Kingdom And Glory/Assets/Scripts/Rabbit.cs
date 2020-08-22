@@ -20,6 +20,7 @@ public class Rabbit : MonoBehaviour
 
     #region private Variables
     private Rigidbody2D m_Rigid;
+    private GameObject m_Spawner;
     private Vector2 m_CurrentVelocity;
     private float m_IdleTimer;
     private float m_Timer = 0.0f;
@@ -87,7 +88,14 @@ public class Rabbit : MonoBehaviour
 
             Inventory.Instance.Coins += m_CoinAmount;
 
+            m_Spawner.GetComponent<RabbitSpawner>().SpawnedRabbitAmount--;
+
             Destroy(this.gameObject);
         }
+    }
+
+    public void GetSpawner(GameObject _Spawner)
+    {
+        m_Spawner = _Spawner;
     }
 }

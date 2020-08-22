@@ -4,7 +4,6 @@ using UnityEngine;
 public partial class VagrantBehaviour : MonoBehaviour
 {
     public static VagrantBehaviour Instance { get; private set; }
-    public GameObject DefendingWall { get => m_DefendingWall; set => m_DefendingWall = value; }
 
     #region SerializeField
     [SerializeField]
@@ -86,6 +85,11 @@ public partial class VagrantBehaviour : MonoBehaviour
     private bool m_ReparingWall = false;
     private bool m_Hunting = false;
     private bool m_HasJob = false;
+    #endregion
+
+    #region Properties
+    public GameObject DefendingWall { get => m_DefendingWall; set => m_DefendingWall = value; }
+    public List<GameObject> Rabbits { get => m_Rabbits; set => m_Rabbits = value; } 
     #endregion
 
     // Start is called before the first frame update

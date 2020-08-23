@@ -136,6 +136,7 @@ public class EnemySpawner : MonoBehaviour
                 for (int i = 0; i < m_EnemyToSpawn; i++)
                 {
                     Enemy = Instantiate(m_EnemyPrefab, this.gameObject.transform.position, Quaternion.identity);
+                    Enemy.GetComponent<Enemy>().Side = m_Side;
                     SpawnedEnemys.Add(Enemy);
                     GameManager.Instance.AllSpawnedEnemys.Add(Enemy);
                 }
@@ -144,6 +145,7 @@ public class EnemySpawner : MonoBehaviour
                 for (int i = 0; i < 1; i++)
                 {
                     Enemy = Instantiate(m_EnemyPrefab, this.gameObject.transform.position, Quaternion.identity);
+                    Enemy.GetComponent<Enemy>().Side = m_Side;
                     SpawnedEnemys.Add(Enemy);
                     GameManager.Instance.AllSpawnedEnemys.Add(Enemy);
                 }
@@ -154,6 +156,7 @@ public class EnemySpawner : MonoBehaviour
                 for (int i = 0; i < m_EnemyToSpawn; i++)
                 {
                     Enemy = Instantiate(m_EnemyPrefab, this.gameObject.transform.position, Quaternion.identity);
+                    Enemy.GetComponent<Enemy>().Side = m_Side;
                     SpawnedEnemys.Add(Enemy);
                     GameManager.Instance.AllSpawnedEnemys.Add(Enemy);
                 }

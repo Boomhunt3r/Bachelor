@@ -1,11 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Spine.Unity;
 
 public class Enemy : MonoBehaviour
 {
     public static Enemy Instance { get; private set; }
+
 
     #region Serializefield
     [SerializeField]
@@ -21,7 +22,9 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject m_Arrow;
     [SerializeField]
-    private Transform m_Sprite;
+    private GameObject m_Monster;
+    [SerializeField]
+    private SkeletonAnimation m_Animation;
     [SerializeField]
     private Transform m_ThrowPoint;
     #endregion
@@ -40,6 +43,12 @@ public class Enemy : MonoBehaviour
     private List<GameObject> m_Archer = new List<GameObject>();
     private Vector2 m_Direction;
     private float m_Timer;
+    private bool m_Loop = true;
+    private ESpawnerSide m_Side;
+    #endregion
+
+    #region Properties
+    public ESpawnerSide Side { get => m_Side; set => m_Side = value; }
     #endregion
 
     // Start is called before the first frame update
@@ -52,6 +61,9 @@ public class Enemy : MonoBehaviour
         m_Builder = GameObject.FindGameObjectsWithTag("Builder").ToList();
         m_Archer = GameObject.FindGameObjectsWithTag("Archer").ToList();
         m_Player = GameObject.FindGameObjectWithTag("Player");
+
+        if (Side == ESpawnerSide.RIGHT)
+            m_Monster.transform.localScale = new Vector3(-m_Monster.transform.localScale.x, 1, 1);
 
         if (m_Walls.Count != 0)
             m_ClosestWall = GetClosestWall(m_Walls);
@@ -116,8 +128,27 @@ public class Enemy : MonoBehaviour
         else if (m_Archer.Count != 0 && m_Villiger.Count == 0 && m_Walls.Count == 0 && m_Builder.Count == 0)
             m_Target = m_ClosestArcher;
 
+
         m_Direction = ((Vector2)m_Target.transform.position - m_Rigid.position).normalized;
         m_Rigid.velocity = m_Direction * m_Speed * Time.deltaTime;
+
+        switch (Side)
+        {
+            case ESpawnerSide.LEFT:
+                if(m_Rigid.velocity.x > 0.0f)
+                {
+                    ChangeAnimation("Walk");
+                }
+                break;
+            case ESpawnerSide.RIGHT:
+                if (m_Rigid.velocity.x < 0.0f)
+                {
+                    ChangeAnimation("Walk");
+                }
+                break;
+            default:
+                break;
+        }
 
         float Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
 
@@ -130,8 +161,13 @@ public class Enemy : MonoBehaviour
         {
             m_Timer += Time.deltaTime;
 
+            ChangeAnimation("Idle");
+
             if (m_Timer >= m_AttackTime)
+            {
+                ChangeAnimation("Attack");
                 Attack();
+            }
         }
     }
 
@@ -266,6 +302,24 @@ public class Enemy : MonoBehaviour
         Arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(XVelo, YVelo);
 
         m_Timer = 0.0f;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="_Name">Name of Animation</param>
+    private void ChangeAnimation(string _Name)
+    {
+        if (m_Animation == null)
+        {
+            Debug.LogWarning("No Animator");
+            return;
+        }
+
+        if (_Name == "Dead")
+            m_Loop = false;
+
+        m_Animation.AnimationState.SetAnimation(0, _Name, m_Loop);
     }
     #endregion
 

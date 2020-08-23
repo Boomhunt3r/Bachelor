@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Game.unity
+- path: Assets/Fantazia Animated 2D Monsters/Example/ExampleScene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

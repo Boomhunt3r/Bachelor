@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -34,6 +35,12 @@ public class GameManager : MonoBehaviour
     private GameObject m_DayUI;
     [SerializeField]
     private TextMeshProUGUI m_DayAnnouncer;
+    [SerializeField]
+    private GameObject m_PauseMenu;
+    [SerializeField]
+    private GameObject m_SettingMenu;
+    [SerializeField]
+    private AudioSource m_Source;
     #endregion
 
     #region private Variables
@@ -46,6 +53,7 @@ public class GameManager : MonoBehaviour
     private bool m_AlmostNight = false;
     private bool m_IsAlive = true;
     private bool m_RevengeAttack = false;
+    private bool m_IsPaused = false;
     private EGameSetting m_Setting;
     private List<GameObject> m_EnemySpawnerLeftSide = new List<GameObject>();
     private List<GameObject> m_EnemySpawnerRightSide = new List<GameObject>();
@@ -66,6 +74,7 @@ public class GameManager : MonoBehaviour
     public bool AlmostNight { get => m_AlmostNight; set => m_AlmostNight = value; }
     public List<GameObject> EnemySpawnerLeftSide { get => m_EnemySpawnerLeftSide; set => m_EnemySpawnerLeftSide = value; }
     public List<GameObject> EnemySpawnerRightSide { get => m_EnemySpawnerRightSide; set => m_EnemySpawnerRightSide = value; }
+    public bool IsPaused { get => m_IsPaused; set => m_IsPaused = value; }
     #endregion
 
     private void Awake()
@@ -78,6 +87,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_PauseMenu.SetActive(false);
+        //m_SettingMenu.SetActive(false);
+
         StartGame();
     }
 
@@ -89,19 +101,26 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        m_PauseMenu.SetActive(IsPaused);
+
+        if (IsPaused)
+        {
+            return;
+        }
+
         m_Timer += Time.deltaTime;
 
         if (IsDay)
         {
-            if(m_AllSpawnedEnemys.Count != 0)
+            if (m_AllSpawnedEnemys.Count != 0)
             {
                 for (int i = 0; i < m_AllSpawnedEnemys.Count; i++)
                 {
                     Destroy(m_AllSpawnedEnemys[i]);
                 }
             }
-            
-            if(m_Timer >= m_DayLength - 20)
+
+            if (m_Timer >= m_DayLength - 20)
             {
                 m_AlmostNight = true;
             }
@@ -127,6 +146,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    #region private Function
     private void UpdateDayCounter()
     {
         m_DayAnnouncer.text = $"Day: {m_DayCount}";
@@ -179,6 +199,11 @@ public class GameManager : MonoBehaviour
                 m_LeftCollider[2].SetActive(false);
                 m_RightCollider[1].SetActive(false);
                 m_RightCollider[2].SetActive(false);
+
+                Inventory.Instance.Coins = 12;
+                Inventory.Instance.Wood = 8;
+                Inventory.Instance.Stone = 4;
+                Inventory.Instance.Iron = 2;
                 break;
             case EGameSetting.MEDUIM:
                 m_EnemySpawner = 4;
@@ -211,6 +236,11 @@ public class GameManager : MonoBehaviour
                     m_LeftCollider[2].SetActive(false);
                     m_RightCollider[0].SetActive(false);
                     m_RightCollider[2].SetActive(false);
+
+                    Inventory.Instance.Coins = 12;
+                    Inventory.Instance.Wood = 4;
+                    Inventory.Instance.Stone = 2;
+                    Inventory.Instance.Iron = 0;
 
                 }
 
@@ -247,13 +277,23 @@ public class GameManager : MonoBehaviour
                 m_LeftCollider[1].SetActive(false);
                 m_RightCollider[0].SetActive(false);
                 m_RightCollider[1].SetActive(false);
+
+                Inventory.Instance.Coins = 12;
+                Inventory.Instance.Wood = 2;
+                Inventory.Instance.Stone = 0;
+                Inventory.Instance.Iron = 0;
                 break;
             default:
                 Debug.LogWarning("Nothing");
                 break;
         }
+
+
     }
 
+    #endregion
+
+    #region public Function
     /// <summary>
     /// Remove Spawner from List
     /// </summary>
@@ -301,4 +341,32 @@ public class GameManager : MonoBehaviour
                 AllSpawnedEnemys.Remove(_Enemy);
         }
     }
+    #endregion
+
+    #region UI Function
+    public void ExitPauseMenu()
+    {
+        IsPaused = false;
+        m_Source.Play();
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+        m_Source.Play();
+    }
+
+    public void Settings()
+    {
+        m_PauseMenu.SetActive(false);
+        m_SettingMenu.SetActive(true);
+        m_Source.Play();
+    }
+
+    public void ExitGame()
+    {
+        m_Source.Play();
+        Application.Quit();
+    }
+    #endregion
 }

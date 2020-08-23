@@ -11,8 +11,6 @@ public partial class VagrantBehaviour : MonoBehaviour
 
     private void Villager()
     {
-        Debug.Log(m_Bows.Count);
-
         m_Render.color = Color.gray;
 
         this.gameObject.tag = "Villager";
@@ -57,7 +55,7 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         if (m_Bows.Count == 0)
         {
-            Debug.Log("suchen");
+            m_Bows = GameObject.FindGameObjectsWithTag("Bow").ToList();
             m_Bows = GameObject.FindGameObjectsWithTag("Bow").ToList();
             m_BowInRange = false;
         }

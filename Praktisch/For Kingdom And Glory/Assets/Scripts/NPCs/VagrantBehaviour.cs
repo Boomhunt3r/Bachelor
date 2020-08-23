@@ -113,6 +113,12 @@ public partial class VagrantBehaviour : MonoBehaviour
         if (!GameManager.Instance.IsAlive)
             return;
 
+        if (GameManager.Instance.IsPaused)
+        {
+            m_Rigid.velocity = new Vector2(0, 0);
+            return;
+        }
+
         if (m_Rigid.velocity.x >= 0.0f)
         {
             m_Sprite.localScale = new Vector3(-1f, 1f, 1f);

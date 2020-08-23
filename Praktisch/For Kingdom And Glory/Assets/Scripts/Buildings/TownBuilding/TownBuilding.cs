@@ -194,7 +194,7 @@ public class TownBuilding : MonoBehaviour
             case EBuildingUpgrade.NONE:
                 if (Inventory.Instance.Coins >= 6 && Inventory.Instance.Wood >= 8)
                 {
-                    //m_Renderer.sprite = m_Sprites[0];
+                    m_Renderer.sprite = m_Sprites[0];
 
                     Inventory.Instance.Coins -= 6;
                     Inventory.Instance.Wood -= 8;

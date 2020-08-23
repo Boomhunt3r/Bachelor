@@ -62,12 +62,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                 if (m_EnemySpawner.Count != 0)
                     m_Target = GetClosestTarget(m_EnemySpawner);
 
-                if (m_Distance <= Random.Range(1.5f, 4.5f))
-                {
-                    m_Rigid.velocity = new Vector2(0, 0);
-                }
-
-                if (m_Rigid.velocity.x == 0)
+                if (m_Distance <= Random.Range(5f, 7.5f))
                 {
                     if (m_ShootTime >= m_ShootTimer)
                     {

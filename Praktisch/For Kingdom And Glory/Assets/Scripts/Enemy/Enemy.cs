@@ -83,6 +83,12 @@ public class Enemy : MonoBehaviour
         if (!GameManager.Instance.IsAlive)
             return;
 
+        if (GameManager.Instance.IsPaused)
+        {
+            m_Rigid.velocity = new Vector2(0, 0);
+            return;
+        }
+
         if (m_Walls.Count != 0)
             m_ClosestWall = GetClosestWall(m_Walls);
 

@@ -37,8 +37,11 @@ public class RabbitSpawner : MonoBehaviour
     {
         for (int i = 0; i < m_RabbitsToSpawn; i++)
         {
-            Instantiate(m_RabbitPrefab, this.transform.position, Quaternion.identity);
+            m_Rabbit = Instantiate(m_RabbitPrefab, this.transform.position, Quaternion.identity);
+            m_Rabbit.GetComponent<Rabbit>().Spawner = this.gameObject;
         }
+
+        m_SpawnedRabbitAmount += m_RabbitsToSpawn;
 
         m_SpawnedRabbits = true;
 
@@ -69,7 +72,7 @@ public class RabbitSpawner : MonoBehaviour
                 for (int i = 0; i < m_RabbitsToSpawn; i++)
                 {
                     m_Rabbit = Instantiate(m_RabbitPrefab, this.transform.position, Quaternion.identity);
-                    m_Rabbit.GetComponent<Rabbit>().GetSpawner(this.gameObject);
+                    m_Rabbit.GetComponent<Rabbit>().Spawner = this.gameObject;
                 }
 
                 SpawnedRabbitAmount += m_RabbitsToSpawn;

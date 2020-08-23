@@ -28,6 +28,9 @@ public class VagrantSpawner : MonoBehaviour
         if (!GameManager.Instance.IsAlive)
             return;
 
+        if (GameManager.Instance.IsPaused)
+            return;
+
         m_Timer += Time.deltaTime;
         if (m_Timer >= m_SpawnTime && m_CanSpawn)
         {

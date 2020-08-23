@@ -43,6 +43,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     private Vector2 m_PrevDirec;
 
+    private Vector2 m_Dir;
+
     private int m_BowClip = 0;
 
     private int m_Armor;
@@ -76,6 +78,8 @@ public class PlayerBehaviour : MonoBehaviour
     private bool m_CanTown = false;
 
     private bool m_IsTown = false;
+
+    private bool m_ESCPressed = false;
     #endregion
 
     #region Properties
@@ -100,24 +104,34 @@ public class PlayerBehaviour : MonoBehaviour
     {
         m_Rigid = GetComponent<Rigidbody2D>();
         m_Render = GetComponentInChildren<SpriteRenderer>();
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector2 Dir = Input.GetAxis("Horizontal") * Vector2.right * m_MovementSpeed;
-        m_Rigid.velocity = Dir * Time.deltaTime;
+        if (!GameManager.Instance.IsAlive)
+            return;
 
-        if (Dir.x > 0.0f)
+        if(GameManager.Instance.IsPaused)
+        {
+            m_Rigid.velocity = new Vector2(0, 0);
+            m_Source.Stop();
+        }
+
+        if (!GameManager.Instance.IsPaused)
+        {
+            m_Dir = Input.GetAxis("Horizontal") * Vector2.right * m_MovementSpeed;
+            m_Rigid.velocity = m_Dir * Time.deltaTime;
+        }
+
+        if (m_Dir.x > 0.0f)
         {
             m_Sprite.localScale = new Vector3(-1f, 1f, 1f);
             m_PrevDirec = new Vector2(1f, 1f);
             if (!Source.isPlaying)
                 Source.Play();
         }
-        else if (Dir.x < 0.0f)
+        else if (m_Dir.x < 0.0f)
         {
             m_Sprite.localScale = new Vector3(1f, 1f, 1f);
             m_PrevDirec = new Vector2(-1f, 1f);
@@ -131,11 +145,11 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 if (Inventory.Instance.Coins > 0)
                 {
-                    if (Dir.x < 0)
+                    if (m_Dir.x < 0)
                         Instantiate(m_CoinPrefab, m_CoinSpawnRight.position, Quaternion.identity);
-                    if (Dir.x > 0)
+                    if (m_Dir.x > 0)
                         Instantiate(m_CoinPrefab, m_CoinSpawnLeft.position, Quaternion.identity);
-                    if (Dir.x == 0)
+                    if (m_Dir.x == 0)
                         Instantiate(m_CoinPrefab, m_CoinSpawnRight.position, Quaternion.identity);
 
                     Inventory.Instance.Coins--;
@@ -159,7 +173,23 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        #region MyRegion
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("hit");
+            if (!GameManager.Instance.IsPaused)
+            {
+                GameManager.Instance.IsPaused = true;
+                Debug.Log("Durch1");
+            }
+
+            else if (GameManager.Instance.IsPaused)
+            {
+                Debug.Log("Durch2");
+                GameManager.Instance.IsPaused = false;
+            }
+        }
+
+        #region Interact
         if (CanBuild || CanBuyBows || CanCraft || CanTown || CanBuyHammer)
         {
             if (Input.GetKeyDown(KeyCode.E))
@@ -207,7 +237,7 @@ public class PlayerBehaviour : MonoBehaviour
                         m_IsTown = false;
                     }
                 }
-                else if(CanBuyHammer)
+                else if (CanBuyHammer)
                 {
                     BuilderStand.Instance.AddHammerToStand();
                 }

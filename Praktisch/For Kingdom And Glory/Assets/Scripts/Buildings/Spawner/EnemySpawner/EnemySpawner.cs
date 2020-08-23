@@ -12,11 +12,12 @@ public class EnemySpawner : MonoBehaviour
     private int m_MaxHealth = 25;
     [SerializeField]
     private GameObject m_EnemyPrefab;
+    [SerializeField]
+    private Transform m_Sprite;
     #endregion
 
     #region private Variables
     private List<GameObject> m_SpawnedEnemys = new List<GameObject>();
-    [SerializeField]
     private ESpawnerSide m_Side;
     private int m_EnemyToSpawn;
     private int m_CurrentHealth;
@@ -26,7 +27,6 @@ public class EnemySpawner : MonoBehaviour
     private bool m_Spawned = false;
     private bool m_UnderAttack = false;
     private bool m_Defending = false;
-    [SerializeField]
     private bool m_FirstSpawner = false;
     #endregion
 
@@ -49,6 +49,9 @@ public class EnemySpawner : MonoBehaviour
         m_SpawnedDefender = 0;
         m_EnemyToSpawn = 0;
 
+        if (m_Side == ESpawnerSide.RIGHT)
+            m_Sprite.localScale = new Vector3(-1, 1, 1);
+
         Instance = this;
     }
 
@@ -56,6 +59,9 @@ public class EnemySpawner : MonoBehaviour
     void Update()
     {
         if (!GameManager.Instance.IsAlive)
+            return;
+
+        if (GameManager.Instance.IsPaused)
             return;
 
         if (FirstSpawner == false)

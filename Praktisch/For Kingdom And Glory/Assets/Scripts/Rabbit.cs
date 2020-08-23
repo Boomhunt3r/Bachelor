@@ -29,6 +29,7 @@ public class Rabbit : MonoBehaviour
 
     #region Properties
     public float Health { get => m_Health; set => m_Health = value; }
+    public GameObject Spawner { get => m_Spawner; set => m_Spawner = value; }
     #endregion
 
     // Start is called before the first frame update
@@ -40,6 +41,8 @@ public class Rabbit : MonoBehaviour
 
         m_Rigid.velocity = m_CurrentVelocity;
 
+
+
         m_IdleTimer = Random.Range(10.0f, 85.0f);
 
         Instance = this;
@@ -50,6 +53,12 @@ public class Rabbit : MonoBehaviour
     {
         if (!GameManager.Instance.IsAlive)
             return;
+
+        if (GameManager.Instance.IsPaused)
+        {
+            m_Rigid.velocity = new Vector2(0, 0);
+            return;
+        }
 
         m_Timer += Time.deltaTime;
 
@@ -92,10 +101,5 @@ public class Rabbit : MonoBehaviour
 
             Destroy(this.gameObject);
         }
-    }
-
-    public void GetSpawner(GameObject _Spawner)
-    {
-        m_Spawner = _Spawner;
     }
 }

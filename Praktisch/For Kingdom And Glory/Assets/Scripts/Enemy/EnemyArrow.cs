@@ -26,7 +26,7 @@ public class EnemyArrow : MonoBehaviour
         }
         else if (collision.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerBehaviour>().GetDamage(m_Damage);
+            PlayerBehaviour.Instance.GetDamage(m_Damage);
 
             Destroy(this.gameObject);
         }

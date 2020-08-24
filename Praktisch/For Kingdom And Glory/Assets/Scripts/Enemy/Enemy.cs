@@ -43,7 +43,10 @@ public class Enemy : MonoBehaviour
     private List<GameObject> m_Archer = new List<GameObject>();
     private Vector2 m_Direction;
     private float m_Timer;
+    private float m_AnimationTimer;
+    private float m_AnimationTime = 1.0f;
     private bool m_Loop = true;
+    [SerializeField]
     private ESpawnerSide m_Side;
     #endregion
 
@@ -85,6 +88,10 @@ public class Enemy : MonoBehaviour
 
         else if (m_Villiger.Count == 0 && m_Walls.Count != 0)
             m_Target = m_ClosestWall;
+
+        m_Target = m_Player;
+
+        m_Animation.Initialize(true);
 
         Instance = this;
     }
@@ -132,18 +139,35 @@ public class Enemy : MonoBehaviour
         m_Direction = ((Vector2)m_Target.transform.position - m_Rigid.position).normalized;
         m_Rigid.velocity = m_Direction * m_Speed * Time.deltaTime;
 
+        if (m_Rigid.velocity.x == 0)
+        {
+            if (m_AnimationTimer >= m_AnimationTime)
+            {
+                ChangeAnimation("Idle", true);
+                m_AnimationTimer = 0.0f;
+            }
+        }
+
         switch (Side)
         {
             case ESpawnerSide.LEFT:
-                if(m_Rigid.velocity.x > 0.0f)
+                if (m_Rigid.velocity.x > 0.0f)
                 {
-                    ChangeAnimation("Walk");
+                    if (m_AnimationTimer >= m_AnimationTime)
+                    {
+                        ChangeAnimation("Walk", true);
+                        m_AnimationTimer = 0.0f;
+                    }
                 }
                 break;
             case ESpawnerSide.RIGHT:
                 if (m_Rigid.velocity.x < 0.0f)
                 {
-                    ChangeAnimation("Walk");
+                    if (m_AnimationTimer >= m_AnimationTime)
+                    {
+                        ChangeAnimation("Walk", true);
+                        m_AnimationTimer = 0.0f;
+                    }
                 }
                 break;
             default:
@@ -155,20 +179,19 @@ public class Enemy : MonoBehaviour
         if (Distance < Random.Range(1.0f, 4.5f))
         {
             m_Rigid.velocity = new Vector2(0, 0);
-        }
 
-        if (m_Rigid.velocity.x == 0)
-        {
             m_Timer += Time.deltaTime;
-
-            ChangeAnimation("Idle");
 
             if (m_Timer >= m_AttackTime)
             {
-                ChangeAnimation("Attack");
+                ChangeAnimation("Attack", false);
                 Attack();
             }
         }
+
+        m_AnimationTimer += Time.deltaTime;
+
+        Debug.Log(m_Rigid.velocity);
     }
 
     private GameObject GetClosestWall(List<GameObject> _Target)
@@ -308,7 +331,7 @@ public class Enemy : MonoBehaviour
     /// 
     /// </summary>
     /// <param name="_Name">Name of Animation</param>
-    private void ChangeAnimation(string _Name)
+    private void ChangeAnimation(string _Name, bool _Loop)
     {
         if (m_Animation == null)
         {
@@ -316,10 +339,16 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        if (_Name == "Dead")
-            m_Loop = false;
+        if (_Name == "Idle" || _Name == "Attack")
+            m_AnimationTime = 1.5f;
 
-        m_Animation.AnimationState.SetAnimation(0, _Name, m_Loop);
+        if (_Name == "Walk")
+            m_AnimationTime = 1.0f;
+
+        if (_Name == "Dead")
+            m_Animation.AnimationState.SetAnimation(0, _Name, _Loop);
+
+        m_Animation.AnimationState.SetAnimation(0, _Name, _Loop);
     }
     #endregion
 

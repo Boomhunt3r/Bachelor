@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Monster: {fileID: 8824738500308703634}
   m_Animation: {fileID: 8824738500308703637}
   m_ThrowPoint: {fileID: 1993469252}
+  m_Side: 0
 --- !u!50 &7346845194420042320
 Rigidbody2D:
   serializedVersion: 4
@@ -202,12 +203,12 @@ PrefabInstance:
     - target: {fileID: 8177687174557151582, guid: 8f94fd65fa27da5429b6d185e8c3d59e,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8177687174557151582, guid: 8f94fd65fa27da5429b6d185e8c3d59e,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8177687174557151583, guid: 8f94fd65fa27da5429b6d185e8c3d59e,
         type: 3}

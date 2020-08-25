@@ -45,6 +45,7 @@ public class Enemy : MonoBehaviour
     private float m_Timer;
     private float m_AnimationTimer;
     private float m_AnimationTime = 1.0f;
+    private float m_Range = 0.0f;
     private bool m_Loop = true;
     [SerializeField]
     private ESpawnerSide m_Side;
@@ -93,6 +94,8 @@ public class Enemy : MonoBehaviour
 
         m_Animation.Initialize(true);
 
+        m_Range = Random.Range(1.0f, 4.5f);
+
         Instance = this;
     }
 
@@ -139,7 +142,7 @@ public class Enemy : MonoBehaviour
         m_Direction = ((Vector2)m_Target.transform.position - m_Rigid.position).normalized;
         m_Rigid.velocity = m_Direction * m_Speed * Time.deltaTime;
 
-        if (m_Rigid.velocity.x == 0)
+        if (m_Rigid.velocity.x == 0.0f)
         {
             if (m_AnimationTimer >= m_AnimationTime)
             {
@@ -176,11 +179,17 @@ public class Enemy : MonoBehaviour
 
         float Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
 
-        if (Distance < Random.Range(1.0f, 4.5f))
+        if (Distance < m_Range)
         {
             m_Rigid.velocity = new Vector2(0, 0);
 
             m_Timer += Time.deltaTime;
+
+            if (m_AnimationTimer >= m_AnimationTime)
+            {
+                ChangeAnimation("Idle", true);
+                m_AnimationTimer = 0.0f;
+            }
 
             if (m_Timer >= m_AttackTime)
             {
@@ -190,34 +199,8 @@ public class Enemy : MonoBehaviour
         }
 
         m_AnimationTimer += Time.deltaTime;
-
-        Debug.Log(m_Rigid.velocity);
     }
 
-    private GameObject GetClosestWall(List<GameObject> _Target)
-    {
-        GameObject Target = null;
-        float MinDist = Mathf.Infinity;
-        Vector2 CurrentPos = transform.position;
-        float Dist = 0.0f;
-
-        for (int i = 0; i < _Target.Count; i++)
-        {
-
-            if (_Target[i].GetComponent<Wall>().Building == EBuildingUpgrade.NONE)
-                continue;
-
-            Dist = Vector2.Distance(_Target[i].transform.position, CurrentPos);
-
-            if (Dist < MinDist)
-            {
-                Target = _Target[i];
-                MinDist = Dist;
-            }
-        }
-
-        return Target;
-    }
 
     #region private Functions
     /// <summary>
@@ -245,7 +228,35 @@ public class Enemy : MonoBehaviour
 
         return Target;
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="_Target">Wall List</param>
+    /// <returns>Closest Wall</returns>
+    private GameObject GetClosestWall(List<GameObject> _Target)
+    {
+        GameObject Target = null;
+        float MinDist = Mathf.Infinity;
+        Vector2 CurrentPos = transform.position;
+        float Dist = 0.0f;
 
+        for (int i = 0; i < _Target.Count; i++)
+        {
+
+            if (_Target[i].GetComponent<Wall>().Building == EBuildingUpgrade.NONE)
+                continue;
+
+            Dist = Vector2.Distance(_Target[i].transform.position, CurrentPos);
+
+            if (Dist < MinDist)
+            {
+                Target = _Target[i];
+                MinDist = Dist;
+            }
+        }
+
+        return Target;
+    }
     /// <summary>
     /// Get the Closest Target from own Position
     /// </summary>

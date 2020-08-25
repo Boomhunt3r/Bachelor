@@ -20,6 +20,12 @@ public class EnemyArrow : MonoBehaviour
     {
         if (collision.CompareTag("Wall"))
         {
+            if(collision.gameObject.GetComponent<Wall>().Building == EBuildingUpgrade.NONE)
+            {
+                Destroy(this.gameObject);
+                return;
+            }
+
             collision.gameObject.GetComponent<Wall>().GetDamage(m_Damage);
 
             Destroy(this.gameObject);

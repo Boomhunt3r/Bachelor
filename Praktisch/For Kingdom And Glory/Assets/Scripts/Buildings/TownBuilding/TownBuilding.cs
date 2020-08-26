@@ -216,7 +216,7 @@ public class TownBuilding : MonoBehaviour
             case EBuildingUpgrade.WOOD:
                 if (Inventory.Instance.Coins >= 8 && Inventory.Instance.Stone >= 10)
                 {
-                    //m_Renderer.sprite = m_Sprites[1];
+                    m_Renderer.sprite = m_Sprites[1];
 
                     Inventory.Instance.Coins -= 8;
                     Inventory.Instance.Stone -= 10;
@@ -242,7 +242,7 @@ public class TownBuilding : MonoBehaviour
             case EBuildingUpgrade.STONE:
                 if (Inventory.Instance.Coins >= 10 && Inventory.Instance.Iron >= 14)
                 {
-                    //m_Renderer.sprite = m_Sprites[2];
+                    m_Renderer.sprite = m_Sprites[2];
 
                     Inventory.Instance.Coins -= 10;
                     Inventory.Instance.Iron  -= 14;

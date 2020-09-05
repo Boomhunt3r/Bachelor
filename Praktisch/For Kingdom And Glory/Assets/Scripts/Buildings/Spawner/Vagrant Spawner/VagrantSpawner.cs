@@ -22,6 +22,15 @@ public class VagrantSpawner : MonoBehaviour
     private GameObject m_Vagrant;
     #endregion
 
+    private void Start()
+    {
+        for (int i = 0; i < m_VagrantToSpawn; i++)
+        {
+            m_Vagrant = Instantiate(m_VagrantPrefab, new Vector3(this.gameObject.transform.position.x, 0.0f, 0.15f), Quaternion.identity);
+            GameManager.Instance.SpawnedVagrants.Add(m_Vagrant);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -63,6 +72,10 @@ public class VagrantSpawner : MonoBehaviour
     private void OnTriggerExit2D(Collider2D _Collision)
     {
         if (_Collision.CompareTag("Vagrant"))
+        {
+            m_CanSpawn = true;
+        }
+        if(_Collision.CompareTag("Villager"))
         {
             m_CanSpawn = true;
         }

@@ -207,7 +207,7 @@ public partial class VagrantBehaviour : MonoBehaviour
     #region private Collision Function
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!m_HasJob)
+        if (m_Status == ENPCStatus.VARGANT)
         {
             if (collision.CompareTag("Coin"))
             {
@@ -215,6 +215,9 @@ public partial class VagrantBehaviour : MonoBehaviour
                 Destroy(collision.gameObject);
                 m_Status = ENPCStatus.VILLAGER;
             }
+        }
+        if (m_Status == ENPCStatus.VILLAGER)
+        {
             if (collision.CompareTag("Hammer"))
             {
                 BuilderStand.Instance.RemoveHammerFromStand(collision.gameObject);

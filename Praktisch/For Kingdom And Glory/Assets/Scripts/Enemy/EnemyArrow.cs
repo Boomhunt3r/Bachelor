@@ -7,6 +7,7 @@ public class EnemyArrow : MonoBehaviour
     private int m_Damage = 5;
 
     private float m_Timer = 0.0f;
+    private bool m_Hit = false;
     private void Update()
     {
         m_Timer += Time.deltaTime;
@@ -20,39 +21,59 @@ public class EnemyArrow : MonoBehaviour
     {
         if (collision.CompareTag("Wall"))
         {
-            if(collision.gameObject.GetComponent<Wall>().Building == EBuildingUpgrade.NONE)
+            if (collision.gameObject.GetComponent<Wall>().Building == EBuildingUpgrade.NONE)
             {
                 Destroy(this.gameObject);
                 return;
             }
 
-            collision.gameObject.GetComponent<Wall>().GetDamage(m_Damage);
+            if (!m_Hit)
+            {
+                collision.gameObject.GetComponent<Wall>().GetDamage(m_Damage);
+                m_Hit = true;
+                Destroy(this.gameObject);
+            }
 
-            Destroy(this.gameObject);
         }
         else if (collision.CompareTag("Player"))
         {
-            PlayerBehaviour.Instance.GetDamage(m_Damage);
+            if (!m_Hit)
+            {
+                PlayerBehaviour.Instance.GetDamage(m_Damage);
+                Destroy(this.gameObject);
+                m_Hit = true;
+            }
 
-            Destroy(this.gameObject);
         }
         else if (collision.CompareTag("Villager"))
         {
-            collision.GetComponent<VagrantBehaviour>().StepDown();
+            if (!m_Hit)
+            {
+                collision.GetComponent<VagrantBehaviour>().StepDown();
+                Destroy(this.gameObject);
+                m_Hit = true;
+            }
 
-            Destroy(this.gameObject);
         }
         else if (collision.CompareTag("Archer"))
         {
-            collision.GetComponent<VagrantBehaviour>().StepDown();
+            if (!m_Hit)
+            {
+                collision.GetComponent<VagrantBehaviour>().StepDown();
+                Destroy(this.gameObject);
+                m_Hit = true;
+            }
 
-            Destroy(this.gameObject);
         }
         else if (collision.CompareTag("Builder"))
         {
-            collision.GetComponent<VagrantBehaviour>().StepDown();
+            if (!m_Hit)
+            {
+                collision.GetComponent<VagrantBehaviour>().StepDown();
+                Destroy(this.gameObject);
+                m_Hit = true;
+            }
 
-            Destroy(this.gameObject);
         }
     }
     #endregion

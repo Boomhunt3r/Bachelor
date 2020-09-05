@@ -26,6 +26,12 @@ public partial class VagrantBehaviour : MonoBehaviour
             {
                 if (m_Rabbits.Count != 0)
                 {
+                    if(m_Target == null)
+                    {
+                        m_Target = GetClosestTarget(m_Rabbits);
+                        m_CurrentRabbit = m_Target;
+                        m_Hunting = true;
+                    }
                     if (!m_Hunting)
                     {
                         m_Target = GetClosestTarget(m_Rabbits);

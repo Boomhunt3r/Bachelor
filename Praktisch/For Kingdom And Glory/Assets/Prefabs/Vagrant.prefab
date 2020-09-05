@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31b4120f84ef3d4da5604ccc11c0d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Speed: 100
+  m_Speed: 150
   m_NextWaypointDist: 1.5
   m_Animation: {fileID: 1036658182201901794}
   m_ShootTimer: 1.5

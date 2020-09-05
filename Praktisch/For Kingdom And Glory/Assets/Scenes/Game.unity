@@ -1102,7 +1102,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 20
+  m_fontSize: 19.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11192,7 +11192,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 20.05
+  m_fontSize: 20
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -14869,7 +14869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5920af693979b804fb9a9663ba219338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_VagrantToSpawn: 1
+  m_VagrantToSpawn: 2
   m_SpawnTime: 60
   m_VagrantPrefab: {fileID: 1317144251245296273, guid: 42500e799f8bb5e408c8ffe2c3d29a11,
     type: 3}
@@ -15696,7 +15696,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 20.3
+  m_fontSize: 20.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -16437,7 +16437,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 18.3
+  m_fontSize: 18.25
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -18413,7 +18413,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 20.3
+  m_fontSize: 20.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

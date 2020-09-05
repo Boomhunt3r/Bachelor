@@ -10,7 +10,7 @@ public class VagrantSpawner : MonoBehaviour
 
     [SerializeField]
     [Range(0, 720)]
-    private float m_SpawnTime = 120.0f;
+    private float m_SpawnTime = 60.0f;
 
     [SerializeField]
     private GameObject m_VagrantPrefab;

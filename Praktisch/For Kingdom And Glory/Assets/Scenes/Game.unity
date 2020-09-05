@@ -835,7 +835,7 @@ MonoBehaviour:
   m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -4296,7 +4296,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c34e5c86d9736aa449921f952ea561a1, type: 3}
   m_BuildUI: {fileID: 1633496388}
   m_DefendPoint: {fileID: 1999018361}
-  m_Render: {fileID: 1939741062}
+  m_Render: {fileID: 484970263}
   m_Side: 2
 --- !u!61 &484970262
 BoxCollider2D:
@@ -6200,7 +6200,7 @@ PrefabInstance:
     - target: {fileID: 8022434121736257395, guid: 827894f2d3eac7643a27e9ad96b532bd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.374
       objectReference: {fileID: 0}
     - target: {fileID: 8022434121736257395, guid: 827894f2d3eac7643a27e9ad96b532bd,
         type: 3}
@@ -8182,7 +8182,7 @@ PrefabInstance:
     - target: {fileID: 8022434121736257395, guid: 827894f2d3eac7643a27e9ad96b532bd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.374
       objectReference: {fileID: 0}
     - target: {fileID: 8022434121736257395, guid: 827894f2d3eac7643a27e9ad96b532bd,
         type: 3}
@@ -14870,7 +14870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_VagrantToSpawn: 1
-  m_SpawnTime: 5
+  m_SpawnTime: 60
   m_VagrantPrefab: {fileID: 1317144251245296273, guid: 42500e799f8bb5e408c8ffe2c3d29a11,
     type: 3}
 --- !u!212 &1839134807
@@ -16054,7 +16054,7 @@ PrefabInstance:
     - target: {fileID: 8022434121736257395, guid: 827894f2d3eac7643a27e9ad96b532bd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.374
       objectReference: {fileID: 0}
     - target: {fileID: 8022434121736257395, guid: 827894f2d3eac7643a27e9ad96b532bd,
         type: 3}
@@ -18505,7 +18505,7 @@ PrefabInstance:
     - target: {fileID: 8022434121736257395, guid: 827894f2d3eac7643a27e9ad96b532bd,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.374
       objectReference: {fileID: 0}
     - target: {fileID: 8022434121736257395, guid: 827894f2d3eac7643a27e9ad96b532bd,
         type: 3}

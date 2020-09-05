@@ -38,15 +38,7 @@ public class Arrow : MonoBehaviour
             m_Source.Play();
             Destroy(this.gameObject);
         }
-        else if(collision.CompareTag("Wall"))
-        {
-            m_Source.Play();
-            Destroy(this.gameObject);
-        }
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("Ground"))
+        if (collision.CompareTag("Ground"))
         {
             m_Source.Play();
             Destroy(this.gameObject);

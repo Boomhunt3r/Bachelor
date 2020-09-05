@@ -128,6 +128,9 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        m_HealthText.text = $"{m_Health}";
+        m_ArmorText.text = $"{m_Armor}";
+
         if (!GameManager.Instance.IsAlive)
             return;
 
@@ -283,9 +286,6 @@ public class PlayerBehaviour : MonoBehaviour
                 m_Armor += 1;
         }
 
-        m_HealthText.text = $"{m_Health}";
-        m_ArmorText.text  = $"{m_Armor}";
-
         m_Timer += Time.deltaTime;
     }
 
@@ -366,17 +366,18 @@ public class PlayerBehaviour : MonoBehaviour
     #region public functions
     public void GetDamage(int _Amount)
     {
-        if (Armor <= 0)
+        if (m_Armor <= 0)
         {
             m_Health -= _Amount;
         }
-        else
+        else if(m_Armor > 0)
         {
-            Armor -= _Amount;
+            m_Armor -= _Amount;
         }
 
         if (m_Health >= 0)
         {
+            Debug.Log("Dead");
             GameManager.Instance.IsAlive = false;
         }
     }

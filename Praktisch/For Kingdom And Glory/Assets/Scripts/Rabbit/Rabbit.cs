@@ -65,22 +65,18 @@ public class Rabbit : MonoBehaviour
             if (m_GoingForward)
             {
                 m_CurrentVelocity = Vector2.right * m_Speed * Time.deltaTime;
+                m_LocalScale.localScale = new Vector3(m_LocalScale.localScale.x, m_LocalScale.localScale.y, 1f);
                 m_GoingForward = false;
             }
             else if (!m_GoingForward)
             {
                 m_CurrentVelocity = Vector2.left * m_Speed * Time.deltaTime;
+                m_LocalScale.localScale = new Vector3(-m_LocalScale.localScale.x, m_LocalScale.localScale.y, 1f);
                 m_GoingForward = true;
             }
 
             m_Timer = 0.0f;
         }
-
-        if (m_Rigid.velocity.x > 0.0f)
-            m_LocalScale.localScale = new Vector3(-1f, 1f, 1f);
-        else if (m_Rigid.velocity.x < 0.0f)
-            m_LocalScale.localScale = new Vector3(1f, 1f, 1f);
-
 
         m_Rigid.velocity = m_CurrentVelocity;
     }

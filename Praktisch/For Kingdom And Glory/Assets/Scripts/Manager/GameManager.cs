@@ -54,11 +54,13 @@ public class GameManager : MonoBehaviour
     private bool m_IsAlive = true;
     private bool m_RevengeAttack = false;
     private bool m_IsPaused = false;
+    private bool m_IsEndGame = false;
     private EGameSetting m_Setting;
     private List<GameObject> m_EnemySpawnerLeftSide = new List<GameObject>();
     private List<GameObject> m_EnemySpawnerRightSide = new List<GameObject>();
     private List<GameObject> m_AllSpawnedEnemys = new List<GameObject>();
     private List<GameObject> m_SpawnedVagrants = new List<GameObject>();
+    private List<GameObject> m_AllEnemySpawner = new List<GameObject>();
     #endregion
 
     #region Properties
@@ -96,8 +98,20 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!m_IsAlive)
+        if (m_IsEndGame)
+            return;
+
+        if (!m_IsAlive && !m_IsEndGame)
         {
+            Victory();
+            m_IsEndGame = true;
+            return;
+        }
+
+        if(m_AllEnemySpawner.Count == 0 && !m_IsEndGame)
+        {
+            GameOver();
+            m_IsEndGame = true;
             return;
         }
 
@@ -146,6 +160,16 @@ public class GameManager : MonoBehaviour
     }
 
     #region private Function
+    private void Victory()
+    {
+        SceneManager.LoadScene("Victory");
+    }
+
+    private void GameOver()
+    {
+        SceneManager.LoadScene("Loss");
+    }
+
     private void UpdateDayCounter()
     {
         m_DayAnnouncer.text = $"Day: {m_DayCount}";
@@ -181,6 +205,8 @@ public class GameManager : MonoBehaviour
 
                         // Add to List
                         m_EnemySpawnerLeftSide.Add(Spawner);
+
+                        m_AllEnemySpawner.Add(Spawner);
                         continue;
                     }
 
@@ -193,6 +219,8 @@ public class GameManager : MonoBehaviour
                         Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
 
                     m_EnemySpawnerRightSide.Add(Spawner);
+                    m_AllEnemySpawner.Add(Spawner);
+
                 }
                 m_LeftCollider[1].SetActive(false);
                 m_LeftCollider[2].SetActive(false);
@@ -220,6 +248,7 @@ public class GameManager : MonoBehaviour
                             Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
 
                         m_EnemySpawnerLeftSide.Add(Spawner);
+                        m_AllEnemySpawner.Add(Spawner);
                         continue;
                     }
 
@@ -231,6 +260,8 @@ public class GameManager : MonoBehaviour
                         Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
 
                     m_EnemySpawnerRightSide.Add(Spawner);
+                    m_AllEnemySpawner.Add(Spawner);
+                }
                     m_LeftCollider[0].SetActive(false);
                     m_LeftCollider[2].SetActive(false);
                     m_RightCollider[0].SetActive(false);
@@ -240,9 +271,6 @@ public class GameManager : MonoBehaviour
                     Inventory.Instance.Wood = 4;
                     Inventory.Instance.Stone = 2;
                     Inventory.Instance.Iron = 0;
-
-                }
-
                 break;
             case EGameSetting.HARD:
                 m_EnemySpawner = 6;
@@ -260,6 +288,7 @@ public class GameManager : MonoBehaviour
                             Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
 
                         m_EnemySpawnerLeftSide.Add(Spawner);
+                        m_AllEnemySpawner.Add(Spawner);
                         continue;
                     }
 
@@ -271,6 +300,7 @@ public class GameManager : MonoBehaviour
                         Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
 
                     m_EnemySpawnerRightSide.Add(Spawner);
+                    m_AllEnemySpawner.Add(Spawner);
                 }
                 m_LeftCollider[0].SetActive(false);
                 m_LeftCollider[1].SetActive(false);
@@ -300,6 +330,12 @@ public class GameManager : MonoBehaviour
     /// <param name="_Spawner">The Spawner</param>
     public void RemoveSpawnerFromList(ESpawnerSide _Side, GameObject _Spawner)
     {
+        for (int i = 0; i < m_AllEnemySpawner.Count; i++)
+        {
+            if (_Spawner == m_AllEnemySpawner[i])
+                m_AllEnemySpawner.Remove(_Spawner);
+        }
+
         switch (_Side)
         {
             case ESpawnerSide.LEFT:

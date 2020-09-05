@@ -103,14 +103,14 @@ public class GameManager : MonoBehaviour
 
         if (!m_IsAlive && !m_IsEndGame)
         {
-            Victory();
+            GameOver();
             m_IsEndGame = true;
             return;
         }
 
-        if(m_AllEnemySpawner.Count == 0 && !m_IsEndGame)
+        if (m_AllEnemySpawner.Count == 0 && !m_IsEndGame)
         {
-            GameOver();
+            Victory();
             m_IsEndGame = true;
             return;
         }
@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
                 m_Timer = 0.0f;
             }
         }
-        else if (IsNight)
+        if (IsNight)
         {
             if (m_Timer >= m_NightLength)
             {
@@ -157,6 +157,7 @@ public class GameManager : MonoBehaviour
                 m_Timer = 0.0f;
             }
         }
+        Debug.Log(m_Timer);
     }
 
     #region private Function
@@ -262,15 +263,15 @@ public class GameManager : MonoBehaviour
                     m_EnemySpawnerRightSide.Add(Spawner);
                     m_AllEnemySpawner.Add(Spawner);
                 }
-                    m_LeftCollider[0].SetActive(false);
-                    m_LeftCollider[2].SetActive(false);
-                    m_RightCollider[0].SetActive(false);
-                    m_RightCollider[2].SetActive(false);
+                m_LeftCollider[0].SetActive(false);
+                m_LeftCollider[2].SetActive(false);
+                m_RightCollider[0].SetActive(false);
+                m_RightCollider[2].SetActive(false);
 
-                    Inventory.Instance.Coins = 12;
-                    Inventory.Instance.Wood = 4;
-                    Inventory.Instance.Stone = 2;
-                    Inventory.Instance.Iron = 0;
+                Inventory.Instance.Coins = 12;
+                Inventory.Instance.Wood = 4;
+                Inventory.Instance.Stone = 2;
+                Inventory.Instance.Iron = 0;
                 break;
             case EGameSetting.HARD:
                 m_EnemySpawner = 6;

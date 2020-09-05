@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour
         m_Player = GameObject.FindGameObjectWithTag("Player");
 
         if (Side == ESpawnerSide.RIGHT)
-            m_Monster.transform.localScale = new Vector3(-m_Monster.transform.localScale.x, 1, 1);
+            m_Monster.transform.localScale = new Vector3(-m_Monster.transform.localScale.x, m_Monster.transform.localScale.y, 1);
 
         if (m_Walls.Count != 0)
             m_ClosestWall = GetClosestWall(m_Walls);

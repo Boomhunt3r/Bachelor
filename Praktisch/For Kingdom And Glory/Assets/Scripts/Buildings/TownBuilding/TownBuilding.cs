@@ -23,6 +23,8 @@ public class TownBuilding : MonoBehaviour
     [SerializeField]
     private Sprite[] m_Sprites;
     [SerializeField]
+    private GameObject m_Sprite;
+    [SerializeField]
     private EBuildingUpgrade m_Upgrade;
     [SerializeField]
     private GameObject m_TownUI;
@@ -30,14 +32,6 @@ public class TownBuilding : MonoBehaviour
     [Header("Pay Settings")]
     [SerializeField]
     private TextMeshProUGUI m_PayText;
-    [SerializeField]
-    private Image m_Coin;
-    [SerializeField]
-    private Image m_Wood;
-    [SerializeField]
-    private Image m_Stone;
-    [SerializeField]
-    private Image m_Iron;
 
     [Header("Attack Buttons")]
     [SerializeField]
@@ -100,6 +94,8 @@ public class TownBuilding : MonoBehaviour
         m_Upgrade = EBuildingUpgrade.NONE;
 
         m_Renderer = GetComponentInChildren<SpriteRenderer>();
+
+        m_Renderer.color = Color.clear;
 
         m_RessourceText.text = "Daily Ressources: \n" +
                                $"{m_CoinsPerDay} Coins \n" +
@@ -194,6 +190,8 @@ public class TownBuilding : MonoBehaviour
             case EBuildingUpgrade.NONE:
                 if (Inventory.Instance.Coins >= 6 && Inventory.Instance.Wood >= 8)
                 {
+                    m_Sprite.SetActive(false);
+                    m_Renderer.color = Color.white;
                     m_Renderer.sprite = m_Sprites[0];
 
                     Inventory.Instance.Coins -= 6;

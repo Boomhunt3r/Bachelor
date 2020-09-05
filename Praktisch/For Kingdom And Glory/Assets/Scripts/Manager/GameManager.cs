@@ -140,8 +140,7 @@ public class GameManager : MonoBehaviour
                 m_AlmostNight = false;
                 IsNight = false;
                 IsDay = true;
-                m_DayCount++;
-                UpdateDayCounter();
+                m_Timer = 0.0f;
             }
         }
     }

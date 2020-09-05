@@ -11,8 +11,6 @@ public partial class VagrantBehaviour : MonoBehaviour
 
     private void Villager()
     {
-        m_Render.color = Color.gray;
-
         this.gameObject.tag = "Villager";
 
         if (m_BowInRange == false && m_HammerInRange == false)

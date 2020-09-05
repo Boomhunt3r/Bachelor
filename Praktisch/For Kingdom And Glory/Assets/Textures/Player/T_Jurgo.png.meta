@@ -1,0 +1,1642 @@
+fileFormatVersion: 2
+guid: 31a09a53f4e4f54409d997e36433c45f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8872157730051342336
+    second: T_Jurgo_0
+  - first:
+      213: -2746046202949450463
+    second: T_Jurgo_1
+  - first:
+      213: 1511499089697032985
+    second: T_Jurgo_2
+  - first:
+      213: 3604987686433084920
+    second: T_Jurgo_3
+  - first:
+      213: -6709514994061168327
+    second: T_Jurgo_4
+  - first:
+      213: -5384600813016135354
+    second: T_Jurgo_5
+  - first:
+      213: 8991085970814386900
+    second: T_Jurgo_6
+  - first:
+      213: -7384655192570776158
+    second: T_Jurgo_7
+  - first:
+      213: 1482827518052781240
+    second: T_Jurgo_8
+  - first:
+      213: -2585735728048188079
+    second: T_Jurgo_9
+  - first:
+      213: -1841023580018478821
+    second: T_Jurgo_10
+  - first:
+      213: 6610783011189975765
+    second: T_Jurgo_11
+  - first:
+      213: 1753943931024712273
+    second: T_Jurgo_12
+  - first:
+      213: 4053127310963677477
+    second: T_Jurgo_13
+  - first:
+      213: -58487419722638005
+    second: T_Jurgo_14
+  - first:
+      213: 559129682891447380
+    second: T_Jurgo_15
+  - first:
+      213: 694255827490511664
+    second: T_Jurgo_16
+  - first:
+      213: -49324272129066139
+    second: T_Jurgo_17
+  - first:
+      213: 5866681198239992191
+    second: T_Jurgo_18
+  - first:
+      213: 4959611600106197349
+    second: T_Jurgo_19
+  - first:
+      213: 6464016324142434823
+    second: T_Jurgo_20
+  - first:
+      213: -6037851671395618537
+    second: T_Jurgo_21
+  - first:
+      213: -1701461178351096061
+    second: T_Jurgo_22
+  - first:
+      213: -8028813977171434660
+    second: T_Jurgo_23
+  - first:
+      213: -1497817791236704227
+    second: T_Jurgo_24
+  - first:
+      213: -5080471174064702613
+    second: T_Jurgo_25
+  - first:
+      213: 2702515906315527428
+    second: T_Jurgo_26
+  - first:
+      213: -4283952737686444776
+    second: T_Jurgo_27
+  - first:
+      213: -1068674405950645853
+    second: T_Jurgo_28
+  - first:
+      213: -1415532542270045470
+    second: T_Jurgo_29
+  - first:
+      213: -6614181594232632507
+    second: T_Jurgo_30
+  - first:
+      213: -763844010736233645
+    second: T_Jurgo_31
+  - first:
+      213: 8526291519340432767
+    second: T_Jurgo_32
+  - first:
+      213: 5588385281404523073
+    second: T_Jurgo_33
+  - first:
+      213: -2628154980266636186
+    second: T_Jurgo_34
+  - first:
+      213: 767607188020882771
+    second: T_Jurgo_35
+  - first:
+      213: -8668333393030856752
+    second: T_Jurgo_36
+  - first:
+      213: 8854907686770972704
+    second: T_Jurgo_37
+  - first:
+      213: 4789610536483856317
+    second: T_Jurgo_38
+  - first:
+      213: 7167014220035072352
+    second: T_Jurgo_39
+  - first:
+      213: -1045918412318007340
+    second: T_Jurgo_40
+  - first:
+      213: -6983763735980406151
+    second: T_Jurgo_41
+  - first:
+      213: 3703479327851677691
+    second: T_Jurgo_42
+  - first:
+      213: -3911400558131882469
+    second: T_Jurgo_43
+  - first:
+      213: -2705743602442130137
+    second: T_Jurgo_44
+  - first:
+      213: 3000748693575270351
+    second: T_Jurgo_45
+  - first:
+      213: 7775282339464244647
+    second: T_Jurgo_46
+  - first:
+      213: 3793642665725126621
+    second: T_Jurgo_47
+  - first:
+      213: -3574476344275296518
+    second: T_Jurgo_48
+  - first:
+      213: -5813362094731628592
+    second: T_Jurgo_49
+  - first:
+      213: -1795251708136490146
+    second: T_Jurgo_50
+  - first:
+      213: -8920325030915053549
+    second: T_Jurgo_51
+  - first:
+      213: 7876926539328574034
+    second: T_Jurgo_52
+  - first:
+      213: -513158983640926936
+    second: T_Jurgo_53
+  - first:
+      213: 7771470021379501270
+    second: T_Jurgo_54
+  - first:
+      213: -2251320807451163853
+    second: T_Jurgo_55
+  - first:
+      213: -461998254834056013
+    second: T_Jurgo_56
+  - first:
+      213: 8672770276129716502
+    second: T_Jurgo_0
+  - first:
+      213: -3329750101307404847
+    second: T_Jurgo_1
+  - first:
+      213: 4983168593890883357
+    second: T_Jurgo_2
+  - first:
+      213: -5827958555844539513
+    second: T_Jurgo_3
+  - first:
+      213: 837509788371637887
+    second: T_Jurgo_4
+  - first:
+      213: 2103546487872096803
+    second: T_Jurgo_5
+  - first:
+      213: -7532489075666868403
+    second: T_Jurgo_6
+  - first:
+      213: 1674510425705324803
+    second: T_Jurgo_7
+  - first:
+      213: 6914436836852615194
+    second: T_Jurgo_8
+  - first:
+      213: 1725292331166547906
+    second: T_Jurgo_9
+  - first:
+      213: 6869963580393727714
+    second: T_Jurgo_10
+  - first:
+      213: -4317729558159385854
+    second: T_Jurgo_11
+  - first:
+      213: -8053919995212395556
+    second: T_Jurgo_12
+  - first:
+      213: -1759455339743138218
+    second: T_Jurgo_13
+  - first:
+      213: -607090521331544622
+    second: T_Jurgo_14
+  - first:
+      213: -4944952795815816436
+    second: T_Jurgo_15
+  - first:
+      213: -9001206172104178139
+    second: T_Jurgo_16
+  - first:
+      213: 7863629520981972355
+    second: T_Jurgo_17
+  - first:
+      213: -3535744542123420787
+    second: T_Jurgo_18
+  - first:
+      213: -6924381437860382514
+    second: T_Jurgo_19
+  - first:
+      213: 758980043636125493
+    second: T_Jurgo_20
+  - first:
+      213: -1054405231686453826
+    second: T_Jurgo_21
+  - first:
+      213: -7036588775398681692
+    second: T_Jurgo_22
+  - first:
+      213: -3323753994820719690
+    second: T_Jurgo_23
+  - first:
+      213: -4135237275378262109
+    second: T_Jurgo_24
+  - first:
+      213: 2337365882193462002
+    second: T_Jurgo_25
+  - first:
+      213: 4143911020611770017
+    second: T_Jurgo_26
+  - first:
+      213: -7404726450376081824
+    second: T_Jurgo_27
+  - first:
+      213: -2443712013929934437
+    second: T_Jurgo_28
+  - first:
+      213: -4003393538146135128
+    second: T_Jurgo_29
+  - first:
+      213: 8388604828633587102
+    second: T_Jurgo_30
+  - first:
+      213: -4110431174223973752
+    second: T_Jurgo_31
+  - first:
+      213: -2974192327217796552
+    second: T_Jurgo_32
+  - first:
+      213: -2575370763036792964
+    second: T_Jurgo_33
+  - first:
+      213: 2257946138068550542
+    second: T_Jurgo_34
+  - first:
+      213: -7812082795681030894
+    second: T_Jurgo_35
+  - first:
+      213: -1606170929478422026
+    second: T_Jurgo_36
+  - first:
+      213: 1003208268107432472
+    second: T_Jurgo_37
+  - first:
+      213: 7491493791543749524
+    second: T_Jurgo_38
+  - first:
+      213: 6417028732618876992
+    second: T_Jurgo_39
+  - first:
+      213: -1820177011214187967
+    second: T_Jurgo_40
+  - first:
+      213: -325708364462403639
+    second: T_Jurgo_41
+  - first:
+      213: -4016985866839469202
+    second: T_Jurgo_42
+  - first:
+      213: -1839730429231843098
+    second: T_Jurgo_43
+  - first:
+      213: 7710232748912215642
+    second: T_Jurgo_44
+  - first:
+      213: 1929054503704668864
+    second: T_Jurgo_45
+  - first:
+      213: 5000963892115752946
+    second: T_Jurgo_46
+  - first:
+      213: 5260268912463726232
+    second: T_Jurgo_47
+  - first:
+      213: 768354937539241404
+    second: T_Jurgo_48
+  - first:
+      213: -5814159024928812068
+    second: T_Jurgo_49
+  - first:
+      213: -7504704835170860188
+    second: T_Jurgo_50
+  - first:
+      213: -6959621932213060944
+    second: T_Jurgo_51
+  - first:
+      213: 7680535449534846302
+    second: T_Jurgo_52
+  - first:
+      213: 5619401308388597094
+    second: T_Jurgo_53
+  - first:
+      213: 3374880765503972223
+    second: T_Jurgo_54
+  - first:
+      213: -3387203827809392440
+    second: T_Jurgo_55
+  - first:
+      213: 1267451579978030950
+    second: T_Jurgo_56
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: T_Jurgo_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 3449
+        width: 197
+        height: 227
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6193747ad9edb5870800000000000000
+      internalID: 8672770276129716502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_1
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 3450
+        width: 193
+        height: 227
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dd40c4bce95ac1d0800000000000000
+      internalID: -3329750101307404847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_2
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 3452
+        width: 186
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d17bfb62f65c72540800000000000000
+      internalID: 4983168593890883357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_3
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 3452
+        width: 185
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78b0031429eee1fa0800000000000000
+      internalID: -5827958555844539513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_4
+      rect:
+        serializedVersion: 2
+        x: 791
+        y: 3452
+        width: 189
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f76ddc717be6f9b00800000000000000
+      internalID: 837509788371637887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2763
+        width: 193
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32a032ab26c413d10800000000000000
+      internalID: 2103546487872096803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2988
+        width: 195
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d47ad523819377790800000000000000
+      internalID: -7532489075666868403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_7
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 3222
+        width: 197
+        height: 228
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 301aad83c5e0d3710800000000000000
+      internalID: 1674510425705324803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_8
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 3224
+        width: 193
+        height: 226
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a18c97a3ba305ff50800000000000000
+      internalID: 6914436836852615194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_9
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 2762
+        width: 201
+        height: 223
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cf33e4fb3871f710800000000000000
+      internalID: 1725292331166547906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_10
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 2988
+        width: 201
+        height: 223
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e62d3d4a73075f50800000000000000
+      internalID: 6869963580393727714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_11
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 3225
+        width: 186
+        height: 227
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20b94b9d7d75414c0800000000000000
+      internalID: -4317729558159385854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_12
+      rect:
+        serializedVersion: 2
+        x: 401
+        y: 2763
+        width: 198
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdb03f39f6aba3090800000000000000
+      internalID: -8053919995212395556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_13
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 2988
+        width: 196
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65e2274c0b82597e0800000000000000
+      internalID: -1759455339743138218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_14
+      rect:
+        serializedVersion: 2
+        x: 593
+        y: 3225
+        width: 185
+        height: 227
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ddc689236e2397f0800000000000000
+      internalID: -607090521331544622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_15
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 2762
+        width: 201
+        height: 228
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c03d256b1afff5bb0800000000000000
+      internalID: -4944952795815816436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_16
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 2988
+        width: 200
+        height: 227
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5264da94daa451380800000000000000
+      internalID: -9001206172104178139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_17
+      rect:
+        serializedVersion: 2
+        x: 791
+        y: 2951
+        width: 193
+        height: 499
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 385d763d269312d60800000000000000
+      internalID: 7863629520981972355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_18
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2522
+        width: 195
+        height: 238
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d83153672138eeec0800000000000000
+      internalID: -3535744542123420787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_19
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 2520
+        width: 185
+        height: 231
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec8f50be4c7a7ef90800000000000000
+      internalID: -6924381437860382514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_20
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2281
+        width: 379
+        height: 240
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53faa841450788a00800000000000000
+      internalID: 758980043636125493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1821
+        width: 196
+        height: 227
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb5f30c37000e51f0800000000000000
+      internalID: -1054405231686453826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_22
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2048
+        width: 197
+        height: 226
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a35cdb4ac3095e90800000000000000
+      internalID: -7036588775398681692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_23
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 1823
+        width: 196
+        height: 226
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bbece90a57afd1d0800000000000000
+      internalID: -3323753994820719690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_24
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 2049
+        width: 193
+        height: 227
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3afdf138b9fac96c0800000000000000
+      internalID: -4135237275378262109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_25
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 2048
+        width: 23
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f2424ec2edff6020800000000000000
+      internalID: 2337365882193462002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_26
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 1823
+        width: 186
+        height: 226
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a6146c2e11228930800000000000000
+      internalID: 4143911020611770017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_27
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 2049
+        width: 193
+        height: 227
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06ef46a76802d3990800000000000000
+      internalID: -7404726450376081824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_28
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 1822
+        width: 25
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b911a54eed0361ed0800000000000000
+      internalID: -2443712013929934437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_29
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 1360
+        width: 196
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a394b6b9c61178c0800000000000000
+      internalID: -4003393538146135128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_30
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 1581
+        width: 196
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9dd4db95af4a6470800000000000000
+      internalID: 8388604828633587102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_31
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 1360
+        width: 214
+        height: 223
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88230b200a0d4f6c0800000000000000
+      internalID: -4110431174223973752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_32
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 1581
+        width: 213
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83aad7a16db89b6d0800000000000000
+      internalID: -2974192327217796552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_33
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 1577
+        width: 27
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c77e3489fe1724cd0800000000000000
+      internalID: -2575370763036792964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_34
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 1360
+        width: 196
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e838a89ac06d55f10800000000000000
+      internalID: 2257946138068550542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_35
+      rect:
+        serializedVersion: 2
+        x: 430
+        y: 1581
+        width: 197
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21ddd776618e59390800000000000000
+      internalID: -7812082795681030894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_36
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 1356
+        width: 25
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f131ebac0cb5b9e0800000000000000
+      internalID: -1606170929478422026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_37
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 897
+        width: 186
+        height: 228
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8124748ca9c1ced00800000000000000
+      internalID: 1003208268107432472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_38
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1123
+        width: 186
+        height: 226
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49b620a69e127f760800000000000000
+      internalID: 7491493791543749524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_39
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 899
+        width: 185
+        height: 226
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 048293922addd0950800000000000000
+      internalID: 6417028732618876992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_40
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 1123
+        width: 185
+        height: 227
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1420f3ae6ae6db6e0800000000000000
+      internalID: -1820177011214187967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_41
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 899
+        width: 180
+        height: 226
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cf48dbd7f9da7bf0800000000000000
+      internalID: -325708364462403639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_42
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 1123
+        width: 180
+        height: 228
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e63d44313acc048c0800000000000000
+      internalID: -4016985866839469202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_43
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 899
+        width: 179
+        height: 226
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e8b8230ce6f776e0800000000000000
+      internalID: -1839730429231843098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_44
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 1123
+        width: 179
+        height: 228
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a560f76a5df300b60800000000000000
+      internalID: 7710232748912215642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_45
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 1123
+        width: 222
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ca2fadb9d065ca10800000000000000
+      internalID: 1929054503704668864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_46
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 899
+        width: 222
+        height: 222
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f74d14e92ef66540800000000000000
+      internalID: 5000963892115752946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_47
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 450
+        width: 196
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8964e6ea4ba300940800000000000000
+      internalID: 5260268912463726232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_48
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 669
+        width: 196
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb5a179aebeb9aa00800000000000000
+      internalID: 768354937539241404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_49
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 448
+        width: 192
+        height: 223
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd39c7beb25ff4fa0800000000000000
+      internalID: -5814159024928812068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_50
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 667
+        width: 192
+        height: 223
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4630c7bc6bee9d790800000000000000
+      internalID: -7504704835170860188
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_51
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 0
+        width: 586
+        height: 672
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ba3c6fe9b47a6f90800000000000000
+      internalID: -6959621932213060944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_52
+      rect:
+        serializedVersion: 2
+        x: 398
+        y: 669
+        width: 199
+        height: 222
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e55d1525c4eb69a60800000000000000
+      internalID: 7680535449534846302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_53
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 198
+        height: 224
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66d1ed497bf1cfd40800000000000000
+      internalID: 5619401308388597094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_54
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 218
+        width: 198
+        height: 225
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f73a923ec2cf5de20800000000000000
+      internalID: 3374880765503972223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_55
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 0
+        width: 203
+        height: 220
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c8e395901c3ef0d0800000000000000
+      internalID: -3387203827809392440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: T_Jurgo_56
+      rect:
+        serializedVersion: 2
+        x: 209
+        y: 218
+        width: 203
+        height: 221
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66f199a2f74e69110800000000000000
+      internalID: 1267451579978030950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

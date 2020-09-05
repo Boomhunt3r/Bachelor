@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using TMPro;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -13,13 +14,13 @@ public class PlayerBehaviour : MonoBehaviour
     private int m_Health = 50;
     [SerializeField]
     private Transform m_Sprite;
+    [SerializeField]
+    private Animator m_Animator;
     [Header("Coin Settings")]
     [SerializeField]
     private GameObject m_CoinPrefab;
     [SerializeField]
-    private Transform m_CoinSpawnRight;
-    [SerializeField]
-    private Transform m_CoinSpawnLeft;
+    private Transform m_CoinSpawnPoint;
     [Header("Bow Settings")]
     [SerializeField]
     private GameObject m_Arrow;
@@ -32,6 +33,11 @@ public class PlayerBehaviour : MonoBehaviour
     private AudioSource m_Source;
     [SerializeField]
     private AudioClip[] m_BowClips;
+    [Header("UI")]
+    [SerializeField]
+    private TextMeshProUGUI m_HealthText;
+    [SerializeField]
+    private TextMeshProUGUI m_ArmorText;
     #endregion
 
     #region private Variables
@@ -49,15 +55,23 @@ public class PlayerBehaviour : MonoBehaviour
 
     private int m_Armor;
 
+    private int m_MaxArmor;
+
     private int m_Helmet;
 
     private int m_Plate;
 
     private int m_Boots;
 
+    private const int m_MaxHealth = 50;
+
     private float m_ShootTimer = 4.5f;
 
     private float m_Timer = 0.0f;
+
+    private float m_DamageTimer = 0.0f;
+
+    private float m_GetHealth = 5.0f;
 
     private bool m_Build = false;
 
@@ -80,6 +94,8 @@ public class PlayerBehaviour : MonoBehaviour
     private bool m_IsTown = false;
 
     private bool m_ESCPressed = false;
+
+    private bool m_GetDamage = false;
     #endregion
 
     #region Properties
@@ -94,8 +110,10 @@ public class PlayerBehaviour : MonoBehaviour
     public bool CanBuyHammer { get => m_CanBuyHammer; set => m_CanBuyHammer = value; }
     #endregion
 
+    int test = 3;
     private void Awake()
     {
+
         Instance = this;
     }
 
@@ -104,6 +122,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         m_Rigid = GetComponent<Rigidbody2D>();
         m_Render = GetComponentInChildren<SpriteRenderer>();
+        m_Animator.Play("IdleAnim");
     }
 
     // Update is called once per frame
@@ -112,9 +131,10 @@ public class PlayerBehaviour : MonoBehaviour
         if (!GameManager.Instance.IsAlive)
             return;
 
-        if(GameManager.Instance.IsPaused)
+        if (GameManager.Instance.IsPaused)
         {
             m_Rigid.velocity = new Vector2(0, 0);
+            m_Animator.StopPlayback();
             m_Source.Stop();
         }
 
@@ -127,6 +147,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (m_Dir.x > 0.0f)
         {
             m_Sprite.localScale = new Vector3(-1f, 1f, 1f);
+            m_Animator.Play("WalkAnim");
             m_PrevDirec = new Vector2(1f, 1f);
             if (!Source.isPlaying)
                 Source.Play();
@@ -134,9 +155,14 @@ public class PlayerBehaviour : MonoBehaviour
         else if (m_Dir.x < 0.0f)
         {
             m_Sprite.localScale = new Vector3(1f, 1f, 1f);
+            m_Animator.Play("WalkAnim");
             m_PrevDirec = new Vector2(-1f, 1f);
             if (!Source.isPlaying)
                 Source.Play();
+        }
+        if (m_Dir.x == 0)
+        {
+            m_Animator.Play("IdleAnim");
         }
 
         if (Input.GetKeyUp(KeyCode.S))
@@ -145,12 +171,7 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 if (Inventory.Instance.Coins > 0)
                 {
-                    if (m_Dir.x < 0)
-                        Instantiate(m_CoinPrefab, m_CoinSpawnRight.position, Quaternion.identity);
-                    if (m_Dir.x > 0)
-                        Instantiate(m_CoinPrefab, m_CoinSpawnLeft.position, Quaternion.identity);
-                    if (m_Dir.x == 0)
-                        Instantiate(m_CoinPrefab, m_CoinSpawnRight.position, Quaternion.identity);
+                    Instantiate(m_CoinPrefab, m_CoinSpawnPoint.position, Quaternion.identity);
 
                     Inventory.Instance.Coins--;
                 }
@@ -166,6 +187,11 @@ public class PlayerBehaviour : MonoBehaviour
                     if (m_BowClip > m_BowClips.Length - 1)
                         m_BowClip = 0;
 
+                    if (m_Dir.x > 0.0f || m_Dir.x < 0.0f)
+                        m_Animator.Play("AttackWalkAnim");
+                    if (m_Dir.x == 0.0f)
+                        m_Animator.Play("AttackIdleAnim");
+
                     EffectSource.clip = m_BowClips[m_BowClip];
                     Shoot(m_PrevDirec);
                     m_BowClip++;
@@ -173,18 +199,15 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("hit");
             if (!GameManager.Instance.IsPaused)
             {
                 GameManager.Instance.IsPaused = true;
-                Debug.Log("Durch1");
             }
 
             else if (GameManager.Instance.IsPaused)
             {
-                Debug.Log("Durch2");
                 GameManager.Instance.IsPaused = false;
             }
         }
@@ -244,6 +267,24 @@ public class PlayerBehaviour : MonoBehaviour
             }
         }
         #endregion
+
+        if (m_GetDamage)
+            m_DamageTimer += Time.deltaTime;
+
+        if (m_DamageTimer >= m_GetHealth)
+            m_GetDamage = false;
+
+        if (m_GetDamage == false && m_Health < m_MaxHealth || m_GetDamage == false && m_Armor < m_MaxArmor)
+        {
+            if (m_Health < m_MaxHealth)
+                m_Health += 1;
+
+            if (m_Armor < m_MaxArmor)
+                m_Armor += 1;
+        }
+
+        m_HealthText.text = $"{m_Health}";
+        m_ArmorText.text  = $"{m_Armor}";
 
         m_Timer += Time.deltaTime;
     }
@@ -399,6 +440,8 @@ public class PlayerBehaviour : MonoBehaviour
             default:
                 break;
         }
+
+        m_MaxArmor = m_Helmet + m_Plate + m_Boots;
 
         Armor = m_Helmet + m_Plate + m_Boots;
     }

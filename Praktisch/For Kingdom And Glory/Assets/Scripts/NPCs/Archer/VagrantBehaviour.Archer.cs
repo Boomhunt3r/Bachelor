@@ -15,10 +15,10 @@ public partial class VagrantBehaviour : MonoBehaviour
 
     private void Archer()
     {
-        m_Render.color = Color.red;
         this.gameObject.tag = "Archer";
 
-        m_Rabbits = GameObject.FindGameObjectsWithTag("Rabbit").ToList();
+        if (m_Rabbits.Count == 0)
+            m_Rabbits = GameObject.FindGameObjectsWithTag("Rabbit").ToList();
 
         if (GameManager.Instance.IsDay)
         {
@@ -66,13 +66,14 @@ public partial class VagrantBehaviour : MonoBehaviour
                 {
                     if (m_ShootTime >= m_ShootTimer)
                     {
+                        ChangeAnimation("Attack", false);
                         Shoot(m_Target);
                     }
                 }
             }
         }
 
-        else if (GameManager.Instance.AlmostNight)
+        if (GameManager.Instance.AlmostNight)
         {
             m_Hunting = false;
 
@@ -90,7 +91,7 @@ public partial class VagrantBehaviour : MonoBehaviour
             return;
         }
 
-        else if (GameManager.Instance.IsNight)
+        if (GameManager.Instance.IsNight)
         {
             if (!m_IsDefending)
             {

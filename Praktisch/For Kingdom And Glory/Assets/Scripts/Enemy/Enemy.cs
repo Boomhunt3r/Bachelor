@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Spine.Unity;
+using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
@@ -81,16 +81,7 @@ public class Enemy : MonoBehaviour
         if (m_Villiger.Count != 0)
             m_ClosestArcher = GetClosestTarget(m_Archer);
 
-        if (m_Villiger.Count != 0 && m_Walls.Count != 0)
-            m_Target = GetClosestOverall(m_ClosestWall, m_ClosestVilliger, m_ClosestBuilder, m_ClosestArcher, m_Player);
-
-        else if (m_Villiger.Count != 0 && m_Walls.Count == 0)
-            m_Target = m_ClosestVilliger;
-
-        else if (m_Villiger.Count == 0 && m_Walls.Count != 0)
-            m_Target = m_ClosestWall;
-
-        m_Target = m_Player;
+        m_Target = GetClosestOverall(m_ClosestWall, m_ClosestVilliger, m_ClosestBuilder, m_ClosestArcher, m_Player);
 
         m_Animation.Initialize(true);
 
@@ -111,33 +102,19 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        if (m_Walls.Count != 0)
+        if (m_Walls.Count != 0 && m_Walls != null)
             m_ClosestWall = GetClosestWall(m_Walls);
 
-        if (m_Villiger.Count != 0)
+        if (m_Villiger.Count != 0 && m_Villiger != null)
             m_ClosestVilliger = GetClosestTarget(m_Villiger);
 
-        if (m_Builder.Count != 0)
+        if (m_Builder.Count != 0 && m_Builder != null)
             m_ClosestBuilder = GetClosestTarget(m_Builder);
 
-        if (m_Archer.Count != 0)
+        if (m_Archer.Count != 0 && m_Archer != null)
             m_ClosestArcher = GetClosestTarget(m_Archer);
 
-        if (m_Villiger.Count != 0 && m_Walls.Count != 0)
-            m_Target = GetClosestOverall(m_ClosestWall, m_ClosestVilliger, m_ClosestBuilder, m_ClosestArcher, m_Player);
-
-        else if (m_Villiger.Count != 0 && m_Walls.Count == 0 && m_Builder.Count == 0 && m_Archer.Count == 0)
-            m_Target = m_ClosestVilliger;
-
-        else if (m_Walls.Count != 0 && m_Villiger.Count == 0 && m_Builder.Count == 0 && m_Archer.Count == 0)
-            m_Target = m_ClosestWall;
-
-        else if (m_Builder.Count != 0 && m_Villiger.Count == 0 && m_Walls.Count == 0 && m_Archer.Count == 0)
-            m_Target = m_ClosestBuilder;
-
-        else if (m_Archer.Count != 0 && m_Villiger.Count == 0 && m_Walls.Count == 0 && m_Builder.Count == 0)
-            m_Target = m_ClosestArcher;
-
+        m_Target = GetClosestOverall(m_ClosestWall, m_ClosestVilliger, m_ClosestBuilder, m_ClosestArcher, m_Player);
 
         m_Direction = ((Vector2)m_Target.transform.position - m_Rigid.position).normalized;
         m_Rigid.velocity = m_Direction * m_Speed * Time.deltaTime;
@@ -281,11 +258,30 @@ public class Enemy : MonoBehaviour
         // Distance to Player
         float DistP = 0.0f;
 
-        DistW = Vector2.Distance(_Wall.transform.position, CurrentPos);
-        DistV = Vector2.Distance(_Villiger.transform.position, CurrentPos);
-        DistB = Vector2.Distance(_Builder.transform.position, CurrentPos);
-        DistA = Vector2.Distance(_Archer.transform.position, CurrentPos);
-        DistP = Vector2.Distance(_Player.transform.position, CurrentPos);
+        if (_Wall == null)
+            DistW = Mathf.Infinity;
+        else if (_Wall != null)
+            DistW = Vector2.Distance(_Wall.transform.position, CurrentPos);
+
+        if (_Villiger == null)
+            DistV = Mathf.Infinity;
+        else if (_Villiger != null)
+            DistV = Vector2.Distance(_Villiger.transform.position, CurrentPos);
+
+        if (_Builder == null)
+            DistB = Mathf.Infinity;
+        else if (_Builder != null)
+            DistB = Vector2.Distance(_Builder.transform.position, CurrentPos);
+
+        if (_Archer == null)
+            DistA = Mathf.Infinity;
+        else if (_Archer != null)
+            DistA = Vector2.Distance(_Archer.transform.position, CurrentPos);
+
+        if (_Player == null)
+            DistP = Mathf.Infinity;
+        else if (_Player != null)
+            DistP = Vector2.Distance(_Player.transform.position, CurrentPos);
 
         if (DistW < DistV && DistW < DistB && DistW < DistA && DistW < DistP)
         {
@@ -339,9 +335,10 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// Change Animation Function
     /// </summary>
-    /// <param name="_Name">Name of Animation</param>
+    /// <param name="_Name">Animation name</param>
+    /// <param name="_Loop">If Animation should be looped</param>
     private void ChangeAnimation(string _Name, bool _Loop)
     {
         if (m_Animation == null)

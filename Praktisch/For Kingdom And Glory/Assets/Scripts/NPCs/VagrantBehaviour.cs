@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Spine.Unity;
 
 public partial class VagrantBehaviour : MonoBehaviour
 {
@@ -11,13 +12,15 @@ public partial class VagrantBehaviour : MonoBehaviour
     [SerializeField]
     private float m_NextWaypointDist = 3.0f;
     [SerializeField]
+    private SkeletonAnimation m_Animation;
+    [SerializeField]
     [Range(1, 10)]
     private float m_ShootTimer = 1.5f;
     [SerializeField]
     [Range(0, 10)]
     private float m_IdleTimer = 1.0f;
     [SerializeField]
-    private Transform m_Sprite;
+    private GameObject m_Sprite;
     [SerializeField]
     private GameObject m_Arrow;
     [SerializeField]
@@ -78,6 +81,8 @@ public partial class VagrantBehaviour : MonoBehaviour
     private float m_Timer = 0.0f;
     private float m_ShootTime = 0.0f;
     private float m_Distance;
+    private float m_AnimationTime = 1.0f;
+    private float m_AnimationTimer = 0.0f;
     private int m_CurrentDirection;
     private int m_CurrentReparingWall;
     private bool m_HammerInRange = false;
@@ -89,7 +94,7 @@ public partial class VagrantBehaviour : MonoBehaviour
 
     #region Properties
     public GameObject DefendingWall { get => m_DefendingWall; set => m_DefendingWall = value; }
-    public List<GameObject> Rabbits { get => m_Rabbits; set => m_Rabbits = value; } 
+    public List<GameObject> Rabbits { get => m_Rabbits; set => m_Rabbits = value; }
     #endregion
 
     // Start is called before the first frame update
@@ -119,13 +124,32 @@ public partial class VagrantBehaviour : MonoBehaviour
             return;
         }
 
-        if (m_Rigid.velocity.x >= 0.0f)
+        if (m_Rigid.velocity.x > 0.0f)
         {
-            m_Sprite.localScale = new Vector3(-1f, 1f, 1f);
+            m_Sprite.transform.localScale = new Vector3(-m_Sprite.transform.localScale.x, m_Sprite.transform.localScale.y, 1f);
+            if (m_AnimationTimer >= m_AnimationTime)
+            {
+                ChangeAnimation("Walk", true);
+                m_AnimationTimer = 0.0f;
+            }
         }
-        else if (m_Rigid.velocity.x <= 0.0f)
+        if (m_Rigid.velocity.x < 0.0f)
         {
-            m_Sprite.localScale = new Vector3(1f, 1f, 1f);
+            m_Sprite.transform.localScale = new Vector3(m_Sprite.transform.localScale.x, m_Sprite.transform.localScale.y, 1f);
+            if (m_AnimationTimer >= m_AnimationTime)
+            {
+                ChangeAnimation("Walk", true);
+                m_AnimationTimer = 0.0f;
+            }
+        }
+
+        if (m_Rigid.velocity.x == 0.0f)
+        {
+            if (m_AnimationTimer >= m_AnimationTime)
+            {
+                ChangeAnimation("Idle", true);
+                m_AnimationTimer = 0.0f;
+            }
         }
 
         switch (m_Status)
@@ -151,7 +175,34 @@ public partial class VagrantBehaviour : MonoBehaviour
         m_Direction = ((Vector2)m_Target.transform.position - m_Rigid.position).normalized;
 
         m_Rigid.velocity = m_Direction * m_Speed * Time.deltaTime;
+
+        m_AnimationTimer += Time.deltaTime;
     }
+
+    #region private Functions
+    /// <summary>
+    /// Change Animation Function
+    /// </summary>
+    /// <param name="_Name">Animation name</param>
+    /// <param name="_Loop">If Animation should be looped</param>
+    private void ChangeAnimation(string _Name, bool _Loop)
+    {
+        if (m_Animation == null)
+        {
+            Debug.LogWarning("No Animator");
+            return;
+        }
+
+        if (_Name == "Idle" || _Name == "Attack")
+            m_AnimationTime = 1.5f;
+
+        if (_Name == "Walk")
+            m_AnimationTime = 1.0f;
+
+
+        m_Animation.AnimationState.SetAnimation(0, _Name, _Loop);
+    }
+    #endregion
 
     #region private Collision Function
     private void OnTriggerEnter2D(Collider2D collision)

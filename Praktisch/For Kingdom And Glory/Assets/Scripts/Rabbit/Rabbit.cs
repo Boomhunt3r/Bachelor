@@ -87,7 +87,7 @@ public class Rabbit : MonoBehaviour
 
         if (m_Health <= 0)
         {
-            VagrantBehaviour.Instance.RemoveRabbit();
+            VagrantBehaviour.Instance.RemoveRabbit(this.gameObject);
 
             Inventory.Instance.Coins += m_CoinAmount;
 

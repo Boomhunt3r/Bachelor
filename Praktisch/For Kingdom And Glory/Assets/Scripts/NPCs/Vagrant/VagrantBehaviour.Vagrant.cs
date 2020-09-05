@@ -55,6 +55,9 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         for (int i = 0; i < _Coins.Count; i++)
         {
+            if (_Coins[i] == null)
+                continue;
+
             Dist = Vector2.Distance(_Coins[i].transform.position, CurrentPos);
 
             if (Dist < MinDist)

@@ -26,7 +26,7 @@ public partial class VagrantBehaviour : MonoBehaviour
             {
                 if (m_Rabbits.Count != 0)
                 {
-                    if(m_Target == null)
+                    if (m_Target == null)
                     {
                         m_Target = GetClosestTarget(m_Rabbits);
                         m_CurrentRabbit = m_Target;
@@ -146,6 +146,9 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         for (int i = 0; i < _Target.Count; i++)
         {
+            if (_Target[i] == null)
+                continue;
+
             Dist = Vector2.Distance(_Target[i].transform.position, CurrentPos);
 
             if (Dist < MinDist)
@@ -189,9 +192,13 @@ public partial class VagrantBehaviour : MonoBehaviour
     /// <summary>
     /// Remove Rabbit Function
     /// </summary>
-    public void RemoveRabbit()
+    public void RemoveRabbit(GameObject _Rabbit)
     {
-        m_Rabbits.Remove(m_CurrentRabbit);
+        for (int i = 0; i < m_Rabbits.Count; i++)
+        {
+            if (_Rabbit == m_Rabbits[i])
+                m_Rabbits.Remove(_Rabbit);
+        }
     }
 
     /// <summary>

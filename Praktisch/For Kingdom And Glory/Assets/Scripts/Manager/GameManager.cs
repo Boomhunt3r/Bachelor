@@ -157,7 +157,6 @@ public class GameManager : MonoBehaviour
                 m_Timer = 0.0f;
             }
         }
-        Debug.Log(m_Timer);
     }
 
     #region private Function

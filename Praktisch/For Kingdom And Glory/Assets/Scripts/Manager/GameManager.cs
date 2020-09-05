@@ -137,6 +137,7 @@ public class GameManager : MonoBehaviour
             if (m_Timer >= m_DayLength - 20)
             {
                 m_AlmostNight = true;
+                IsDay = false;
             }
 
             if (m_Timer >= m_DayLength)

@@ -17,8 +17,7 @@ public partial class VagrantBehaviour : MonoBehaviour
     {
         this.gameObject.tag = "Archer";
 
-        if (m_Rabbits.Count == 0)
-            m_Rabbits = GameObject.FindGameObjectsWithTag("Rabbit").ToList();
+        m_Rabbits = GameObject.FindGameObjectsWithTag("Rabbit").ToList();
 
         if (GameManager.Instance.IsDay)
         {
@@ -63,7 +62,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                 }
             }
 
-            else if (IsAttacking)
+            if (IsAttacking)
             {
                 if (m_EnemySpawner.Count != 0)
                     m_Target = GetClosestTarget(m_EnemySpawner);
@@ -82,6 +81,7 @@ public partial class VagrantBehaviour : MonoBehaviour
         if (GameManager.Instance.AlmostNight)
         {
             m_Hunting = false;
+            m_IsAttacking = false;
 
             if (m_DefendingWall != null)
                 m_Target = m_DefendingWall;

@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Wave: 0
-  m_MaxHealth: 50
+  m_MaxHealth: 25
   m_EnemyPrefab: {fileID: 7346845194420042325, guid: cf35d761b95c3e24d921a2a14931c84f,
     type: 3}
   m_Sprite: {fileID: 296049798745057319}

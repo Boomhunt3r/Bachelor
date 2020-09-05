@@ -14869,8 +14869,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5920af693979b804fb9a9663ba219338, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_VagrantToSpawn: 2
-  m_SpawnTime: 60
+  m_VagrantToSpawn: 1
+  m_SpawnTime: 30
   m_VagrantPrefab: {fileID: 1317144251245296273, guid: 42500e799f8bb5e408c8ffe2c3d29a11,
     type: 3}
 --- !u!212 &1839134807

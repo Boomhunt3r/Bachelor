@@ -114,6 +114,8 @@ public class TownBuilding : MonoBehaviour
 
         ShowUI(IsActive);
 
+        m_Time += Time.deltaTime;
+
         switch (m_Upgrade)
         {
             case EBuildingUpgrade.NONE:

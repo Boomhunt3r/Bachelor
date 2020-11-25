@@ -370,14 +370,13 @@ public class PlayerBehaviour : MonoBehaviour
         {
             m_Health -= _Amount;
         }
-        else if(m_Armor > 0)
+        else if (m_Armor > 0)
         {
             m_Armor -= _Amount;
         }
 
         if (m_Health >= 0)
         {
-            Debug.Log("Dead");
             GameManager.Instance.IsAlive = false;
         }
     }

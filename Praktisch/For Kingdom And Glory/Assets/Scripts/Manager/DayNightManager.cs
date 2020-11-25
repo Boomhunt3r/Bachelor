@@ -5,19 +5,28 @@ using UnityEngine;
 public class DayNightManager : MonoBehaviour
 {
     #region SerializeField
+    [Header("Background Colors")]
     [SerializeField]
-    Color m_Morning = new Color(0.7607843f, 0.827451f, 1f, 0);
+    private Color m_Morning = new Color(0.7607843f, 0.827451f, 1f, 0);
     [SerializeField]
-    Color m_Noon = new Color(0.5568628f, 0.6196079f, 0.7176471f, 0);
+    private Color m_Noon = new Color(0.5568628f, 0.6196079f, 0.7176471f, 0);
     [SerializeField]
-    Color m_Evening = new Color(0.2745098f, 0.2f, 0.4901961f, 0);
+    private Color m_Evening = new Color(0.2745098f, 0.2f, 0.4901961f, 0);
     [SerializeField]
-    Color m_Night = new Color(0.0f, 0.04313726f, 0.1333333f, 0);
+    private Color m_Night = new Color(0.0f, 0.04313726f, 0.1333333f, 0);
+    [Header("Background Music")]
+    [SerializeField]
+    private AudioSource m_Background;
+    [SerializeField]
+    private AudioClip[] m_BackgroundMusic;
     #endregion
 
     #region private Variables
     private Camera m_Camera;
     private float m_Timer = 0.0f;
+    private float m_MusicTimer = 0.0f;
+    private float m_MusicTime;
+    private int m_CurrentClip = 0;
     private bool m_Day = true;
     private bool m_Dark = false;
     private bool m_Between = false; 
@@ -26,6 +35,14 @@ public class DayNightManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_CurrentClip = Random.Range(0, m_BackgroundMusic.Length);
+
+        m_MusicTime = m_BackgroundMusic[m_CurrentClip].length;
+
+        m_Background.clip = m_BackgroundMusic[m_CurrentClip];
+
+        m_Background.Play();
+
         m_Camera = Camera.main;
     }
 
@@ -33,7 +50,38 @@ public class DayNightManager : MonoBehaviour
     void Update()
     {
         m_Timer += Time.deltaTime;
+        m_MusicTimer += Time.deltaTime;
 
+        #region Background Music logic
+        if (m_MusicTimer >= m_MusicTime)
+        {
+
+            for (int i = 0; i < m_BackgroundMusic.Length; i++)
+            {
+                if (m_BackgroundMusic[m_CurrentClip] == m_BackgroundMusic[i])
+                {
+                    m_CurrentClip++;
+
+                    if (m_CurrentClip >= m_BackgroundMusic.Length)
+                    {
+                        m_CurrentClip = 0;
+                    }
+
+                    break;
+                }
+            }
+
+            m_MusicTime = m_BackgroundMusic[m_CurrentClip].length;
+
+            m_Background.clip = m_BackgroundMusic[m_CurrentClip];
+
+            m_Background.Play();
+
+            m_MusicTimer = 0.0f;
+        }
+        #endregion
+
+        #region BackgroundColor logic
         if (m_Camera.backgroundColor == m_Noon && m_Day && !m_Dark && !m_Between)
         {
             m_Timer = 0.0f;
@@ -56,7 +104,6 @@ public class DayNightManager : MonoBehaviour
 
         if (m_Camera.backgroundColor == m_Morning && !m_Day && !m_Dark && !m_Between)
         {
-            Debug.Log("Durch");
             m_Timer = 0.0f;
             m_Day = true;
         }
@@ -77,6 +124,7 @@ public class DayNightManager : MonoBehaviour
         if (!m_Dark && !m_Day && !m_Between)
         {
             m_Camera.backgroundColor = Color.Lerp(m_Night, m_Morning, m_Timer / 120);
-        }
+        } 
+        #endregion
     }
 }

@@ -124,18 +124,8 @@ public partial class VagrantBehaviour : MonoBehaviour
             return;
         }
 
-        if (m_Rigid.velocity.x > 0.0f)
+        if (m_Rigid.velocity.x > 0.0f || m_Rigid.velocity.x < 0.0f)
         {
-            m_Sprite.transform.localScale = new Vector3(-m_Sprite.transform.localScale.x, m_Sprite.transform.localScale.y, 1f);
-            if (m_AnimationTimer >= m_AnimationTime)
-            {
-                ChangeAnimation("Walk", true);
-                m_AnimationTimer = 0.0f;
-            }
-        }
-        if (m_Rigid.velocity.x < 0.0f)
-        {
-            m_Sprite.transform.localScale = new Vector3(m_Sprite.transform.localScale.x, m_Sprite.transform.localScale.y, 1f);
             if (m_AnimationTimer >= m_AnimationTime)
             {
                 ChangeAnimation("Walk", true);
@@ -150,6 +140,15 @@ public partial class VagrantBehaviour : MonoBehaviour
                 ChangeAnimation("Idle", true);
                 m_AnimationTimer = 0.0f;
             }
+        }
+
+        if(m_Direction.x > 0.0f)
+        {
+            m_Sprite.transform.localScale = new Vector3(m_Sprite.transform.localScale.x, m_Sprite.transform.localScale.y, 1f);
+        }
+        if (m_Direction.x < 0.0f)
+        {
+            m_Sprite.transform.localScale = new Vector3(-m_Sprite.transform.localScale.x, m_Sprite.transform.localScale.y, 1f);
         }
 
         switch (m_Status)
@@ -189,7 +188,6 @@ public partial class VagrantBehaviour : MonoBehaviour
     {
         if (m_Animation == null)
         {
-            Debug.LogWarning("No Animator");
             return;
         }
 

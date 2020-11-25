@@ -244,6 +244,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Monster_64_Mushroom
       objectReference: {fileID: 0}
+    - target: {fileID: 8177687174557151581, guid: 8f94fd65fa27da5429b6d185e8c3d59e,
+        type: 3}
+      propertyPath: initialFlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177687174557151581, guid: 8f94fd65fa27da5429b6d185e8c3d59e,
+        type: 3}
+      propertyPath: initialFlipX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8177687174557151582, guid: 8f94fd65fa27da5429b6d185e8c3d59e,
         type: 3}
       propertyPath: m_LocalPosition.x

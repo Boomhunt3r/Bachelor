@@ -25,36 +25,24 @@ public partial class VagrantBehaviour : MonoBehaviour
             {
                 if (m_Rabbits.Count != 0)
                 {
-                    if (m_Target == null)
-                    {
-                        m_Target = GetClosestTarget(m_Rabbits);
-                        m_CurrentRabbit = m_Target;
-                        m_Hunting = true;
-                    }
-                    if (!m_Hunting)
-                    {
-                        m_Target = GetClosestTarget(m_Rabbits);
-                        m_CurrentRabbit = m_Target;
-                        m_Hunting = true;
-                    }
+                    m_Target = GetClosestTarget(m_Rabbits);
+                    m_CurrentRabbit = m_Target;
 
-                    else if (m_Hunting)
+                    m_ShootTime += Time.deltaTime;
+
+                    m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
+
+                    if (m_Distance <= Random.Range(1.5f, 4.5f))
                     {
-                        m_ShootTime += Time.deltaTime;
+                        m_Rigid.velocity = new Vector2(0, 0);
 
-                        m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
-
-                        if (m_Distance <= Random.Range(1.5f, 4.5f))
+                        if (m_ShootTime >= m_ShootTimer)
                         {
-                            m_Rigid.velocity = new Vector2(0, 0);
-
-                            if (m_ShootTime >= m_ShootTimer)
-                            {
-                                Shoot(m_Target);
-                            }
+                            Shoot(m_Target);
                         }
                     }
                 }
+
                 if (m_Rabbits.Count == 0)
                 {
                     m_Target = m_Waypoints[Random.Range(0, m_Waypoints.Length)];
@@ -67,7 +55,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                 if (m_EnemySpawner.Count != 0)
                     m_Target = GetClosestTarget(m_EnemySpawner);
 
-                if (m_Distance <= Random.Range(5f, 7.5f))
+                if (m_Distance <= Random.Range(3f, 7.5f))
                 {
                     if (m_ShootTime >= m_ShootTimer)
                     {
@@ -88,7 +76,7 @@ public partial class VagrantBehaviour : MonoBehaviour
 
             m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
 
-            if (m_Distance <= Random.Range(1.0f, 2.5f))
+            if (m_Distance <= Random.Range(1.0f, 8.5f))
             {
                 m_Rigid.velocity = new Vector2(0, 0);
                 m_IsDefending = true;
@@ -114,6 +102,9 @@ public partial class VagrantBehaviour : MonoBehaviour
 
             if (m_IsDefending)
             {
+                if (GameManager.Instance.AllSpawnedEnemys.Count == 0)
+                    return;
+
                 m_EnemyToShoot = GetClosestTarget(GameManager.Instance.AllSpawnedEnemys);
 
                 m_ShootTime += Time.deltaTime;

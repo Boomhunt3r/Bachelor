@@ -343,7 +343,6 @@ public class Enemy : MonoBehaviour
     {
         if (m_Animation == null)
         {
-            Debug.LogWarning("No Animator");
             return;
         }
 

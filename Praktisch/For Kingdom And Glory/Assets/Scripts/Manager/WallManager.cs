@@ -20,7 +20,9 @@ public class WallManager : MonoBehaviour
     private GameObject m_WallObj;
     private float m_Timer = 0.0f;
     private float m_Time = 3.0f;
+    [SerializeField]
     private GameObject m_LeftWall;
+    [SerializeField]
     private GameObject m_RightWall;
     #endregion
 
@@ -66,11 +68,13 @@ public class WallManager : MonoBehaviour
 
             for (int i = 0; i < m_RightSideWalls.Length; i++)
             {
-                if (m_RightSideWalls[i].GetComponent<Wall>().Building != EBuildingUpgrade.IRON)
+                if (m_RightSideWalls[i].GetComponent<Wall>().Building != EBuildingUpgrade.NONE)
                 {
                     m_RightWall = m_RightSideWalls[i];
                 }
             }
+
+            m_Timer = 0.0f;
         }
 
         m_Timer += Time.deltaTime;
@@ -185,8 +189,6 @@ public class WallManager : MonoBehaviour
             return m_LeftWall.GetComponent<Wall>().DefendPoint;
         else
             return null;
-            
-
     }
 
     public GameObject GetRightWall()

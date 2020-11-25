@@ -32,10 +32,6 @@ public class GameManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField]
-    private GameObject m_DayUI;
-    [SerializeField]
-    private TextMeshProUGUI m_DayAnnouncer;
-    [SerializeField]
     private GameObject m_PauseMenu;
     [SerializeField]
     private GameObject m_SettingMenu;
@@ -137,10 +133,12 @@ public class GameManager : MonoBehaviour
             if (m_Timer >= m_DayLength - 20)
             {
                 m_AlmostNight = true;
-                IsDay = false;
+                m_IsDay = false;
             }
-
-            if (m_Timer >= m_DayLength)
+        }
+        if(m_AlmostNight)
+        {
+            if(m_Timer >= m_DayLength)
             {
                 IsDay = false;
                 m_AlmostNight = false;
@@ -148,6 +146,7 @@ public class GameManager : MonoBehaviour
                 m_Timer = 0.0f;
             }
         }
+
         if (IsNight)
         {
             if (m_Timer >= m_NightLength)
@@ -169,11 +168,6 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         SceneManager.LoadScene("Loss");
-    }
-
-    private void UpdateDayCounter()
-    {
-        m_DayAnnouncer.text = $"Day: {m_DayCount}";
     }
 
     private void StartGame()
@@ -314,7 +308,6 @@ public class GameManager : MonoBehaviour
                 Inventory.Instance.Iron = 0;
                 break;
             default:
-                Debug.LogWarning("Nothing");
                 break;
         }
 

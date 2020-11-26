@@ -350,6 +350,28 @@ public class PlayerBehaviour : MonoBehaviour
         {
             m_WallObj = collision.gameObject;
             WallManager.Instance.WallObj = collision.gameObject;
+            TutorialManager.Instance.Tutorial(collision.gameObject.tag);
+        }
+        if(collision.CompareTag("Archery"))
+        {
+            TutorialManager.Instance.Tutorial(collision.gameObject.tag);
+        }
+        if (collision.CompareTag("Build"))
+        {
+            TutorialManager.Instance.Tutorial(collision.gameObject.tag);
+        }
+        if (collision.CompareTag("Smithy"))
+        {
+            TutorialManager.Instance.Tutorial(collision.gameObject.tag);
+        }
+        if (collision.CompareTag("Town"))
+        {
+            TutorialManager.Instance.Tutorial(collision.gameObject.tag);
+
+        }
+        if (collision.CompareTag("VagrantSpawner"))
+        {
+            TutorialManager.Instance.Tutorial(collision.gameObject.tag);
         }
     }
 

@@ -19,9 +19,13 @@ TagManager:
   - Wall
   - Rabbit
   - Enemy
-  - Graphs
   - EnemySpawner
   - Ground
+  - Archery
+  - Build
+  - Smithy
+  - Town
+  - VagrantSpawner
   layers:
   - Default
   - TransparentFX

@@ -354,7 +354,7 @@ public class PlayerBehaviour : MonoBehaviour
         }
         if(collision.CompareTag("Archery"))
         {
-            TutorialManager.Instance.Tutorial(collision.gameObject.tag);
+           TutorialManager.Instance.Tutorial(collision.gameObject.tag);
         }
         if (collision.CompareTag("Build"))
         {

@@ -39,6 +39,15 @@ public class TutorialManager : MonoBehaviour
 
     private void Awake()
     {
+        m_ArchUI.SetActive(false);
+        m_BuildUI.SetActive(false);
+        m_ContUI.SetActive(false);
+        m_SmithUI.SetActive(false);
+        m_SpawnUI.SetActive(false);
+        m_TownUI.SetActive(false);
+        m_TutUI.SetActive(false);
+        m_WallUI.SetActive(false);
+
         Instance = this;
     }
 
@@ -169,9 +178,15 @@ public class TutorialManager : MonoBehaviour
     {
         if (m_ArchUI.activeSelf || m_BuildUI.activeSelf ||
             m_ContUI.activeSelf || m_SmithUI.activeSelf ||
-            m_SpawnUI || m_TownUI || m_WallUI)
+            m_SpawnUI.activeSelf || m_TownUI.activeSelf || m_WallUI.activeSelf)
             return false;
 
         return true;
+    }
+
+    public void ClickedX(GameObject _Obj)
+    {
+        if (_Obj.activeSelf)
+            _Obj.SetActive(false);
     }
 }

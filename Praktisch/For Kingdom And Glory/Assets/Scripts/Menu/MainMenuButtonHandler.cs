@@ -8,19 +8,22 @@ public class MainMenuButtonHandler : MonoBehaviour
     [SerializeField]
     private GameObject m_Setting;
     [SerializeField]
+    private GameObject m_Tutorial;
+    [SerializeField]
     private AudioSource m_Source;
 
     void Awake()
     {
         m_Main.SetActive(true);
         m_Setting.SetActive(false);
+        m_Tutorial.SetActive(false);
     }
     
 
     public void ClickedStart()
     {
         m_Main.SetActive(false);
-        m_Setting.SetActive(true);
+        m_Tutorial.SetActive(true);
         m_Source.Play();
     }
 
@@ -56,5 +59,21 @@ public class MainMenuButtonHandler : MonoBehaviour
         m_Source.Play();
         m_Main.SetActive(true);
         m_Setting.SetActive(false);
+    }
+
+    public void ClickedYes()
+    {
+        PlayerPrefs.SetInt("Tutorial", 0);
+        m_Tutorial.SetActive(false);
+        m_Setting.SetActive(true);
+        m_Source.Play();
+    }
+
+    public void ClickedNo()
+    {
+        PlayerPrefs.SetInt("Tutorial", 1);
+        m_Tutorial.SetActive(false);
+        m_Setting.SetActive(true);
+        m_Source.Play();
     }
 }

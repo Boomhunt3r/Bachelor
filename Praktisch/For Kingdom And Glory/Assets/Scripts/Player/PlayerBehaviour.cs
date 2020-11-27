@@ -271,20 +271,20 @@ public class PlayerBehaviour : MonoBehaviour
         }
         #endregion
 
-        if (m_GetDamage)
-            m_DamageTimer += Time.deltaTime;
+        //if (m_GetDamage)
+        //    m_DamageTimer += Time.deltaTime;
 
-        if (m_DamageTimer >= m_GetHealth)
-            m_GetDamage = false;
+        //if (m_DamageTimer >= m_GetHealth)
+        //    m_GetDamage = false;
 
-        if (m_GetDamage == false && m_Health < m_MaxHealth || m_GetDamage == false && m_Armor < m_MaxArmor)
-        {
-            if (m_Health < m_MaxHealth)
-                m_Health += 1;
+        //if (m_GetDamage == false && m_Health < m_MaxHealth || m_GetDamage == false && m_Armor < m_MaxArmor)
+        //{
+        //    if (m_Health < m_MaxHealth)
+        //        m_Health += 1;
 
-            if (m_Armor < m_MaxArmor)
-                m_Armor += 1;
-        }
+        //    if (m_Armor < m_MaxArmor)
+        //        m_Armor += 1;
+        //}
 
         m_Timer += Time.deltaTime;
     }
@@ -397,7 +397,7 @@ public class PlayerBehaviour : MonoBehaviour
             m_Armor -= _Amount;
         }
 
-        if (m_Health >= 0)
+        if (m_Health <= 0)
         {
             GameManager.Instance.IsAlive = false;
         }

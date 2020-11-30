@@ -6,6 +6,8 @@ public class PlayerBehaviour : MonoBehaviour
     public static PlayerBehaviour Instance { get; private set; }
 
     #region SerzializeField
+    [SerializeField]
+    private bool m_TestScene = false;
     [Header("Player Settings")]
     [SerializeField]
     private float m_MovementSpeed = 5.0f;
@@ -128,25 +130,28 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        m_HealthText.text = $"{m_Health}";
-        m_ArmorText.text = $"{m_Armor}";
-
-        if (!GameManager.Instance.IsAlive)
-            return;
-
-        if (GameManager.Instance.IsPaused)
+        if (!m_TestScene)
         {
-            m_Rigid.velocity = new Vector2(0, 0);
-            m_Animator.StopPlayback();
-            m_Source.Stop();
-        }
+            m_HealthText.text = $"{m_Health}";
+            m_ArmorText.text = $"{m_Armor}";
 
-        if (!GameManager.Instance.IsPaused)
-        {
-            m_Dir = Input.GetAxis("Horizontal") * Vector2.right * m_MovementSpeed;
-            m_Rigid.velocity = m_Dir * Time.deltaTime;
-        }
+            if (!GameManager.Instance.IsAlive)
+                return;
 
+            if (GameManager.Instance.IsPaused)
+            {
+                m_Rigid.velocity = new Vector2(0, 0);
+                m_Animator.StopPlayback();
+                m_Source.Stop();
+            }
+
+            if (!GameManager.Instance.IsPaused)
+            {
+                m_Dir = Input.GetAxis("Horizontal") * Vector2.right * m_MovementSpeed;
+                m_Rigid.velocity = m_Dir * Time.deltaTime;
+            }
+
+        }
         if (m_Dir.x > 0.0f)
         {
             m_Sprite.localScale = new Vector3(-1f, 1f, 1f);

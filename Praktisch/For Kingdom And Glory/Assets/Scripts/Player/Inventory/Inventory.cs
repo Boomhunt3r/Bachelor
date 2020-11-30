@@ -9,6 +9,8 @@ public class Inventory : MonoBehaviour
 
     #region Serializefield
     [SerializeField]
+    private bool m_TestScene = false;
+    [SerializeField]
     private int m_Coins;
     [SerializeField]
     private TextMeshProUGUI m_CoinsText;
@@ -74,7 +76,7 @@ public class Inventory : MonoBehaviour
     /// 
     /// </summary>
     public bool ShowUI { get => m_ShowUI; set => m_ShowUI = value; }
-    
+
     #endregion
 
     // Start is called before the first frame update
@@ -91,20 +93,23 @@ public class Inventory : MonoBehaviour
 
     void Update()
     {
-        m_UI.SetActive(ShowUI);
+        if (!m_TestScene)
+        {
+            m_UI.SetActive(ShowUI);
 
-        if (!GameManager.Instance.IsAlive)
-            return;
+            if (!GameManager.Instance.IsAlive)
+                return;
 
-        UpdateUI();
+            UpdateUI();
+        }
     }
 
     private void UpdateUI()
     {
         m_CoinsText.text = $"{Coins}";
-        m_WoodText.text  = $"{Wood}";
+        m_WoodText.text = $"{Wood}";
         m_StoneText.text = $"{Stone}";
-        m_IronText.text  = $"{Iron}";
+        m_IronText.text = $"{Iron}";
 
     }
 }

@@ -271,21 +271,6 @@ public class PlayerBehaviour : MonoBehaviour
         }
         #endregion
 
-        //if (m_GetDamage)
-        //    m_DamageTimer += Time.deltaTime;
-
-        //if (m_DamageTimer >= m_GetHealth)
-        //    m_GetDamage = false;
-
-        //if (m_GetDamage == false && m_Health < m_MaxHealth || m_GetDamage == false && m_Armor < m_MaxArmor)
-        //{
-        //    if (m_Health < m_MaxHealth)
-        //        m_Health += 1;
-
-        //    if (m_Armor < m_MaxArmor)
-        //        m_Armor += 1;
-        //}
-
         m_Timer += Time.deltaTime;
     }
 
@@ -352,9 +337,9 @@ public class PlayerBehaviour : MonoBehaviour
             WallManager.Instance.WallObj = collision.gameObject;
             TutorialManager.Instance.Tutorial(collision.gameObject.tag);
         }
-        if(collision.CompareTag("Archery"))
+        if (collision.CompareTag("Archery"))
         {
-           TutorialManager.Instance.Tutorial(collision.gameObject.tag);
+            TutorialManager.Instance.Tutorial(collision.gameObject.tag);
         }
         if (collision.CompareTag("Build"))
         {
@@ -386,6 +371,74 @@ public class PlayerBehaviour : MonoBehaviour
     #endregion
 
     #region public functions
+    // TODO: Repair Armor
+    /*
+    public void RepairArmor()
+    {
+        #region MyRegion
+
+        switch (Inventory.Instance.Helmet)
+        {
+            case EPlayerUpgrade.NONE:
+                break;
+            case EPlayerUpgrade.STONE:
+                if (Inventory.Instance.Stone >= 3)
+                    Inventory.Instance.Stone -= 3;
+                break;
+            case EPlayerUpgrade.IRON:
+                if (Inventory.Instance.Iron >= 3)
+                    Inventory.Instance.Iron -= 3;
+                break;
+            default:
+                break;
+        }
+
+        switch (Inventory.Instance.Plate)
+        {
+            case EPlayerUpgrade.NONE:
+                break;
+            case EPlayerUpgrade.STONE:
+                if (Inventory.Instance.Stone >= 6)
+                    Inventory.Instance.Stone -= 6;
+                break;
+            case EPlayerUpgrade.IRON:
+                if (Inventory.Instance.Iron >= 6)
+                    Inventory.Instance.Iron -= 6;
+                break;
+            default:
+                break;
+        }
+
+        switch (Inventory.Instance.Boots)
+        {
+            case EPlayerUpgrade.NONE:
+                break;
+            case EPlayerUpgrade.STONE:
+                if (Inventory.Instance.Stone >= 2)
+                    Inventory.Instance.Stone -= 2;
+                break;
+            case EPlayerUpgrade.IRON:
+                if (Inventory.Instance.Iron >= 2)
+                    Inventory.Instance.Iron -= 2;
+                break;
+            default:
+                break;
+        }
+        #endregion
+    }*/
+
+    public void HealPlayer()
+    {
+        if (m_Health < m_MaxHealth)
+        {
+            if (Inventory.Instance.Coins >= 2)
+            {
+                m_Health = m_MaxHealth;
+                Inventory.Instance.Coins -= 2;
+            }
+        }
+    }
+
     public void GetDamage(int _Amount)
     {
         if (m_Armor <= 0)

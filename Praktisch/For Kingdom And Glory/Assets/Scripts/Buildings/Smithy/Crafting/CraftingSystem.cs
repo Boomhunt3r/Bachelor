@@ -274,6 +274,10 @@ public class CraftingSystem : MonoBehaviour
         m_Source.Play();
         CraftItem();
     }
+    public void Repair()
+    {
+        //PlayerBehaviour.Instance.RepairArmor();
+    }
     public void Exit()
     {
         IsCrafting = false;

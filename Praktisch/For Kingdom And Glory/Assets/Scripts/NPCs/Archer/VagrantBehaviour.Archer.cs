@@ -23,6 +23,12 @@ public partial class VagrantBehaviour : MonoBehaviour
         {
             if (!IsAttacking)
             {
+                if (m_Rabbits.Count == 0)
+                {
+                    m_Target = m_Waypoints[Random.Range(0, m_Waypoints.Length)];
+                    m_Hunting = false;
+                }
+
                 if (m_Rabbits.Count != 0)
                 {
                     m_Target = GetClosestTarget(m_Rabbits);
@@ -41,12 +47,6 @@ public partial class VagrantBehaviour : MonoBehaviour
                             Shoot(m_Target);
                         }
                     }
-                }
-
-                if (m_Rabbits.Count == 0)
-                {
-                    m_Target = m_Waypoints[Random.Range(0, m_Waypoints.Length)];
-                    m_Hunting = false;
                 }
             }
 

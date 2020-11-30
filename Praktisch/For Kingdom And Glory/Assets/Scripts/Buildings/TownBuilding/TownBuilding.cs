@@ -279,6 +279,11 @@ public class TownBuilding : MonoBehaviour
         PlayerBehaviour.Instance.EffectSource.clip = m_AttackSound;
         PlayerBehaviour.Instance.EffectSource.Play();
     }
+
+    public void Heal()
+    {
+        PlayerBehaviour.Instance.HealPlayer();
+    }
     #endregion
 
     #region Collision Function

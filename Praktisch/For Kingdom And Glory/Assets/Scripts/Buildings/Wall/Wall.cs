@@ -2,8 +2,6 @@
 
 public class Wall : MonoBehaviour
 {
-    public static Wall Instance { get; private set; }
-
     #region private Serialize Variables
     [SerializeField]
     private EBuildingUpgrade m_Building;
@@ -74,8 +72,6 @@ public class Wall : MonoBehaviour
 
         if (m_Side == ESpawnerSide.RIGHT)
             m_Render.flipX = true;
-
-        Instance = this;
     }
 
     void Update()

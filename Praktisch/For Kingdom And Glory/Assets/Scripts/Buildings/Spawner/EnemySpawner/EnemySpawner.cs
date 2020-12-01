@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public static EnemySpawner Instance { get; private set; }
-
     #region Serializefield
     [SerializeField]
     private int m_Wave = 0;
@@ -14,10 +12,13 @@ public class EnemySpawner : MonoBehaviour
     private GameObject m_EnemyPrefab;
     [SerializeField]
     private Transform m_Sprite;
+    [SerializeField]
+    private ParticleSystem m_System;
     #endregion
 
     #region private Variables
     private List<GameObject> m_SpawnedEnemys = new List<GameObject>();
+    private GameObject m_Player;
     private ESpawnerSide m_Side;
     private int m_EnemyToSpawn;
     private int m_CurrentHealth;
@@ -48,11 +49,11 @@ public class EnemySpawner : MonoBehaviour
         m_DamageTimer = 0.0f;
         m_SpawnedDefender = 0;
         m_EnemyToSpawn = 0;
+        m_Player = GameObject.FindGameObjectWithTag("Player");
+        m_System.Pause();
 
         if (m_Side == ESpawnerSide.RIGHT)
             m_Sprite.localScale = new Vector3(-1, 1, 1);
-
-        Instance = this;
     }
 
     // Update is called once per frame
@@ -70,6 +71,16 @@ public class EnemySpawner : MonoBehaviour
         if (GameManager.Instance.IsDay && m_Spawned)
         {
             m_Spawned = false;
+        }
+
+        if(Vector2.Distance(this.gameObject.transform.position, m_Player.transform.position) <= 10.0f)
+        {
+            m_System.Play();
+        }
+
+        if(Vector2.Distance(this.gameObject.transform.position, m_Player.transform.position) > 10.0f)
+        {
+            m_System.Pause();
         }
 
         if (m_UnderAttack)
@@ -118,7 +129,6 @@ public class EnemySpawner : MonoBehaviour
                 }
             }
         }
-
     }
 
     #region private Functions

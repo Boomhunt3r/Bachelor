@@ -2820,7 +2820,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 349106515}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.05, y: 0, z: 0}
+  m_LocalPosition: {x: 8.07, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 519420032}
@@ -2861,6 +2861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd33242a395dec349a451e4496c83e57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_TestScene: 0
   m_MovementSpeed: 325
   m_Health: 50
   m_Sprite: {fileID: 172854863}
@@ -2889,6 +2890,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be8b673c2dbd798428b8e2e6908ff305, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_TestScene: 0
   m_Coins: 50
   m_CoinsText: {fileID: 588826852}
   m_Wood: 50

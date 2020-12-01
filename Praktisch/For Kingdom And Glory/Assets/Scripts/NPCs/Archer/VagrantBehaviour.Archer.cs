@@ -7,6 +7,9 @@ public partial class VagrantBehaviour : MonoBehaviour
     private List<GameObject> m_EnemySpawner = new List<GameObject>();
     private GameObject m_EnemyToShoot;
     private GameObject m_CurrentRabbit;
+    private float m_Cooldown = 2.5f;
+    private float m_CooldownTimer = 0.0f;
+    private bool m_BCooldown = false;
     private bool m_IsDefending = false;
     private bool m_IsAttacking = false;
 
@@ -19,17 +22,38 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         m_Rabbits = GameObject.FindGameObjectsWithTag("Rabbit").ToList();
 
+        Debug.Log("Hunting: " + m_Hunting);
+        Debug.Log("Cooldown: " + m_BCooldown);
+        Debug.Log("CooldownTimer: " + m_CooldownTimer);
+
         if (GameManager.Instance.IsDay)
         {
             if (!IsAttacking)
             {
-                if (m_Rabbits.Count == 0)
+
+                if (!m_Hunting)
                 {
-                    m_Target = m_Waypoints[Random.Range(0, m_Waypoints.Length)];
-                    m_Hunting = false;
+                    m_Target = m_VillagerPoints[Random.Range(0, m_VillagerPoints.Length)];
+                    m_BCooldown = true;
                 }
 
-                if (m_Rabbits.Count != 0)
+                if (m_BCooldown)
+                {
+                    if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) <= Random.Range(1.0f, 2.0f))
+                    {
+                        m_Rigid.velocity = new Vector2(0, 0);
+                        m_CooldownTimer += Time.deltaTime;
+                    }
+
+                    if(m_CooldownTimer >= m_Cooldown)
+                    {
+                        m_CooldownTimer = 0.0f;
+                        m_BCooldown = false;
+                        m_Hunting = true;
+                    }
+                }
+
+                if (m_Rabbits.Count != 0 && m_Hunting)
                 {
                     m_Target = GetClosestTarget(m_Rabbits);
                     m_CurrentRabbit = m_Target;

@@ -112,5 +112,13 @@ public class ArcherManager : MonoBehaviour
             }
         }
     }
+
+    public void HuntingStop(GameObject _Archer, GameObject _Rabbit)
+    {
+        if (_Archer == null)
+            return;
+
+        _Archer.GetComponent<VagrantBehaviour>().RemoveRabbit(_Rabbit);
+    }
     #endregion
 }

@@ -202,6 +202,7 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         GameObject Arrow = Instantiate(m_Arrow, m_ThrowPoint.position, Quaternion.Euler(new Vector3(0, 0, 0)));
         Arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(XVelo, YVelo);
+        Arrow.GetComponent<Arrow>().Parent = this.gameObject;
     }
 
     /// <summary>
@@ -214,6 +215,8 @@ public partial class VagrantBehaviour : MonoBehaviour
             if (_Rabbit == m_Rabbits[i])
                 m_Rabbits.Remove(_Rabbit);
         }
+
+        m_Hunting = false;
     }
 
     /// <summary>

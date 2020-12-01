@@ -9,6 +9,10 @@ public class Arrow : MonoBehaviour
     private AudioSource m_Source;
 
     private float m_Timer = 0.0f;
+    private GameObject m_Parent;
+
+    public GameObject Parent { get => m_Parent; set => m_Parent = value; }
+
     private void Update()
     {
         m_Timer += Time.deltaTime;
@@ -28,7 +32,7 @@ public class Arrow : MonoBehaviour
         }
         else if (collision.CompareTag("Rabbit"))
         {
-            collision.gameObject.GetComponent<Rabbit>().TakeDamage(m_Damage);
+            collision.gameObject.GetComponent<Rabbit>().TakeDamage(m_Damage, m_Parent);
             m_Source.Play();
             Destroy(this.gameObject);
         }

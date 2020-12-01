@@ -81,13 +81,13 @@ public class Rabbit : MonoBehaviour
         m_Rigid.velocity = m_CurrentVelocity;
     }
 
-    public void TakeDamage(int _Amount)
+    public void TakeDamage(int _Amount, GameObject _Archer)
     {
         m_Health -= _Amount;
 
         if (m_Health <= 0)
         {
-            VagrantBehaviour.Instance.RemoveRabbit(this.gameObject);
+            ArcherManager.Instance.HuntingStop(_Archer, this.gameObject);
 
             Inventory.Instance.Coins += m_CoinAmount;
 

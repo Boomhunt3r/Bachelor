@@ -2862,7 +2862,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TestScene: 0
-  m_MovementSpeed: 325
+  m_MovementSpeed: 1000
   m_Health: 50
   m_Sprite: {fileID: 172854863}
   m_Animator: {fileID: 172854866}

@@ -73,30 +73,32 @@ public class EnemySpawner : MonoBehaviour
             m_Spawned = false;
         }
 
-        if(Vector2.Distance(this.gameObject.transform.position, m_Player.transform.position) <= 10.0f)
+        if (Vector2.Distance(this.gameObject.transform.position, m_Player.transform.position) <= 10.0f)
         {
-            m_System.Play();
+            if (m_System.isStopped || m_System.isPaused)
+                m_System.Play();
         }
 
-        if(Vector2.Distance(this.gameObject.transform.position, m_Player.transform.position) > 10.0f)
+        if (Vector2.Distance(this.gameObject.transform.position, m_Player.transform.position) > 10.0f)
         {
-            m_System.Pause();
+            if (m_System.isPlaying)
+                m_System.Stop();
         }
 
-        if (m_UnderAttack)
-        {
-            if (m_DamageTimer >= 5.0f)
-            {
-                m_UnderAttack = false;
+        //if (m_UnderAttack)
+        //{
+        //    if (m_DamageTimer >= 5.0f)
+        //    {
+        //        m_UnderAttack = false;
 
-                for (int i = 0; i < SpawnedEnemys.Count; i++)
-                {
-                    Destroy(SpawnedEnemys[i]);
-                }
-            }
+        //        for (int i = 0; i < SpawnedEnemys.Count; i++)
+        //        {
+        //            Destroy(SpawnedEnemys[i]);
+        //        }
+        //    }
 
-            m_DamageTimer += Time.deltaTime;
-        }
+        //    m_DamageTimer += Time.deltaTime;
+        //}
 
         if (GameManager.Instance.IsNight && !GameManager.Instance.RevengeAttack && !m_Spawned && !m_UnderAttack)
         {

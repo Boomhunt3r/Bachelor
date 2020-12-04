@@ -276,7 +276,7 @@ public class CraftingSystem : MonoBehaviour
     }
     public void Repair()
     {
-        //PlayerBehaviour.Instance.RepairArmor();
+        PlayerBehaviour.Instance.RepairArmor();
     }
     public void Exit()
     {

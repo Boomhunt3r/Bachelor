@@ -143,36 +143,5 @@ public partial class PlayerBehaviour : MonoBehaviour
 
         return TargetO;
     }
-
-    private void PayRepair(EPlayerUpgrade _Tier, ECraftingType _Type)
-    {
-        switch (_Tier)
-        {
-            case EPlayerUpgrade.STONE:
-                switch (_Type)
-                {
-                    case ECraftingType.HELMET:
-                        break;
-                    case ECraftingType.PLATE:
-                        break;
-                    case ECraftingType.BOOTS:
-                        break;
-                }
-                break;
-            case EPlayerUpgrade.IRON:
-                switch (_Type)
-                {
-                    case ECraftingType.HELMET:
-                        break;
-                    case ECraftingType.PLATE:
-                        break;
-                    case ECraftingType.BOOTS:
-                        break;
-                }
-                break;
-            default:
-                break;
-        }       
-    }
     #endregion
 }

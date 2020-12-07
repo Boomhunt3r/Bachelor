@@ -129,14 +129,12 @@ public class GameManager : MonoBehaviour
                     Destroy(m_AllSpawnedEnemys[i]);
                 }
             }
-            /*
             if (m_Timer >= m_DayLength - 20)
             {
                 m_AlmostNight = true;
                 m_IsDay = false;
-            }*/
+            }
         }
-        /*
         if(m_AlmostNight)
         {
             if(m_Timer >= m_DayLength)
@@ -147,7 +145,6 @@ public class GameManager : MonoBehaviour
                 m_Timer = 0.0f;
             }
         }
-        
         if (IsNight)
         {
             if (m_Timer >= m_NightLength)
@@ -157,7 +154,7 @@ public class GameManager : MonoBehaviour
                 IsDay = true;
                 m_Timer = 0.0f;
             }
-        }*/
+        }
     }
 
     #region private Function

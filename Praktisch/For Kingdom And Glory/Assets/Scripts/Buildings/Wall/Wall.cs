@@ -8,6 +8,8 @@ public class Wall : MonoBehaviour
     [SerializeField]
     private float m_MaxHitPoints = 25;
     [SerializeField]
+    private GameObject m_Sprite;
+    [SerializeField]
     private Sprite[] m_Sprites;
     [SerializeField]
     private GameObject m_BuildUI;
@@ -197,7 +199,7 @@ public class Wall : MonoBehaviour
     {
         m_CurrentHitPoints = 0;
 
-        m_Render.color = Color.red;
+        //m_Render.sprite = ;
 
         Building = EBuildingUpgrade.NONE;
     }

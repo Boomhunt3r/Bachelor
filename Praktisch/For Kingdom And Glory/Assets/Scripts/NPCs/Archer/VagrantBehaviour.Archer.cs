@@ -7,7 +7,7 @@ public partial class VagrantBehaviour : MonoBehaviour
     private List<GameObject> m_EnemySpawner = new List<GameObject>();
     private GameObject m_EnemyToShoot;
     private GameObject m_CurrentRabbit;
-    private float m_Cooldown = 2.5f;
+    private float m_Cooldown = 1.5f;
     private float m_CooldownTimer = 0.0f;
     private bool m_BCooldown = false;
     private bool m_IsDefending = false;

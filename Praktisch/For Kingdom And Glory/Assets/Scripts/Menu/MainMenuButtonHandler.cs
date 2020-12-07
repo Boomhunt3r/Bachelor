@@ -18,7 +18,6 @@ public class MainMenuButtonHandler : MonoBehaviour
         m_Setting.SetActive(false);
         m_Tutorial.SetActive(false);
     }
-    
 
     public void ClickedStart()
     {

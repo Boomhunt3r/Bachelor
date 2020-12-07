@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject m_PauseMenu;
     [SerializeField]
-    private GameObject m_SettingMenu;
+    private GameObject m_HowToMenu;
     [SerializeField]
     private AudioSource m_Source;
     #endregion
@@ -86,7 +86,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         m_PauseMenu.SetActive(false);
-        //m_SettingMenu.SetActive(false);
+        m_HowToMenu.SetActive(false);
 
         StartGame();
     }
@@ -389,7 +389,7 @@ public class GameManager : MonoBehaviour
     public void Settings()
     {
         m_PauseMenu.SetActive(false);
-        m_SettingMenu.SetActive(true);
+        m_HowToMenu.SetActive(true);
         m_Source.Play();
     }
 
@@ -397,6 +397,12 @@ public class GameManager : MonoBehaviour
     {
         m_Source.Play();
         Application.Quit();
+    }
+
+    public void ExitHowToMenu()
+    {
+        if (m_HowToMenu.activeSelf)
+            m_HowToMenu.SetActive(false);
     }
     #endregion
 }

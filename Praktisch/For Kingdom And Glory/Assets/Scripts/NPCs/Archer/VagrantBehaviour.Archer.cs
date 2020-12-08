@@ -22,10 +22,6 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         m_Rabbits = GameObject.FindGameObjectsWithTag("Rabbit").ToList();
 
-        Debug.Log("Hunting: " + m_Hunting);
-        Debug.Log("Cooldown: " + m_BCooldown);
-        Debug.Log("CooldownTimer: " + m_CooldownTimer);
-
         if (GameManager.Instance.IsDay)
         {
             if (!IsAttacking)

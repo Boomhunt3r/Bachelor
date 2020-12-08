@@ -74,6 +74,8 @@ public class Wall : MonoBehaviour
 
         if (m_Side == ESpawnerSide.RIGHT)
             m_Render.flipX = true;
+
+        m_Render.sprite = m_Sprites[0];
     }
 
     void Update()
@@ -112,7 +114,7 @@ public class Wall : MonoBehaviour
                 CoinCost = 4;
                 WoodCost = 6;
                 // Set Renderer
-                m_Render.sprite = m_Sprites[0];
+                m_Render.sprite = m_Sprites[1];
                 // Set to next Upgrade Level
                 m_Building = EBuildingUpgrade.PILE;
                 // Set Collider
@@ -137,7 +139,7 @@ public class Wall : MonoBehaviour
                 CoinCost = 6;
                 WoodCost = 2;
                 StoneCost = 6;
-                m_Render.sprite = m_Sprites[1];
+                m_Render.sprite = m_Sprites[2];
                 // Set to next Upgrade Level
                 m_Building = EBuildingUpgrade.WOOD;
                 if (m_Side == ESpawnerSide.LEFT)
@@ -158,7 +160,7 @@ public class Wall : MonoBehaviour
                 CoinCost = 10;
                 StoneCost = 4;
                 IronCost = 6;
-                m_Render.sprite = m_Sprites[2];
+                m_Render.sprite = m_Sprites[3];
                 m_Building = EBuildingUpgrade.STONE;
                 if (m_Side == ESpawnerSide.LEFT)
                 {
@@ -175,7 +177,7 @@ public class Wall : MonoBehaviour
             case EBuildingUpgrade.STONE:
                 m_MaxTimer = 10.0f;
                 m_CurrentHitPoints = m_MaxHitPoints * 4;
-                m_Render.sprite = m_Sprites[3];
+                m_Render.sprite = m_Sprites[4];
                 m_Building = EBuildingUpgrade.IRON;
                 if (m_Side == ESpawnerSide.LEFT)
                 {
@@ -199,7 +201,7 @@ public class Wall : MonoBehaviour
     {
         m_CurrentHitPoints = 0;
 
-        //m_Render.sprite = ;
+        m_Render.sprite = m_Sprites[0];
 
         Building = EBuildingUpgrade.NONE;
     }

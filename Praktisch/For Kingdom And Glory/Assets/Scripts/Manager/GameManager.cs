@@ -37,13 +37,17 @@ public class GameManager : MonoBehaviour
     private GameObject m_HowToMenu;
     [SerializeField]
     private AudioSource m_Source;
+    [SerializeField]
+    private GameObject m_DayText;
     #endregion
 
     #region private Variables
     private float m_Timer = 0.0f;
     private float m_UITimer = 0.0f;
+    private float m_ShowTime = 1.5f;
+    private float m_ShowTimer = 0.0f;
     private int m_TotalRabbitsSpawned = 0;
-    private int m_DayCount = 0;
+    private int m_DayCount = 1;
     private bool m_IsDay = true;
     private bool m_IsNight = false;
     private bool m_AlmostNight = false;
@@ -51,6 +55,7 @@ public class GameManager : MonoBehaviour
     private bool m_RevengeAttack = false;
     private bool m_IsPaused = false;
     private bool m_IsEndGame = false;
+    private bool m_Announced = false;
     private EGameSetting m_Setting;
     private List<GameObject> m_EnemySpawnerLeftSide = new List<GameObject>();
     private List<GameObject> m_EnemySpawnerRightSide = new List<GameObject>();
@@ -73,6 +78,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> EnemySpawnerLeftSide { get => m_EnemySpawnerLeftSide; set => m_EnemySpawnerLeftSide = value; }
     public List<GameObject> EnemySpawnerRightSide { get => m_EnemySpawnerRightSide; set => m_EnemySpawnerRightSide = value; }
     public bool IsPaused { get => m_IsPaused; set => m_IsPaused = value; }
+    public int DayCount { get => m_DayCount; set => m_DayCount = value; }
     #endregion
 
     private void Awake()
@@ -122,6 +128,22 @@ public class GameManager : MonoBehaviour
 
         if (IsDay)
         {
+            if(!m_Announced)
+            {
+                if(m_ShowTimer >= m_ShowTime)
+                {
+                    m_DayText.SetActive(false);
+                }
+                if(m_ShowTimer < m_ShowTime)
+                {
+                    m_DayText.SetActive(true);
+                }
+
+                m_ShowTimer += Time.deltaTime;
+            }
+
+
+            #region MyRegion
             //if (m_AllSpawnedEnemys.Count != 0)
             //{
             //    // TODO: Check why its not working
@@ -130,7 +152,8 @@ public class GameManager : MonoBehaviour
             //    {
             //        Destroy(m_AllSpawnedEnemys[i]);
             //    }
-            //}
+            //} 
+            #endregion
 
             if (m_Timer >= m_DayLength - 20)
             {
@@ -155,7 +178,9 @@ public class GameManager : MonoBehaviour
                 m_AlmostNight = false;
                 IsNight = false;
                 IsDay = true;
+                m_Announced = false;
                 m_Timer = 0.0f;
+                UpdateCounter();
             }
         }
     }
@@ -313,6 +338,13 @@ public class GameManager : MonoBehaviour
         }
 
 
+    }
+
+    private void UpdateCounter()
+    {
+        m_DayCount++;
+
+        m_DayText.GetComponent<TextMeshProUGUI>().text = $"Day {m_DayCount}";
     }
 
     #endregion

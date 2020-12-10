@@ -41,7 +41,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                         m_CooldownTimer += Time.deltaTime;
                     }
 
-                    if(m_CooldownTimer >= m_Cooldown)
+                    if (m_CooldownTimer >= m_Cooldown)
                     {
                         m_CooldownTimer = 0.0f;
                         m_BCooldown = false;
@@ -75,8 +75,12 @@ public partial class VagrantBehaviour : MonoBehaviour
                 if (m_EnemySpawner.Count != 0)
                     m_Target = GetClosestTarget(m_EnemySpawner);
 
-                if (m_Distance <= Random.Range(3f, 7.5f))
+                if (m_Distance <= Random.Range(9f, 11.5f))
                 {
+                    m_ShootTime += Time.deltaTime;
+
+                    m_Target = GetClosestTarget(GameObject.FindGameObjectsWithTag("Enemy").ToList(), m_EnemySpawner);
+
                     if (m_ShootTime >= m_ShootTimer)
                     {
                         ChangeAnimation("Attack", false);
@@ -173,6 +177,66 @@ public partial class VagrantBehaviour : MonoBehaviour
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="_Target"></param>
+    /// <param name="_Spawner"></param>
+    /// <returns></returns>
+    private GameObject GetClosestTarget(List<GameObject> _Target, List<GameObject> _Spawner)
+    {
+        GameObject TargetT = null;
+        GameObject TargetS = null;
+        GameObject Target = null;
+        float MinDist = Mathf.Infinity;
+        Vector2 CurrentPos = transform.position;
+        float TDist = -1.0f;
+        float SDist = -1.0f;
+        float Dist = 0.0f;
+
+        for (int i = 0; i < _Target.Count; i++)
+        {
+            if (_Target[i] == null)
+                continue;
+
+            Dist = Vector2.Distance(_Target[i].transform.position, CurrentPos);
+
+            if (Dist < MinDist)
+            {
+                TargetT = _Target[i];
+                MinDist = Dist;
+                TDist = Dist;
+            }
+        }
+
+        Dist = 0.0f;
+        MinDist = Mathf.Infinity;
+
+        for (int i = 0; i < _Spawner.Count; i++)
+        {
+            Dist = Vector2.Distance(_Spawner[i].transform.position, CurrentPos);
+
+            if (Dist < MinDist)
+            {
+                TargetS = _Spawner[i];
+                MinDist = Dist;
+                SDist = Dist;
+            }
+        }
+
+        if (TDist <= SDist)
+        {
+            Target = TargetT;
+        }
+
+        if (TDist == -1.0f)
+        {
+            Target = TargetS;
+        }
+
+        return Target;
+    }
+
+    /// <summary>
     /// Shoot Function
     /// </summary>
     /// <param name="_Target">Target to Shoot at</param>
@@ -184,7 +248,7 @@ public partial class VagrantBehaviour : MonoBehaviour
         XDistance = Random.Range(_Target.transform.position.x - m_ThrowPoint.position.x, m_Direction.x * 5.0f);
 
         float YDistance;
-        YDistance = Random.Range(_Target.transform.position.y - m_ThrowPoint.position.y, 5.0f);
+        YDistance = _Target.transform.position.y - m_ThrowPoint.position.y;
 
         float ThrowAngle;
         ThrowAngle = Mathf.Atan((YDistance + 4.905f) / XDistance);

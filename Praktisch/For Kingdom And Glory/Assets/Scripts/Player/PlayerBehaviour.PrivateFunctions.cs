@@ -19,9 +19,7 @@ public partial class PlayerBehaviour : MonoBehaviour
         float XVelo;
         float YVelo;
 
-        Target = GetClosestTarget(GameObject.FindGameObjectsWithTag("Enemy"), GameObject.FindGameObjectsWithTag("Rabbit"));
-
-        Debug.Log(Vector2.Distance(Target.transform.position, transform.position));
+        Target = GetClosestTarget(GameObject.FindGameObjectsWithTag("Enemy"), GameObject.FindGameObjectsWithTag("Rabbit"), GameObject.FindGameObjectsWithTag("EnemySpawner"));
 
         if (Target != null && Vector2.Distance(Target.transform.position, transform.position) <= 10.0f)
         {
@@ -87,15 +85,17 @@ public partial class PlayerBehaviour : MonoBehaviour
     /// <param name="_Enemies">All Enemies</param>
     /// <param name="_Rabbits">All Rabbits</param>
     /// <returns>Closest Target</returns>
-    private GameObject GetClosestTarget(GameObject[] _Enemies, GameObject[] _Rabbits)
+    private GameObject GetClosestTarget(GameObject[] _Enemies, GameObject[] _Rabbits, GameObject[] _Spawner)
     {
         GameObject TargetE = null;
         GameObject TargetR = null;
+        GameObject TargetS = null;
         GameObject TargetO = null;
 
         float MinDist = Mathf.Infinity;
-        float EDist = 0.0f;
-        float RDist = 0.0f;
+        float EDist = -1.0f;
+        float RDist = -1.0f;
+        float SDist = -1.0f;
         float Dist = 0.0f;
 
         if (_Enemies != null)
@@ -131,14 +131,47 @@ public partial class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        if (EDist <= RDist || RDist == 0.0f)
+        MinDist = Mathf.Infinity;
+        Dist = 0.0f;
+
+        if(_Spawner != null)
+        {
+            for (int i = 0; i < _Spawner.Length; i++)
+            {
+                Dist = Vector2.Distance(_Spawner[i].transform.position, transform.position);
+
+                if(Dist < MinDist)
+                {
+                    TargetS = _Spawner[i];
+                    MinDist = Dist;
+                    SDist = Dist;
+                }
+            }
+        }
+
+        if(RDist == -1.0f && SDist == -1.0f)
         {
             TargetO = TargetE;
         }
 
-        if (EDist == 0.0f)
+        if(EDist == -1.0f && RDist == -1.0f)
+        {
+            TargetO = TargetS;
+        }
+
+        if (EDist == -1.0f && SDist == -1.0f)
         {
             TargetO = TargetR;
+        }
+
+        if (EDist <= RDist || RDist == 0.0f || EDist <= SDist)
+        {
+            TargetO = TargetE;
+        }
+
+        if(EDist == -1.0f && SDist <= RDist)
+        {
+            TargetO = TargetS;
         }
 
         return TargetO;

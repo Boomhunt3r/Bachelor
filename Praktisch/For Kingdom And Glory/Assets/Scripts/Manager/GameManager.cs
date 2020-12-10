@@ -122,13 +122,16 @@ public class GameManager : MonoBehaviour
 
         if (IsDay)
         {
-            if (m_AllSpawnedEnemys.Count != 0)
-            {
-                for (int i = 0; i < m_AllSpawnedEnemys.Count; i++)
-                {
-                    Destroy(m_AllSpawnedEnemys[i]);
-                }
-            }
+            //if (m_AllSpawnedEnemys.Count != 0)
+            //{
+            //    // TODO: Check why its not working
+
+            //    for (int i = 0; i < m_AllSpawnedEnemys.Count; i++)
+            //    {
+            //        Destroy(m_AllSpawnedEnemys[i]);
+            //    }
+            //}
+
             if (m_Timer >= m_DayLength - 20)
             {
                 m_AlmostNight = true;

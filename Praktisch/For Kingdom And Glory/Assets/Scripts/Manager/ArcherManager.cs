@@ -27,7 +27,7 @@ public class ArcherManager : MonoBehaviour
         if (!GameManager.Instance.IsAlive)
             return;
 
-        if (!GameManager.Instance.AlmostNight)
+        if (GameManager.Instance.IsPaused)
             return;
 
         if (m_ArcherLeftSide.Count != 0 || m_ArcherLeftSide != null)

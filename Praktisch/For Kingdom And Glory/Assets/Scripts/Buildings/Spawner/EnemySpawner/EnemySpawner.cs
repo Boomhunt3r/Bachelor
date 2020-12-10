@@ -71,6 +71,14 @@ public class EnemySpawner : MonoBehaviour
         if (GameManager.Instance.IsDay && m_Spawned)
         {
             m_Spawned = false;
+
+            if(m_SpawnedEnemys.Count > 0)
+            {
+                for (int i = 0; i < m_SpawnedEnemys.Count; i++)
+                {
+                    Destroy(m_SpawnedEnemys[i]);
+                }
+            }
         }
 
         if (Vector2.Distance(this.gameObject.transform.position, m_Player.transform.position) <= 10.0f)
@@ -95,6 +103,7 @@ public class EnemySpawner : MonoBehaviour
         //        {
         //            Destroy(SpawnedEnemys[i]);
         //        }
+        //         m_Defending = false;
         //    }
 
         //    m_DamageTimer += Time.deltaTime;
@@ -107,11 +116,13 @@ public class EnemySpawner : MonoBehaviour
         }
         else if (GameManager.Instance.IsNight && !GameManager.Instance.RevengeAttack && m_Spawned && m_UnderAttack)
         {
-            Heal();
+            //Heal();
             m_UnderAttack = false;
         }
         else if (GameManager.Instance.IsDay && !GameManager.Instance.RevengeAttack && m_UnderAttack)
         {
+            // TODO: Check and possibly rework
+
             if (!m_Defending)
                 m_Defending = true;
 
@@ -119,14 +130,9 @@ public class EnemySpawner : MonoBehaviour
             {
                 m_SpawnTimer += Time.deltaTime;
 
-                if (m_SpawnTimer >= 1.5f)
+                if (m_SpawnTimer >= 2.5f)
                 {
                     Spawn(EWaveType.DEFENDING);
-                    m_SpawnTimer = 0.0f;
-                }
-                if (m_SpawnedDefender > 5)
-                {
-                    m_Defending = false;
                     m_SpawnTimer = 0.0f;
                 }
             }
@@ -179,10 +185,10 @@ public class EnemySpawner : MonoBehaviour
 
     }
 
-    private void Heal()
-    {
-        m_CurrentHealth = m_MaxHealth;
-    }
+    /* private void Heal()
+     {
+         m_CurrentHealth = m_MaxHealth;
+     }*/
 
     private void DestroySpawner()
     {

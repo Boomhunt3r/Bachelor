@@ -72,7 +72,7 @@ public class EnemySpawner : MonoBehaviour
         {
             m_Spawned = false;
 
-            if(m_SpawnedEnemys.Count > 0)
+            if (m_SpawnedEnemys.Count > 0)
             {
                 for (int i = 0; i < m_SpawnedEnemys.Count; i++)
                 {
@@ -93,21 +93,21 @@ public class EnemySpawner : MonoBehaviour
                 m_System.Stop();
         }
 
-        //if (m_UnderAttack)
-        //{
-        //    if (m_DamageTimer >= 5.0f)
-        //    {
-        //        m_UnderAttack = false;
+        if (m_UnderAttack)
+        {
+            if (m_DamageTimer >= 5.0f)
+            {
+                m_UnderAttack = false;
 
-        //        for (int i = 0; i < SpawnedEnemys.Count; i++)
-        //        {
-        //            Destroy(SpawnedEnemys[i]);
-        //        }
-        //         m_Defending = false;
-        //    }
+                for (int i = 0; i < SpawnedEnemys.Count; i++)
+                {
+                    Destroy(SpawnedEnemys[i]);
+                }
+                m_Defending = false;
+            }
 
-        //    m_DamageTimer += Time.deltaTime;
-        //}
+            m_DamageTimer += Time.deltaTime;
+        }
 
         if (GameManager.Instance.IsNight && !GameManager.Instance.RevengeAttack && !m_Spawned && !m_UnderAttack)
         {
@@ -130,7 +130,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 m_SpawnTimer += Time.deltaTime;
 
-                if (m_SpawnTimer >= 2.5f)
+                if (m_SpawnTimer >= 2.0f)
                 {
                     Spawn(EWaveType.DEFENDING);
                     m_SpawnTimer = 0.0f;
@@ -206,6 +206,8 @@ public class EnemySpawner : MonoBehaviour
         m_CurrentHealth -= _Amount;
 
         m_DamageTimer = 0.0f;
+
+        m_UnderAttack = true;
 
         if (m_CurrentHealth <= 0)
         {

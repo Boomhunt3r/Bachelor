@@ -203,6 +203,8 @@ public class Wall : MonoBehaviour
 
         m_Render.sprite = m_Sprites[0];
 
+        m_CoinCost = 2;
+
         Building = EBuildingUpgrade.NONE;
     }
     #endregion

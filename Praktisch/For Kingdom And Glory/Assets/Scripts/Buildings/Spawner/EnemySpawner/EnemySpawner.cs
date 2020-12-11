@@ -95,7 +95,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (m_UnderAttack)
         {
-            if (m_DamageTimer >= 5.0f)
+            if (m_DamageTimer >= 10.0f)
             {
                 m_UnderAttack = false;
 
@@ -130,7 +130,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 m_SpawnTimer += Time.deltaTime;
 
-                if (m_SpawnTimer >= 2.0f)
+                if (m_SpawnTimer >= Random.Range(2.0f, 7.5f))
                 {
                     Spawn(EWaveType.DEFENDING);
                     m_SpawnTimer = 0.0f;

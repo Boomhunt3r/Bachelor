@@ -37,8 +37,8 @@ public class GameManager : MonoBehaviour
     private GameObject m_HowToMenu;
     [SerializeField]
     private AudioSource m_Source;
-    [SerializeField]
-    private GameObject m_DayText;
+    /*[SerializeField]
+    private GameObject m_DayText;*/
     #endregion
 
     #region private Variables
@@ -128,7 +128,7 @@ public class GameManager : MonoBehaviour
 
         if (IsDay)
         {
-            if(!m_Announced)
+            /*if(!m_Announced)
             {
                 if(m_ShowTimer >= m_ShowTime)
                 {
@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour
                 }
 
                 m_ShowTimer += Time.deltaTime;
-            }
+            }*/
 
 
             #region MyRegion
@@ -344,7 +344,7 @@ public class GameManager : MonoBehaviour
     {
         m_DayCount++;
 
-        m_DayText.GetComponent<TextMeshProUGUI>().text = $"Day {m_DayCount}";
+        //m_DayText.GetComponent<TextMeshProUGUI>().text = $"Day {m_DayCount}";
     }
 
     #endregion

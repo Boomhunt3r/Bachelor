@@ -17193,6 +17193,7 @@ GameObject:
   - component: {fileID: 1448931869}
   - component: {fileID: 1448931870}
   - component: {fileID: 1448931871}
+  - component: {fileID: 1448931872}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -17419,6 +17420,18 @@ MonoBehaviour:
   m_SpawnText: {fileID: 1493752960}
   m_TownText: {fileID: 683252192}
   m_WallText: {fileID: 435930306}
+--- !u!114 &1448931872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448931865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 110fdc733ec0adc4bb3f6efc47fe4ed2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1471307872
 GameObject:
   m_ObjectHideFlags: 0

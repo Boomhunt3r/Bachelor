@@ -376,9 +376,9 @@ public class Enemy : MonoBehaviour
     /// If Wall Destroyed
     /// Remove Current Wall From List
     /// </summary>
-    public void RemoveWallFromList()
+    public void RemoveWallFromList(GameObject _Wall)
     {
-        m_Walls.Remove(m_ClosestWall);
+        m_Walls.Remove(_Wall);
     }
 
     /// <summary>

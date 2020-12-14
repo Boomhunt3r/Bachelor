@@ -217,7 +217,8 @@ public class Wall : MonoBehaviour
         if (m_CurrentHitPoints <= 0)
         {
             DownGrade();
-            Enemy.Instance.RemoveWallFromList();
+
+            EnemyManager.Instance.RemoveWallFromList(this.gameObject);
         }
     }
 

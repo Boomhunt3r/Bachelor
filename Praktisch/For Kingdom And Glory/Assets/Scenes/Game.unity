@@ -1361,7 +1361,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Archery
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3dbbc3ddb838485468c452c664bd4e66, type: 2}
   m_sharedMaterial: {fileID: -5614103365144853691, guid: 3dbbc3ddb838485468c452c664bd4e66,
@@ -1431,7 +1431,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 150409284}
-    characterCount: 6
+    characterCount: 7
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -2209,7 +2209,7 @@ GameObject:
   - component: {fileID: 192878492}
   - component: {fileID: 192878491}
   m_Layer: 5
-  m_Name: Exitbutton
+  m_Name: ExitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4786,7 +4786,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Smithy
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3dbbc3ddb838485468c452c664bd4e66, type: 2}
   m_sharedMaterial: {fileID: -5614103365144853691, guid: 3dbbc3ddb838485468c452c664bd4e66,
@@ -7683,7 +7683,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Builder
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3dbbc3ddb838485468c452c664bd4e66, type: 2}
   m_sharedMaterial: {fileID: -5614103365144853691, guid: 3dbbc3ddb838485468c452c664bd4e66,
@@ -7753,7 +7753,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 659234417}
-    characterCount: 6
+    characterCount: 7
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -8174,10 +8174,10 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 25.6
+  m_fontSize: 22
   m_fontSizeBase: 22
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -10121,10 +10121,10 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 20.45
+  m_fontSize: 22
   m_fontSizeBase: 22
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -10138,7 +10138,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 190
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -11356,7 +11356,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Wall
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3dbbc3ddb838485468c452c664bd4e66, type: 2}
   m_sharedMaterial: {fileID: -5614103365144853691, guid: 3dbbc3ddb838485468c452c664bd4e66,
@@ -11426,7 +11426,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 960870895}
-    characterCount: 6
+    characterCount: 4
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -13868,10 +13868,10 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 20.45
+  m_fontSize: 22
   m_fontSizeBase: 22
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -13885,7 +13885,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 211
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -14975,7 +14975,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Controls
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3dbbc3ddb838485468c452c664bd4e66, type: 2}
   m_sharedMaterial: {fileID: -5614103365144853691, guid: 3dbbc3ddb838485468c452c664bd4e66,
@@ -15045,7 +15045,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1266540429}
-    characterCount: 6
+    characterCount: 8
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -20124,7 +20124,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Spawner
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3dbbc3ddb838485468c452c664bd4e66, type: 2}
   m_sharedMaterial: {fileID: -5614103365144853691, guid: 3dbbc3ddb838485468c452c664bd4e66,
@@ -20194,7 +20194,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1778647433}
-    characterCount: 6
+    characterCount: 7
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -22104,7 +22104,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: Town
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3dbbc3ddb838485468c452c664bd4e66, type: 2}
   m_sharedMaterial: {fileID: -5614103365144853691, guid: 3dbbc3ddb838485468c452c664bd4e66,
@@ -22174,7 +22174,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1927497130}
-    characterCount: 6
+    characterCount: 4
     spriteCount: 0
     spaceCount: 0
     wordCount: 1

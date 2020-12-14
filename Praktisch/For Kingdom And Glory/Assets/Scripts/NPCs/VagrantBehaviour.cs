@@ -257,6 +257,7 @@ public partial class VagrantBehaviour : MonoBehaviour
         {
             case ENPCStatus.VILLAGER:
                 m_Status = ENPCStatus.VARGANT;
+                EnemyManager.Instance.RemoveVillagerFromList(this.gameObject);
                 break;
             case ENPCStatus.BUILDER:
                 m_Status = ENPCStatus.VILLAGER;

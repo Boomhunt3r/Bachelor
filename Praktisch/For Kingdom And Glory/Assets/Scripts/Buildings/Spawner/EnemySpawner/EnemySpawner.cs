@@ -116,13 +116,10 @@ public class EnemySpawner : MonoBehaviour
         }
         else if (GameManager.Instance.IsNight && !GameManager.Instance.RevengeAttack && m_Spawned && m_UnderAttack)
         {
-            //Heal();
             m_UnderAttack = false;
         }
         else if (GameManager.Instance.IsDay && !GameManager.Instance.RevengeAttack && m_UnderAttack)
         {
-            // TODO: Check and possibly rework
-
             if (!m_Defending)
                 m_Defending = true;
 
@@ -184,11 +181,6 @@ public class EnemySpawner : MonoBehaviour
         }
 
     }
-
-    /* private void Heal()
-     {
-         m_CurrentHealth = m_MaxHealth;
-     }*/
 
     private void DestroySpawner()
     {

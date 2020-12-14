@@ -39,12 +39,11 @@ public class Enemy : MonoBehaviour
     private List<GameObject> m_Villiger = new List<GameObject>();
     private List<GameObject> m_Builder = new List<GameObject>();
     private List<GameObject> m_Archer = new List<GameObject>();
-    private Vector2 m_Direction;
     private float m_Timer;
     private float m_AnimationTimer;
     private float m_AnimationTime = 1.0f;
     private float m_Range = 0.0f;
-    [SerializeField]
+    private Vector2 m_Direction;
     private ESpawnerSide m_Side;
     #endregion
 
@@ -386,9 +385,9 @@ public class Enemy : MonoBehaviour
     /// If Villiger Destroyed
     /// Remove From List
     /// </summary>
-    public void RemoveVilligerFromList()
+    public void RemoveVillagerFromList(GameObject _Villager)
     {
-        m_Villiger.Remove(m_ClosestVilliger);
+        m_Villiger.Remove(_Villager);
     }
     #endregion
 }

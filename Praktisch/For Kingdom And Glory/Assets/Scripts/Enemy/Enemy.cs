@@ -12,8 +12,6 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float m_Speed = 25.0f;
     [SerializeField]
-    private float m_ArrowSpeed = 250.0f;
-    [SerializeField]
     [Range(1, 8)]
     private float m_AttackTime = 2.5f;
     [SerializeField]
@@ -46,7 +44,6 @@ public class Enemy : MonoBehaviour
     private float m_AnimationTimer;
     private float m_AnimationTime = 1.0f;
     private float m_Range = 0.0f;
-    private bool m_Loop = true;
     [SerializeField]
     private ESpawnerSide m_Side;
     #endregion

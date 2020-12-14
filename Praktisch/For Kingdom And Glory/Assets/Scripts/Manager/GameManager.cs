@@ -43,7 +43,6 @@ public class GameManager : MonoBehaviour
 
     #region private Variables
     private float m_Timer = 0.0f;
-    private float m_UITimer = 0.0f;
     private float m_ShowTime = 1.5f;
     private float m_ShowTimer = 0.0f;
     private int m_TotalRabbitsSpawned = 0;

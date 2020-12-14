@@ -10,8 +10,6 @@ public partial class VagrantBehaviour : MonoBehaviour
     [SerializeField]
     protected float m_Speed = 0.5f;
     [SerializeField]
-    private float m_NextWaypointDist = 3.0f;
-    [SerializeField]
     private SkeletonAnimation m_Animation;
     [SerializeField]
     [Range(1, 10)]
@@ -25,8 +23,6 @@ public partial class VagrantBehaviour : MonoBehaviour
     private GameObject m_Arrow;
     [SerializeField]
     private Transform m_ThrowPoint;
-    [SerializeField]
-    private float m_ArrowSpeed = 1000.0f;
     [SerializeField]
     private AudioSource m_Source;
     #endregion

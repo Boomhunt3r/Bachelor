@@ -71,10 +71,6 @@ public partial class PlayerBehaviour : MonoBehaviour
 
     private float m_Timer = 0.0f;
 
-    private float m_DamageTimer = 0.0f;
-
-    private float m_GetHealth = 5.0f;
-
     private bool m_Build = false;
 
     private bool m_CanBuild = false;
@@ -94,10 +90,6 @@ public partial class PlayerBehaviour : MonoBehaviour
     private bool m_CanTown = false;
 
     private bool m_IsTown = false;
-
-    private bool m_ESCPressed = false;
-
-    private bool m_GetDamage = false;
     #endregion
 
     #region Properties

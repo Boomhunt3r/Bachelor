@@ -22,18 +22,16 @@ public class EnemyManager : MonoBehaviour
     {
         if (!GameManager.Instance.IsAlive)
             return;
+    }
 
-        if (GameManager.Instance.IsDay)
-        {
-            m_Searched = false;
-        }
+    public void ClearList()
+    {
+        m_AllEnemies.Clear();
+    }
 
-        if (GameManager.Instance.IsNight)
-        {
-            m_AllEnemies = GameObject.FindGameObjectsWithTag("Enemy").ToList();
-
-            m_Searched = true;
-        }
+    public void AddToList(GameObject _Enemy)
+    {
+        m_AllEnemies.Add(_Enemy);
     }
 
     public void RemoveVillagerFromList(GameObject _Villager)

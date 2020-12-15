@@ -78,6 +78,9 @@ public class EnemySpawner : MonoBehaviour
                 {
                     Destroy(m_SpawnedEnemys[i]);
                 }
+
+                m_SpawnedEnemys.Clear();
+                EnemyManager.Instance.ClearList();
             }
         }
 
@@ -153,6 +156,7 @@ public class EnemySpawner : MonoBehaviour
                     Enemy = Instantiate(m_EnemyPrefab, this.gameObject.transform.position, Quaternion.identity);
                     Enemy.GetComponent<Enemy>().Side = m_Side;
                     SpawnedEnemys.Add(Enemy);
+                    EnemyManager.Instance.AddToList(Enemy);
                     GameManager.Instance.AllSpawnedEnemys.Add(Enemy);
                 }
                 break;

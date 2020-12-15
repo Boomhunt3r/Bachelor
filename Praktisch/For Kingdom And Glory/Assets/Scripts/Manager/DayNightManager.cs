@@ -14,6 +14,8 @@ public class DayNightManager : MonoBehaviour
     private Color m_Evening = new Color(0.2745098f, 0.2f, 0.4901961f, 0);
     [SerializeField]
     private Color m_Night = new Color(0.0f, 0.04313726f, 0.1333333f, 0);
+    [SerializeField]
+    private Color m_Midnight = new Color(0.0f, 0.0f, 0.0f, 0);
     [Header("Background Music")]
     [SerializeField]
     private AudioSource m_Background;
@@ -29,7 +31,8 @@ public class DayNightManager : MonoBehaviour
     private int m_CurrentClip = 0;
     private bool m_Day = true;
     private bool m_Dark = false;
-    private bool m_Between = false; 
+    private bool m_MidNight = false;
+    private bool m_Between = false;
     #endregion
 
     // Start is called before the first frame update
@@ -82,24 +85,31 @@ public class DayNightManager : MonoBehaviour
         #endregion
 
         #region BackgroundColor logic
-        if (m_Camera.backgroundColor == m_Noon && m_Day && !m_Dark && !m_Between)
+        if (m_Camera.backgroundColor == m_Noon && m_Day && !m_Dark && !m_Between && !m_MidNight)
         {
             m_Timer = 0.0f;
             m_Between = true;
             m_Day = false;
         }
 
-        if (m_Camera.backgroundColor == m_Evening && m_Between && !m_Day && !m_Dark)
+        if (m_Camera.backgroundColor == m_Evening && m_Between && !m_Day && !m_Dark && !m_MidNight)
         {
             m_Timer = 0.0f;
             m_Dark = true;
         }
 
-        if (m_Camera.backgroundColor == m_Night && m_Dark && m_Between && !m_Day)
+        if (m_Camera.backgroundColor == m_Night && m_Dark && m_Between && !m_Day && !m_MidNight)
         {
             m_Timer = 0.0f;
             m_Between = false;
             m_Dark = false;
+            m_MidNight = true;
+        }
+
+        if(m_Camera.backgroundColor == m_Midnight && m_MidNight && !m_Dark && !m_Day && !m_Between)
+        {
+            m_Timer = 0.0f;
+            m_MidNight = false;
         }
 
         if (m_Camera.backgroundColor == m_Morning && !m_Day && !m_Dark && !m_Between)
@@ -121,10 +131,15 @@ public class DayNightManager : MonoBehaviour
             m_Camera.backgroundColor = Color.Lerp(m_Evening, m_Night, m_Timer / 20);
         }
 
-        if (!m_Dark && !m_Day && !m_Between)
+        if(m_MidNight && !m_Dark && !m_Day && !m_Between)
         {
-            m_Camera.backgroundColor = Color.Lerp(m_Night, m_Morning, m_Timer / 120);
-        } 
+            m_Camera.backgroundColor = Color.Lerp(m_Night, m_Midnight, m_Timer / 80);
+        }
+
+        if (!m_Dark && !m_Day && !m_Between && !m_MidNight)
+        {
+            m_Camera.backgroundColor = Color.Lerp(m_Midnight, m_Morning, m_Timer / 40);
+        }
         #endregion
     }
 }

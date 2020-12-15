@@ -284,6 +284,11 @@ public class TownBuilding : MonoBehaviour
     {
         PlayerBehaviour.Instance.HealPlayer();
     }
+
+    public void CloseUI()
+    {
+        IsActive = false;
+    }
     #endregion
 
     #region Collision Function

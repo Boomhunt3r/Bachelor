@@ -28,6 +28,7 @@ public class VagrantSpawner : MonoBehaviour
         {
             m_Vagrant = Instantiate(m_VagrantPrefab, new Vector3(this.gameObject.transform.position.x, 0.0f, 0.15f), Quaternion.identity);
             GameManager.Instance.SpawnedVagrants.Add(m_Vagrant);
+            VagrantManager.Instance.AddToList(m_Vagrant);
         }
     }
 

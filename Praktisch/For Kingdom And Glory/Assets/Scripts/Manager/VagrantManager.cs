@@ -16,7 +16,7 @@ public class VagrantManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log(m_AllVagrants.Count);
     }
 
     public void AddToList(GameObject _Vagrant)

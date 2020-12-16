@@ -12,7 +12,7 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         if (m_Coins.Count == 0)
         {
-            m_Coins = GameObject.FindGameObjectsWithTag("Coin").OfType<GameObject>().ToList();
+            m_Coins = GameObject.FindGameObjectsWithTag("Coin").ToList();
             m_Target = m_Waypoints[m_CurrentDirection];
 
             m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);

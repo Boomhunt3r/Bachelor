@@ -7,7 +7,7 @@ public class EnemyManager : MonoBehaviour
     public static EnemyManager Instance { get; private set; }
 
     #region private Variables
-    private bool m_Searched = false;
+    private bool m_Cleared = false;
     private List<GameObject> m_AllEnemies = new List<GameObject>();
     #endregion
 
@@ -22,6 +22,20 @@ public class EnemyManager : MonoBehaviour
     {
         if (!GameManager.Instance.IsAlive)
             return;
+
+        if(GameManager.Instance.IsDay)
+        {
+            if(!m_Cleared)
+            {
+                m_AllEnemies.Clear();
+                m_Cleared = true;
+            }
+        }
+
+        if(GameManager.Instance.IsNight)
+        {
+            m_Cleared = true;
+        }
     }
 
     public void ClearList()
@@ -47,7 +61,7 @@ public class EnemyManager : MonoBehaviour
 
     public void RemoveWallFromList(GameObject _Wall)
     {
-        if(m_AllEnemies.Count >0)
+        if (m_AllEnemies.Count > 0)
         {
             for (int i = 0; i < m_AllEnemies.Count; i++)
             {

@@ -205,7 +205,8 @@ public partial class VagrantBehaviour : MonoBehaviour
         {
             if (collision.CompareTag("Coin"))
             {
-                RemoveCoin(collision.gameObject);
+                VagrantManager.Instance.RemoveCoinsForAll(collision.gameObject);
+                VagrantManager.Instance.RemoveFromList(this.gameObject);
                 Destroy(collision.gameObject);
                 m_Status = ENPCStatus.VILLAGER;
             }
@@ -214,12 +215,14 @@ public partial class VagrantBehaviour : MonoBehaviour
         {
             if (collision.CompareTag("Hammer"))
             {
+                VagrantManager.Instance.RemoveFromList(this.gameObject);
                 BuilderStand.Instance.RemoveHammerFromStand(collision.gameObject);
                 m_HasJob = true;
                 m_Status = ENPCStatus.BUILDER;
             }
             if (collision.CompareTag("Bow"))
             {
+                VagrantManager.Instance.RemoveFromList(this.gameObject);
                 Archery.Instance.RemoveBowFromStand(collision.gameObject);
                 ArcherManager.Instance.AddToList(this.gameObject);
                 m_HasJob = true;
@@ -258,6 +261,7 @@ public partial class VagrantBehaviour : MonoBehaviour
             case ENPCStatus.VILLAGER:
                 m_Status = ENPCStatus.VARGANT;
                 EnemyManager.Instance.RemoveVillagerFromList(this.gameObject);
+                VagrantManager.Instance.AddToList(this.gameObject);
                 break;
             case ENPCStatus.BUILDER:
                 m_Status = ENPCStatus.VILLAGER;

@@ -164,13 +164,13 @@ public class GameManager : MonoBehaviour
         {
             if(m_Timer >= m_DayLength)
             {
-                IsDay = false;
+                IsDay = true;
                 m_AlmostNight = false;
-                IsNight = true;
+                //IsNight = true;
                 m_Timer = 0.0f;
             }
         }
-        if (IsNight)
+        /*if (IsNight)
         {
             if (m_Timer >= m_NightLength)
             {
@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour
                 m_Timer = 0.0f;
                 UpdateCounter();
             }
-        }
+        }*/
     }
 
     #region private Function

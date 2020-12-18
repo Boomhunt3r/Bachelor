@@ -9,11 +9,12 @@ public partial class VagrantBehaviour : MonoBehaviour
     private GameObject m_CurrentBow;
     private GameObject m_CurrentHammer;
 
+    #region Update function
     private void Villager()
     {
         this.gameObject.tag = "Villager";
 
-        if (m_BowInRange == false && m_HammerInRange == false)
+        if (m_Bows.Count == 0 && m_Hammers.Count == 0)
         {
             m_Target = m_VillagerPoints[m_CurrentDirection];
 
@@ -36,35 +37,19 @@ public partial class VagrantBehaviour : MonoBehaviour
                 }
             }
 
-            if (m_Hammers.Count != 0)
+            if (m_Hammers.Count > 0)
             {
                 // Set Hammer to Target
                 m_CurrentHammer = GetClosestHammer(m_Hammers);
                 // Set Tool in Range true
                 m_HammerInRange = true;
             }
-            if (m_Bows.Count != 0)
+            if (m_Bows.Count > 0)
             {
                 // Set Bow to Target
                 m_CurrentBow = GetClosestBow(m_Bows);
                 m_BowInRange = true;
             }
-        }
-
-        if (m_Bows.Count == 0)
-        {
-            m_Bows = GameObject.FindGameObjectsWithTag("Bow").ToList();
-            m_Bows = GameObject.FindGameObjectsWithTag("Bow").ToList();
-            m_BowInRange = false;
-        }
-
-        // If Hammer is null
-        if (m_Hammers.Count == 0)
-        {
-            // Find Hammer Object
-            m_Hammers = GameObject.FindGameObjectsWithTag("Hammer").ToList();
-            // Set Tool in Range false
-            m_HammerInRange = false;
         }
 
         if (m_BowInRange == true && m_HammerInRange == true)
@@ -81,7 +66,9 @@ public partial class VagrantBehaviour : MonoBehaviour
         }
 
     }
+    #endregion
 
+    #region private Functions
     private GameObject GetClosestBow(List<GameObject> _Bows)
     {
         GameObject Target = null;
@@ -149,4 +136,41 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         return Target;
     }
+    #endregion
+
+    #region public functions
+    public void AddToBowList(GameObject _Bow)
+    {
+        m_Bows.Add(_Bow);
+    }
+
+    public void RemoveFromBowList(GameObject _Bow)
+    {
+        if (m_Bows.Count > 0)
+        {
+            for (int i = 0; i < m_Bows.Count; i++)
+            {
+                if (_Bow == m_Bows[i])
+                    m_Bows.Remove(_Bow);
+            }
+        }
+    }
+
+    public void AddToHammerList(GameObject _Hammer)
+    {
+        m_Hammers.Add(_Hammer);
+    }
+
+    public void RemoveFromHammerList(GameObject _Hammer)
+    {
+        if(m_Hammers.Count > 0)
+        {
+            for (int i = 0; i < m_Hammers.Count; i++)
+            {
+                if (_Hammer == m_Hammers[i])
+                    m_Hammers.Remove(_Hammer);
+            }
+        }
+    }
+    #endregion
 }

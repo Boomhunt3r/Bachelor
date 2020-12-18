@@ -75,8 +75,9 @@ public partial class VagrantBehaviour : MonoBehaviour
                 if (m_EnemySpawner.Count != 0)
                     m_Target = GetClosestTarget(m_EnemySpawner);
 
-                if (m_Distance <= Random.Range(9f, 11.5f))
+                if (m_Distance <= Vector2.Distance(m_Rigid.position, m_Target.transform.position))
                 {
+                    m_Rigid.velocity = new Vector2(0, 0);
                     m_ShootTime += Time.deltaTime;
 
                     m_Target = GetClosestTarget(GameObject.FindGameObjectsWithTag("Enemy").ToList(), m_EnemySpawner);
@@ -285,6 +286,13 @@ public partial class VagrantBehaviour : MonoBehaviour
     /// <param name="_Spawner">Spawner to Remove</param>
     public void RemoveSpawner(GameObject _Spawner)
     {
-        m_EnemySpawner.Remove(_Spawner);
+        if (m_EnemySpawner.Count > 0)
+        {
+            m_EnemySpawner.Remove(_Spawner);
+        }
+        if(m_EnemySpawner.Count == 0)
+        {
+
+        }
     }
 }

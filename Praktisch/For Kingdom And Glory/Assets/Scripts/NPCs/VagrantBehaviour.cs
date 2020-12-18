@@ -207,6 +207,7 @@ public partial class VagrantBehaviour : MonoBehaviour
             {
                 VagrantManager.Instance.RemoveCoinsForAll(collision.gameObject);
                 VagrantManager.Instance.RemoveFromList(this.gameObject);
+                VillagerManager.Instance.AddToList(this.gameObject);
                 Destroy(collision.gameObject);
                 m_Status = ENPCStatus.VILLAGER;
             }
@@ -215,16 +216,20 @@ public partial class VagrantBehaviour : MonoBehaviour
         {
             if (collision.CompareTag("Hammer"))
             {
-                VagrantManager.Instance.RemoveFromList(this.gameObject);
+                //VagrantManager.Instance.RemoveFromList(this.gameObject);
                 BuilderStand.Instance.RemoveHammerFromStand(collision.gameObject);
+                VillagerManager.Instance.RemoveAllHammer(collision.gameObject);
+                VillagerManager.Instance.RemoveFromList(this.gameObject);
                 m_HasJob = true;
                 m_Status = ENPCStatus.BUILDER;
             }
             if (collision.CompareTag("Bow"))
             {
-                VagrantManager.Instance.RemoveFromList(this.gameObject);
+                //VagrantManager.Instance.RemoveFromList(this.gameObject);
                 Archery.Instance.RemoveBowFromStand(collision.gameObject);
+                VillagerManager.Instance.RemoveAllBow(collision.gameObject);
                 ArcherManager.Instance.AddToList(this.gameObject);
+                VillagerManager.Instance.RemoveFromList(this.gameObject);
                 m_HasJob = true;
                 m_Status = ENPCStatus.ARCHER;
             }
@@ -265,9 +270,12 @@ public partial class VagrantBehaviour : MonoBehaviour
                 break;
             case ENPCStatus.BUILDER:
                 m_Status = ENPCStatus.VILLAGER;
+                VillagerManager.Instance.AddToList(this.gameObject);
                 break;
             case ENPCStatus.ARCHER:
                 m_Status = ENPCStatus.VILLAGER;
+                ArcherManager.Instance.RemoveFromList(this.gameObject);
+                VillagerManager.Instance.AddToList(this.gameObject);
                 break;
             case ENPCStatus.SWORDSMAN:
                 break;

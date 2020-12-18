@@ -127,13 +127,13 @@ public class GameManager : MonoBehaviour
 
         if (IsDay)
         {
-            /*if(!m_Announced)
+            /*if (!m_Announced)
             {
-                if(m_ShowTimer >= m_ShowTime)
+                if (m_ShowTimer >= m_ShowTime)
                 {
                     m_DayText.SetActive(false);
                 }
-                if(m_ShowTimer < m_ShowTime)
+                if (m_ShowTimer < m_ShowTime)
                 {
                     m_DayText.SetActive(true);
                 }
@@ -160,17 +160,16 @@ public class GameManager : MonoBehaviour
                 m_IsDay = false;
             }
         }
-        if(m_AlmostNight)
+        if (m_AlmostNight)
         {
-            if(m_Timer >= m_DayLength)
+            if (m_Timer >= m_DayLength)
             {
-                IsDay = true;
                 m_AlmostNight = false;
-                //IsNight = true;
+                IsNight = true;
                 m_Timer = 0.0f;
             }
         }
-        /*if (IsNight)
+        if (IsNight)
         {
             if (m_Timer >= m_NightLength)
             {
@@ -181,7 +180,7 @@ public class GameManager : MonoBehaviour
                 m_Timer = 0.0f;
                 UpdateCounter();
             }
-        }*/
+        }
     }
 
     #region private Function

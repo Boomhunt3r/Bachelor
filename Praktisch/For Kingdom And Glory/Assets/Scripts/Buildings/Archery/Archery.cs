@@ -59,6 +59,7 @@ public class Archery : MonoBehaviour
                 if (!m_BowObjectsInStand[i].activeSelf)
                 {
                     m_BowObjectsInStand[i].SetActive(true);
+                    VillagerManager.Instance.AddAllBow(m_BowObjectsInStand[i]);
                 }
             }
         }

@@ -53,7 +53,10 @@ public class BuilderStand : MonoBehaviour
                     return;
 
                 if (!m_Hammers[i].activeSelf)
+                {
                     m_Hammers[i].SetActive(true);
+                    VillagerManager.Instance.AddAllHammer(m_Hammers[i]);
+                }
             }
         }
     }
@@ -62,7 +65,7 @@ public class BuilderStand : MonoBehaviour
     {
         for (int i = 0; i < m_Hammers.Length; i++)
         {
-            if(_Hammer == m_Hammers[i])
+            if (_Hammer == m_Hammers[i])
             {
                 m_Hammers[i].SetActive(false);
             }
@@ -72,7 +75,7 @@ public class BuilderStand : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             PlayerBehaviour.Instance.CanBuyHammer = true;
         }

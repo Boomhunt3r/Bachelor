@@ -25,6 +25,14 @@ public partial class VagrantBehaviour : MonoBehaviour
     private Transform m_ThrowPoint;
     [SerializeField]
     private AudioSource m_Source;
+    [Header("Job Visibility")]
+    [Header("Needs to be removed once new Assets are in")]
+    [SerializeField]
+    private GameObject m_BowVis;
+    [SerializeField]
+    private GameObject m_HamVis;
+    [SerializeField]
+    private GameObject m_VillVis;
     #endregion
 
     #region private Variables
@@ -106,6 +114,10 @@ public partial class VagrantBehaviour : MonoBehaviour
         m_Target = m_Waypoints[m_CurrentDirection];
 
         m_Status = ENPCStatus.VARGANT;
+
+        m_BowVis.SetActive(false);
+        m_HamVis.SetActive(false);
+        m_VillVis.SetActive(false);
 
         Instance = this;
     }

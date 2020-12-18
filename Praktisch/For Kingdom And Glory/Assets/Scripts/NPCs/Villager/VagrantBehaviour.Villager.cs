@@ -14,6 +14,11 @@ public partial class VagrantBehaviour : MonoBehaviour
     {
         this.gameObject.tag = "Villager";
 
+        m_BowVis.SetActive(false);
+        m_HamVis.SetActive(false);
+        m_VillVis.SetActive(true);
+
+
         if (m_Bows.Count == 0 && m_Hammers.Count == 0)
         {
             m_Target = m_VillagerPoints[m_CurrentDirection];
@@ -52,17 +57,20 @@ public partial class VagrantBehaviour : MonoBehaviour
             }
         }
 
-        if (m_BowInRange == true && m_HammerInRange == true)
+        if (m_BowInRange == true && m_HammerInRange == true || 
+            m_Bows.Count > 0 && m_Hammers.Count > 0)
         {
             m_Target = GetClosestTool(m_CurrentBow, m_CurrentHammer);
         }
-        else if (m_BowInRange == true && m_HammerInRange == false)
+        else if (m_BowInRange == true && m_HammerInRange == false ||
+                 m_Bows.Count > 0 && m_Hammers.Count == 0)
         {
-            m_Target = m_CurrentBow;
+            m_Target = GetClosestBow(m_Bows);
         }
-        else if (m_HammerInRange == true && m_BowInRange == false)
+        else if (m_HammerInRange == true && m_BowInRange == false ||
+                 m_Hammers.Count > 0 && m_Bows.Count == 0)
         {
-            m_Target = m_CurrentHammer;
+            m_Target = GetClosestHammer(m_Hammers);
         }
 
     }

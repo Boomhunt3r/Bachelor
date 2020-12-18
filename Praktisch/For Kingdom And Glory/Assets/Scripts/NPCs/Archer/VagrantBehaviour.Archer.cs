@@ -22,6 +22,10 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         m_Rabbits = GameObject.FindGameObjectsWithTag("Rabbit").ToList();
 
+        m_BowVis.SetActive(true);
+        m_HamVis.SetActive(false);
+        m_VillVis.SetActive(false);
+
         if (GameManager.Instance.IsDay)
         {
             if (!IsAttacking)

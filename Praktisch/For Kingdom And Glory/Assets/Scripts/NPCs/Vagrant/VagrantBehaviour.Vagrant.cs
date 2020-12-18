@@ -8,6 +8,11 @@ public partial class VagrantBehaviour : MonoBehaviour
 
     private void Vagrant()
     {
+
+        m_BowVis.SetActive(false);
+        m_HamVis.SetActive(false);
+        m_VillVis.SetActive(false);
+
         #region Coin Behaviour
 
         if (m_Coins.Count == 0)

@@ -28,6 +28,10 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         m_BuildWalls = GameObject.FindGameObjectsWithTag("Wall").ToList();
 
+        m_BowVis.SetActive(false);
+        m_HamVis.SetActive(true);
+        m_VillVis.SetActive(false);
+
         if (m_BuildIdle)
         {
             if (Vector2.Distance(m_Target.transform.position, m_Rigid.position) <= 1.5f)

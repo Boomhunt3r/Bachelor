@@ -45,7 +45,25 @@ public class EnemyManager : MonoBehaviour
 
     public void AddToList(GameObject _Enemy)
     {
+        if (_Enemy == null)
+            return;
+
         m_AllEnemies.Add(_Enemy);
+    }
+
+    public void RemoveFromList(GameObject _Enemy)
+    {
+        if (_Enemy == null)
+            return;
+
+        if(m_AllEnemies.Count > 0)
+        {
+            for (int i = 0; i < m_AllEnemies.Count; i++)
+            {
+                if (_Enemy == m_AllEnemies[i])
+                    m_AllEnemies.Remove(_Enemy);
+            }
+        }
     }
 
     public void RemoveVillagerFromList(GameObject _Villager)

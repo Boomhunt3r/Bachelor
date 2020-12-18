@@ -367,7 +367,7 @@ public class Enemy : MonoBehaviour
         if (m_Health <= 0)
         {
             GameManager.Instance.RemoveEnemyFromList(this.gameObject);
-
+            EnemyManager.Instance.RemoveFromList(this.gameObject);
             Destroy(this.gameObject);
         }
     }

@@ -109,7 +109,7 @@ public class Wall : MonoBehaviour
                 // Increase Max Timer
                 m_MaxTimer = 2.5f;
                 // Set HP for Wall
-                m_CurrentHitPoints = m_MaxHitPoints;
+                m_CurrentHitPoints = m_MaxHitPoints * 2;
                 // Set new Resource Cost
                 CoinCost = 4;
                 WoodCost = 6;
@@ -134,7 +134,7 @@ public class Wall : MonoBehaviour
                 // Increase Max Timer
                 m_MaxTimer = 2.5f;
                 // Set HP for Wall
-                m_CurrentHitPoints = m_MaxHitPoints * 2;
+                m_CurrentHitPoints = m_MaxHitPoints * 3;
                 // Set new Resource Cost
                 CoinCost = 6;
                 WoodCost = 2;
@@ -156,7 +156,7 @@ public class Wall : MonoBehaviour
             // Status Wood
             case EBuildingUpgrade.WOOD:
                 m_MaxTimer = 7.5f;
-                m_CurrentHitPoints = m_MaxHitPoints * 3;
+                m_CurrentHitPoints = m_MaxHitPoints * 4;
                 CoinCost = 10;
                 StoneCost = 4;
                 IronCost = 6;
@@ -176,7 +176,7 @@ public class Wall : MonoBehaviour
             // Status Stone
             case EBuildingUpgrade.STONE:
                 m_MaxTimer = 10.0f;
-                m_CurrentHitPoints = m_MaxHitPoints * 4;
+                m_CurrentHitPoints = m_MaxHitPoints * 5;
                 m_Render.sprite = m_Sprites[4];
                 m_Building = EBuildingUpgrade.IRON;
                 if (m_Side == ESpawnerSide.LEFT)

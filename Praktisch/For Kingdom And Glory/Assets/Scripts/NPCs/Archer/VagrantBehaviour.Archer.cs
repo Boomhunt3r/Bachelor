@@ -86,7 +86,6 @@ public partial class VagrantBehaviour : MonoBehaviour
                     m_Rigid.velocity = new Vector2(0, 0);
                     m_ShootTime += Time.deltaTime;
 
-
                     if (m_ShootTime >= m_ShootTimer)
                     {
                         ChangeAnimation("Attack", false);

@@ -65,6 +65,8 @@ public partial class PlayerBehaviour : MonoBehaviour
 
     private int m_Boots;
 
+    private int m_HealthCost = 2;
+
     private const int m_MaxHealth = 50;
 
     private float m_ShootTimer = 4.5f;

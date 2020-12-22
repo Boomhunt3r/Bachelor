@@ -7,10 +7,11 @@ public partial class PlayerBehaviour : MonoBehaviour
     {
         if (m_Health < m_MaxHealth)
         {
-            if (Inventory.Instance.Coins >= 2)
+            if (Inventory.Instance.Coins >= m_HealthCost)
             {
                 m_Health = m_MaxHealth;
-                Inventory.Instance.Coins -= 2;
+                Inventory.Instance.Coins -= m_HealthCost;
+                m_HealthCost += 2;
             }
         }
     }

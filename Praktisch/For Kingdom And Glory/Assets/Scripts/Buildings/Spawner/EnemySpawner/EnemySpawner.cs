@@ -98,7 +98,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (m_UnderAttack)
         {
-            if (m_DamageTimer >= 10.0f)
+            if (m_DamageTimer >= 15.0f)
             {
                 m_UnderAttack = false;
 

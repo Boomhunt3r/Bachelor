@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class VillagerManager : MonoBehaviour
@@ -22,8 +20,13 @@ public class VillagerManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Add Villager to VillagerList
+    /// </summary>
+    /// <param name="_Villager">Villager to add</param>
     public void AddToList(GameObject _Villager)
     {
+        // If villager is null return
         if (_Villager == null)
             return;
 
@@ -46,6 +49,10 @@ public class VillagerManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Remove Villager from VillagerList
+    /// </summary>
+    /// <param name="_Villager">Villager to remove</param>
     public void RemoveFromList(GameObject _Villager)
     {
         if (_Villager == null)
@@ -61,6 +68,10 @@ public class VillagerManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Add Bow for all Villager
+    /// </summary>
+    /// <param name="_Bow">Bow to add</param>
     public void AddAllBow(GameObject _Bow)
     {
         if (_Bow == null)
@@ -79,6 +90,10 @@ public class VillagerManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Remove Bow for all Villager
+    /// </summary>
+    /// <param name="_Bow">Bow to remove</param>
     public void RemoveAllBow(GameObject _Bow)
     {
         if (_Bow == null)
@@ -102,6 +117,10 @@ public class VillagerManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Add Hammer to all Villagers
+    /// </summary>
+    /// <param name="_Hammer">Hammer to add</param>
     public void AddAllHammer(GameObject _Hammer)
     {
         if (_Hammer == null)
@@ -120,6 +139,10 @@ public class VillagerManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Remove hammer for alle Villagers
+    /// </summary>
+    /// <param name="_Hammer">Hammer to remove</param>
     public void RemoveAllHammer(GameObject _Hammer)
     {
         if (_Hammer == null)
@@ -142,6 +165,4 @@ public class VillagerManager : MonoBehaviour
             }
         }
     }
-
-
 }

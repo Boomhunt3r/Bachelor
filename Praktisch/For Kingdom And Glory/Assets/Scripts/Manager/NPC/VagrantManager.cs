@@ -19,6 +19,10 @@ public class VagrantManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Add Vagrant to VagrantList
+    /// </summary>
+    /// <param name="_Vagrant">Vagrant to add</param>
     public void AddToList(GameObject _Vagrant)
     {
         if (_Vagrant == null)
@@ -27,6 +31,10 @@ public class VagrantManager : MonoBehaviour
         m_AllVagrants.Add(_Vagrant);
     }
 
+    /// <summary>
+    /// Remove from VagrantList
+    /// </summary>
+    /// <param name="_Vagrant">Vagrant to remove</param>
     public void RemoveFromList(GameObject _Vagrant)
     {
         if (_Vagrant == null)
@@ -44,6 +52,10 @@ public class VagrantManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Remove coin for all Vagrants
+    /// </summary>
+    /// <param name="_Coin">Coin to remove</param>
     public void RemoveCoinsForAll(GameObject _Coin)
     {
         if(m_AllVagrants.Count > 0)

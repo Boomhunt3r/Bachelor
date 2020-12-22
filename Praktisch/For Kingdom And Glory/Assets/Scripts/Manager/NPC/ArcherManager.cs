@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ArcherManager : MonoBehaviour
@@ -48,6 +47,10 @@ public class ArcherManager : MonoBehaviour
     }
 
     #region public Function
+    /// <summary>
+    /// Add Archer to ArcherList
+    /// </summary>
+    /// <param name="_Archer">Archer to add</param>
     public void AddToList(GameObject _Archer)
     {
         if (m_Amount % 2 == 0)
@@ -61,6 +64,10 @@ public class ArcherManager : MonoBehaviour
         m_Amount++;
     }
 
+    /// <summary>
+    /// Remove Archer from ArcherList
+    /// </summary>
+    /// <param name="_Archer">Archer to remove</param>
     public void RemoveFromList(GameObject _Archer)
     {
         if (_Archer == null)
@@ -93,6 +100,11 @@ public class ArcherManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Remove Spawner from SpawnerList
+    /// </summary>
+    /// <param name="_Side">Spawner side</param>
+    /// <param name="_Spawner">Spawner</param>
     public void RemoveSpawner(ESpawnerSide _Side, GameObject _Spawner)
     {
         if (_Side == ESpawnerSide.LEFT)
@@ -113,6 +125,10 @@ public class ArcherManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Attack function
+    /// </summary>
+    /// <param name="_Side">Side being attacked</param>
     public void Attack(ESpawnerSide _Side)
     {
         if (_Side == ESpawnerSide.LEFT)
@@ -145,6 +161,11 @@ public class ArcherManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Stop Hunting function for archer
+    /// </summary>
+    /// <param name="_Archer">Archer to stop</param>
+    /// <param name="_Rabbit">Rabbit to remove</param>
     public void HuntingStop(GameObject _Archer, GameObject _Rabbit)
     {
         if (_Archer == null)
@@ -153,6 +174,9 @@ public class ArcherManager : MonoBehaviour
         _Archer.GetComponent<VagrantBehaviour>().RemoveRabbit(_Rabbit);
     }
 
+    /// <summary>
+    /// TBD
+    /// </summary>
     public void ChangeSite()
     {
 

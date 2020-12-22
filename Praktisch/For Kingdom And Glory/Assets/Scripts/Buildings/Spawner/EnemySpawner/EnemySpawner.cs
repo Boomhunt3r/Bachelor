@@ -121,7 +121,7 @@ public class EnemySpawner : MonoBehaviour
         {
             m_UnderAttack = false;
         }
-        else if (GameManager.Instance.IsDay && !GameManager.Instance.RevengeAttack && m_UnderAttack)
+        else if (!GameManager.Instance.RevengeAttack && m_UnderAttack)
         {
             if (!m_Defending)
                 m_Defending = true;

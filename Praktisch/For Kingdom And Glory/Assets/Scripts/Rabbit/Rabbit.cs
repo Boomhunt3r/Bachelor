@@ -16,6 +16,8 @@ public class Rabbit : MonoBehaviour
     private int m_CoinAmount = 1;
     [SerializeField]
     private Transform m_LocalScale;
+    [SerializeField]
+    private Animator m_Animator;
     #endregion
 
     #region private Variables
@@ -24,6 +26,7 @@ public class Rabbit : MonoBehaviour
     private Vector2 m_CurrentVelocity;
     private float m_IdleTimer;
     private float m_Timer = 0.0f;
+    [SerializeField]
     private bool m_GoingForward = true;
     #endregion
 
@@ -43,11 +46,13 @@ public class Rabbit : MonoBehaviour
 
         m_IdleTimer = Random.Range(5.0f, 15.0f);
 
+        m_Animator.Play("Rabbit_Hop");
+
         Instance = this;
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (!GameManager.Instance.IsAlive)
             return;
@@ -65,13 +70,15 @@ public class Rabbit : MonoBehaviour
             if (m_GoingForward)
             {
                 m_CurrentVelocity = Vector2.right * m_Speed * Time.deltaTime;
-                m_LocalScale.localScale = new Vector3(-m_LocalScale.localScale.x, m_LocalScale.localScale.y, 1f);
+                m_LocalScale.localScale = new Vector3(-1f, 1f, 1f);
+                m_Animator.Play("Rabbit_Hop");
                 m_GoingForward = false;
             }
             else if (!m_GoingForward)
             {
                 m_CurrentVelocity = Vector2.left * m_Speed * Time.deltaTime;
-                m_LocalScale.localScale = new Vector3(m_LocalScale.localScale.x, m_LocalScale.localScale.y, 1f);
+                m_LocalScale.localScale = new Vector3(1f, 1f, 1f);
+                m_Animator.Play("Rabbit_Hop");
                 m_GoingForward = true;
             }
 
@@ -81,6 +88,7 @@ public class Rabbit : MonoBehaviour
         m_Rigid.velocity = m_CurrentVelocity;
     }
 
+    #region public functions
     public void TakeDamage(int _Amount, GameObject _Archer)
     {
         m_Health -= _Amount;
@@ -95,5 +103,6 @@ public class Rabbit : MonoBehaviour
 
             Destroy(this.gameObject);
         }
-    }
+    } 
+    #endregion
 }

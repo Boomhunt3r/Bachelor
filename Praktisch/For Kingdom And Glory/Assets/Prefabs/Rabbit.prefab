@@ -96,7 +96,9 @@ MonoBehaviour:
   m_Health: 1
   m_Speed: 10
   m_CoinAmount: 1
-  m_LocalScale: {fileID: 4531317340769903009}
+  m_LocalScale: {fileID: 500482982891538803}
+  m_Animator: {fileID: 8357215314546104212}
+  m_GoingForward: 1
 --- !u!1 &1675415766416975209
 GameObject:
   m_ObjectHideFlags: 0

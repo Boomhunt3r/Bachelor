@@ -60,7 +60,7 @@ public partial class VagrantBehaviour : MonoBehaviour
         if (m_BowInRange == true && m_HammerInRange == true || 
             m_Bows.Count > 0 && m_Hammers.Count > 0)
         {
-            m_Target = GetClosestTool(m_CurrentBow, m_CurrentHammer);
+            m_Target = GetClosestTool(m_Bows, m_Hammers);
         }
         else if (m_BowInRange == true && m_HammerInRange == false ||
                  m_Bows.Count > 0 && m_Hammers.Count == 0)
@@ -119,27 +119,61 @@ public partial class VagrantBehaviour : MonoBehaviour
         return Target;
     }
 
-    private GameObject GetClosestTool(GameObject _Bow, GameObject _Hammer)
+    private GameObject GetClosestTool(List<GameObject> _Bow, List<GameObject> _Hammer)
     {
+        GameObject TargetB = null;
+        GameObject TargetH = null;
         GameObject Target = null;
         Vector2 CurrentPos = transform.position;
+        float MinDist = Mathf.Infinity;
         float DistB = 0.0f;
         float DistH = 0.0f;
+        float Dist = 0.0f;
 
-        DistB = Vector2.Distance(_Bow.transform.position, CurrentPos);
-        DistH = Vector2.Distance(_Hammer.transform.position, CurrentPos);
+        for (int i = 0; i < _Bow.Count; i++)
+        {
+            if (_Bow[i] == null)
+                continue;
+
+            Dist = Vector2.Distance(_Bow[i].transform.position, this.transform.position);
+
+            if(Dist < MinDist)
+            {
+                TargetB = _Bow[i];
+                MinDist = Dist;
+                DistB = Dist;
+            }
+        }
+
+        MinDist = Mathf.Infinity;
+        Dist = 0.0f;
+
+        for (int i = 0; i < _Hammer.Count; i++)
+        {
+            if (_Hammer[i] == null)
+                continue;
+
+            Dist = Vector2.Distance(_Hammer[i].transform.position, this.transform.position);
+
+            if(Dist < MinDist)
+            {
+                TargetH = _Hammer[i];
+                MinDist = Dist;
+                DistH = Dist;
+            }
+        }
 
         if (DistB < DistH)
         {
-            Target = _Bow;
+            Target = TargetB;
         }
         else if (DistH < DistB)
         {
-            Target = _Hammer;
+            Target = TargetB;
         }
         else if (DistB == DistH)
         {
-            Target = _Bow;
+            Target = TargetB;
         }
 
         return Target;

@@ -29,7 +29,7 @@ public class Arrow : MonoBehaviour
 
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-        m_Arrow.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        m_Arrow.transform.eulerAngles = new Vector3(0, 0, angle);
 
         if (m_Timer >= 5.0f)
             Destroy(this.gameObject);

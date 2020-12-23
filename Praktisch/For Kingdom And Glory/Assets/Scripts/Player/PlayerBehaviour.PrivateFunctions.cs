@@ -52,6 +52,7 @@ public partial class PlayerBehaviour : MonoBehaviour
 
             Arrow = Instantiate(m_Arrow, m_ThrowPoint.position, Quaternion.Euler(new Vector3(0, 0, 0)));
             Arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(XVelo, YVelo);
+            Arrow.GetComponent<Arrow>().GetTarget(Target);
 
             EffectSource.Play();
 
@@ -134,13 +135,13 @@ public partial class PlayerBehaviour : MonoBehaviour
         MinDist = Mathf.Infinity;
         Dist = 0.0f;
 
-        if(_Spawner != null)
+        if (_Spawner != null)
         {
             for (int i = 0; i < _Spawner.Length; i++)
             {
                 Dist = Vector2.Distance(_Spawner[i].transform.position, transform.position);
 
-                if(Dist < MinDist)
+                if (Dist < MinDist)
                 {
                     TargetS = _Spawner[i];
                     MinDist = Dist;
@@ -149,12 +150,12 @@ public partial class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        if(RDist == -1.0f && SDist == -1.0f)
+        if (RDist == -1.0f && SDist == -1.0f)
         {
             TargetO = TargetE;
         }
 
-        if(EDist == -1.0f && RDist == -1.0f)
+        if (EDist == -1.0f && RDist == -1.0f)
         {
             TargetO = TargetS;
         }
@@ -164,14 +165,19 @@ public partial class PlayerBehaviour : MonoBehaviour
             TargetO = TargetR;
         }
 
-        if (EDist <= RDist || RDist == 0.0f || EDist <= SDist)
+        if (EDist <= RDist || RDist == -1.0f || EDist <= SDist)
         {
             TargetO = TargetE;
         }
 
-        if(EDist == -1.0f && SDist <= RDist)
+        if (EDist == -1.0f && RDist == -1.00f || SDist <= RDist || SDist < EDist)
         {
             TargetO = TargetS;
+        }
+
+        if (EDist == -1.0f && RDist < SDist)
+        {
+            TargetO = TargetR;
         }
 
         return TargetO;

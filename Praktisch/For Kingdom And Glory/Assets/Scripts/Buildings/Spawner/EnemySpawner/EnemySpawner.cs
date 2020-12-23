@@ -112,7 +112,7 @@ public class EnemySpawner : MonoBehaviour
             m_DamageTimer += Time.deltaTime;
         }
 
-        if (GameManager.Instance.IsNight && !GameManager.Instance.RevengeAttack && !m_Spawned && !m_UnderAttack)
+        if (GameManager.Instance.IsNight && !GameManager.Instance.RevengeAttack && !m_Spawned)
         {
             Spawn(EWaveType.NORMAL);
             m_Spawned = true;
@@ -121,7 +121,7 @@ public class EnemySpawner : MonoBehaviour
         {
             m_UnderAttack = false;
         }
-        else if (!GameManager.Instance.RevengeAttack && m_UnderAttack)
+        if (!GameManager.Instance.RevengeAttack && m_UnderAttack)
         {
             if (!m_Defending)
                 m_Defending = true;

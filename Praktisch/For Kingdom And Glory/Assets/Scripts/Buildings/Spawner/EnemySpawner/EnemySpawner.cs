@@ -117,10 +117,6 @@ public class EnemySpawner : MonoBehaviour
             Spawn(EWaveType.NORMAL);
             m_Spawned = true;
         }
-        else if (GameManager.Instance.IsNight && !GameManager.Instance.RevengeAttack && m_Spawned && m_UnderAttack)
-        {
-            m_UnderAttack = false;
-        }
         if (!GameManager.Instance.RevengeAttack && m_UnderAttack)
         {
             if (!m_Defending)

@@ -98,6 +98,7 @@ public partial class PlayerBehaviour : MonoBehaviour
         float RDist = -1.0f;
         float SDist = -1.0f;
         float Dist = 0.0f;
+        bool Enemy = false;
 
         if (_Enemies != null)
         {
@@ -110,6 +111,7 @@ public partial class PlayerBehaviour : MonoBehaviour
                     TargetE = _Enemies[i];
                     MinDist = Dist;
                     EDist = Dist;
+                    Enemy = true;
                 }
             }
         }
@@ -165,12 +167,12 @@ public partial class PlayerBehaviour : MonoBehaviour
             TargetO = TargetR;
         }
 
-        if (EDist <= RDist || RDist == -1.0f || EDist <= SDist)
+        if (EDist <= RDist || RDist == -1.0f || EDist < SDist && EDist != -1.0f)
         {
             TargetO = TargetE;
         }
 
-        if (EDist == -1.0f && RDist == -1.00f || SDist <= RDist || SDist < EDist)
+        if (EDist == -1.0f && RDist == -1.00f || SDist < RDist && !Enemy || SDist < EDist)
         {
             TargetO = TargetS;
         }

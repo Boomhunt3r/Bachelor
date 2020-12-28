@@ -92,6 +92,8 @@ public partial class PlayerBehaviour : MonoBehaviour
     private bool m_CanTown = false;
 
     private bool m_IsTown = false;
+
+    private bool m_IsInOpen = false;
     #endregion
 
     #region Properties
@@ -104,6 +106,7 @@ public partial class PlayerBehaviour : MonoBehaviour
     public AudioSource EffectSource { get => m_EffectSource; set => m_EffectSource = value; }
     public AudioSource Source { get => m_Source; set => m_Source = value; }
     public bool CanBuyHammer { get => m_CanBuyHammer; set => m_CanBuyHammer = value; }
+    public bool IsInOpen { get => m_IsInOpen; set => m_IsInOpen = value; }
     #endregion
 
     private void Awake()
@@ -210,6 +213,20 @@ public partial class PlayerBehaviour : MonoBehaviour
             else if (GameManager.Instance.IsPaused)
             {
                 GameManager.Instance.IsPaused = false;
+            }
+        }
+
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            if(!IsInOpen)
+            {
+                InventoryManager.Instance.Active = true;
+                IsInOpen = true;
+            }
+            else if(IsInOpen)
+            {
+                InventoryManager.Instance.Active = false;
+                IsInOpen = false;
             }
         }
 

@@ -86,11 +86,11 @@ public class ArcherManager : MonoBehaviour
             }
         }
 
-        if(m_ArcherLeftSide.Count > 0)
+        if (m_ArcherLeftSide.Count > 0)
         {
             for (int i = 0; i < m_ArcherLeftSide.Count; i++)
             {
-                if(_Archer == m_ArcherLeftSide[i])
+                if (_Archer == m_ArcherLeftSide[i])
                 {
                     m_ArcherLeftSide.Remove(_Archer);
                     m_Amount--;

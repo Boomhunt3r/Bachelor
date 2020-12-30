@@ -3787,7 +3787,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 3513c4fd949264a4da5022e14c2356fd, type: 3}
   - {fileID: 21300000, guid: 40839deeae1ac41449b23fdb25e04473, type: 3}
   m_BootsImages:
-  - {fileID: 0}
+  - {fileID: 21300000, guid: afca00a5bd7a0ee46a4781f77d2bb34b, type: 3}
   - {fileID: 0}
   m_WeaponImages:
   - {fileID: 21300000, guid: 87d9ebba665ee024ca9b2765bd93ae60, type: 3}
@@ -5951,7 +5951,7 @@ GameObject:
   - component: {fileID: 484970262}
   - component: {fileID: 484970261}
   m_Layer: 9
-  m_Name: WallRight1
+  m_Name: WallRight2
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5970,7 +5970,7 @@ Transform:
   m_Children:
   - {fileID: 1999018362}
   m_Father: {fileID: 1021589772}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &484970261
 MonoBehaviour:
@@ -12619,8 +12619,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 484970260}
   - {fileID: 1939741059}
+  - {fileID: 484970260}
   - {fileID: 294699229}
   - {fileID: 1505247769}
   - {fileID: 1293258226}
@@ -17783,8 +17783,8 @@ MonoBehaviour:
   - {fileID: 964727456}
   - {fileID: 133417036}
   m_RightSideWalls:
-  - {fileID: 484970259}
   - {fileID: 1939741058}
+  - {fileID: 484970259}
   - {fileID: 294699228}
   - {fileID: 1505247768}
   - {fileID: 1293258225}
@@ -23014,7 +23014,7 @@ GameObject:
   - component: {fileID: 1939741061}
   - component: {fileID: 1939741060}
   m_Layer: 9
-  m_Name: WallRight2
+  m_Name: WallRight1
   m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23033,7 +23033,7 @@ Transform:
   m_Children:
   - {fileID: 884826501}
   m_Father: {fileID: 1021589772}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1939741060
 MonoBehaviour:

@@ -85,4 +85,9 @@ public partial class VagrantBehaviour : MonoBehaviour
             }
         }
     }
+
+    public void ChangeStartWaypoint()
+    {
+        m_CurrentDirection = 3;
+    }
 }

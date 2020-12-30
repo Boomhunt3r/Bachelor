@@ -18,6 +18,7 @@ public class VagrantSpawner : MonoBehaviour
 
     #region private Virables
     private float m_Timer = 0.0f;
+    private int m_Amount;
     private bool m_CanSpawn = true;
     private GameObject m_Vagrant;
     #endregion
@@ -29,6 +30,11 @@ public class VagrantSpawner : MonoBehaviour
             m_Vagrant = Instantiate(m_VagrantPrefab, new Vector3(this.gameObject.transform.position.x, 0.0f, 0.15f), Quaternion.identity);
             GameManager.Instance.SpawnedVagrants.Add(m_Vagrant);
             VagrantManager.Instance.AddToList(m_Vagrant);
+            m_Amount++;
+            if(m_Amount % 2 == 0)
+            {
+                m_Vagrant.GetComponent<VagrantBehaviour>().ChangeStartWaypoint();
+            }
         }
     }
 
@@ -49,6 +55,11 @@ public class VagrantSpawner : MonoBehaviour
                 m_Vagrant = Instantiate(m_VagrantPrefab, new Vector3(this.gameObject.transform.position.x, 0.0f, 0.15f), Quaternion.identity);
                 GameManager.Instance.SpawnedVagrants.Add(m_Vagrant);
                 VagrantManager.Instance.AddToList(m_Vagrant);
+                m_Amount++;
+                if (m_Amount % 2 == 0)
+                {
+                    m_Vagrant.GetComponent<VagrantBehaviour>().ChangeStartWaypoint();
+                }
             }
             m_Timer = 0.0f;
         }

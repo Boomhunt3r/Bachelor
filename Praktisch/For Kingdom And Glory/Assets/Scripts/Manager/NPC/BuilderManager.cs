@@ -18,8 +18,6 @@ public class BuilderManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(m_AllWalls.Count);
-
         if (!GameManager.Instance.IsAlive)
             return;
 

@@ -15,11 +15,17 @@ public partial class VagrantBehaviour : MonoBehaviour
     /// If he's currently Reparing
     /// </summary>
     private bool m_CurrentlyReparing = false;
-
+    /// <summary>
+    /// Build Time
+    /// </summary>
     private float m_BuildIdleTimer = 0;
-
+    /// <summary>
+    /// Build Timer
+    /// </summary>
     private float m_BuildIdleTime = 7.5f;
-
+    /// <summary>
+    /// Idle State
+    /// </summary>
     private bool m_BuildIdle = false;
 
     private void Builder()
@@ -28,9 +34,10 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         m_BuildWalls = GameObject.FindGameObjectsWithTag("Wall").ToList();
 
+        // Set 
         m_BowVis.SetActive(false);
-        m_HamVis.SetActive(true);
         m_VillVis.SetActive(false);
+        m_HamVis.SetActive(true);
 
         if (m_BuildIdle)
         {
@@ -70,16 +77,26 @@ public partial class VagrantBehaviour : MonoBehaviour
         }
     }
 
+    #region public Functions
+    /// <summary>
+    /// Check if Builder has a Wall to repair
+    /// </summary>
+    /// <returns>if builder has a wall to repair</returns>
     public bool CheckIfHasWallToRepair()
     {
         return m_CurrentlyReparing;
     }
 
+    /// <summary>
+    /// Give Builder Wall to repair
+    /// </summary>
+    /// <param name="_Wall">Wall to Repair</param>
     public void WallToRepair(GameObject _Wall)
     {
         m_Target = _Wall;
 
         m_BuildIdle = false;
         m_CurrentlyReparing = true;
-    }
+    } 
+    #endregion
 }

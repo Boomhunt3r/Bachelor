@@ -40,68 +40,46 @@ public partial class VagrantBehaviour : MonoBehaviour
 
                 if (m_BuildIdleTimer >= m_BuildIdleTime)
                 {
-                    m_BuildIdle = false;
+                    m_Target = m_VillagerPoints[Random.Range(0, m_VillagerPoints.Length)];
                     m_BuildIdleTimer = 0.0f;
                 }
             }
         }
 
-        if (m_BuildWalls.Count != 0 || m_BuildWalls != null)
+        if (m_CurrentlyReparing)
         {
-            if (!m_ReparingWall)
+            if (Vector2.Distance(m_Target.transform.position, m_Rigid.position) <= 1.5f)
             {
-                for (int i = 0; i < m_BuildWalls.Count; i++)
+                if(m_Target.GetComponent<Wall>().CurrentHitPoints == m_Target.GetComponent<Wall>().MaxHitPoints)
                 {
-                    if (m_BuildWalls[i].GetComponent<Wall>().CurrentHitPoints < m_BuildWalls[i].GetComponent<Wall>().MaxHitPoints
-                     && m_BuildWalls[i].GetComponent<Wall>().Building != EBuildingUpgrade.NONE)
-                    {
-                        m_Target = m_BuildWalls[i];
-
-                        m_CurrentReparingWall = i;
-
-                        m_ReparingWall = true;
-                        m_BuildIdle = false;
-                    }
-                }
-
-                if (!m_ReparingWall && !m_BuildIdle)
-                {
-                    m_Target = m_VillagerPoints[Random.Range(0, m_VillagerPoints.Length)];
+                    m_CurrentlyReparing = false;
+                    m_Target.GetComponent<Wall>().BeingRepaired = false;
                     m_BuildIdle = true;
+                    return;
                 }
-            }
 
-            else if (m_ReparingWall)
-            {
-                if (m_CurrentlyReparing)
+                m_BuildTimer += Time.deltaTime;
+
+                if(m_BuildTimer >= m_BuildTime)
                 {
-                    if (Vector2.Distance(m_Target.transform.position, m_Rigid.position) <= 1.0f)
-                    {
-                        m_Rigid.velocity = new Vector2(0, 0);
-                    }
+                    m_Target.GetComponent<Wall>().GetHealth(1);
 
-                    if (m_BuildWalls[m_CurrentReparingWall].GetComponent<Wall>().CurrentHitPoints == m_BuildWalls[m_CurrentReparingWall].GetComponent<Wall>().MaxHitPoints
-                    && !m_BuildIdle)
-                    {
-                        m_Target = m_VillagerPoints[Random.Range(0, m_VillagerPoints.Length)];
-                        m_BuildIdle = true;
-                        m_ReparingWall = false;
-                        return;
-                    }
-
-                    if (m_BuildTime >= m_BuildTimer)
-                    {
-                        m_BuildWalls[m_CurrentReparingWall].GetComponent<Wall>().GetHealth(5);
-
-                        m_BuildTimer = 0.0f;
-                    }
-
-
-                    m_BuildTime += Time.deltaTime;
+                    m_BuildIdleTimer = 0.0f;
                 }
             }
         }
+    }
 
+    public bool CheckIfHasWallToRepair()
+    {
+        return m_CurrentlyReparing;
+    }
 
+    public void WallToRepair(GameObject _Wall)
+    {
+        m_Target = _Wall;
+
+        m_BuildIdle = false;
+        m_CurrentlyReparing = true;
     }
 }

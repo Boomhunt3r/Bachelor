@@ -232,6 +232,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                 BuilderStand.Instance.RemoveHammerFromStand(collision.gameObject);
                 VillagerManager.Instance.RemoveAllHammer(collision.gameObject);
                 VillagerManager.Instance.RemoveFromList(this.gameObject);
+                BuilderManager.Instance.AddBuilderToList(this.gameObject);
                 m_HasJob = true;
                 m_Status = ENPCStatus.BUILDER;
             }
@@ -282,6 +283,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                 break;
             case ENPCStatus.BUILDER:
                 m_Status = ENPCStatus.VILLAGER;
+                BuilderManager.Instance.RemoveBuilderFromList(this.gameObject);
                 VillagerManager.Instance.AddToList(this.gameObject);
                 break;
             case ENPCStatus.ARCHER:

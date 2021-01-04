@@ -22,7 +22,6 @@ public class Wall : MonoBehaviour
     #endregion
 
     #region private Variables
-    private GameObject m_WallObj;
     private BoxCollider2D m_Collider;
     private int m_CoinCost = 0;
     private int m_WoodCost = 0;
@@ -30,12 +29,12 @@ public class Wall : MonoBehaviour
     private int m_IronCost = 0;
     private float m_Timer = 0.0f;
     private float m_MaxTimer = 1.5f;
+    [SerializeField]
     private float m_CurrentHitPoints;
     private bool m_Build = false;
-    private bool m_Payed = false;
     private bool m_BeingBuild = false;
     private bool m_BuilderBuilding = false;
-    private bool m_isActive = false;
+    private bool m_BeingRepaired = false;
     #endregion
 
     #region private const
@@ -50,13 +49,12 @@ public class Wall : MonoBehaviour
     public float MaxHitPoints { get => m_MaxHitPoints; set => m_MaxHitPoints = value; }
     public float CurrentHitPoints { get => m_CurrentHitPoints; set => m_CurrentHitPoints = value; }
     public EBuildingUpgrade Building { get => m_Building; set => m_Building = value; }
-    public bool IsActive { get => m_isActive; set => m_isActive = value; }
-    public GameObject WallObj { get => m_WallObj; set => m_WallObj = value; }
     public int CoinCost { get => m_CoinCost; set => m_CoinCost = value; }
     public int WoodCost { get => m_WoodCost; set => m_WoodCost = value; }
     public int StoneCost { get => m_StoneCost; set => m_StoneCost = value; }
     public int IronCost { get => m_IronCost; set => m_IronCost = value; }
     public GameObject DefendPoint { get => m_DefendPoint; set => m_DefendPoint = value; }
+    public bool BeingRepaired { get => m_BeingRepaired; set => m_BeingRepaired = value; }
     #endregion
 
     // Start is called before the first frame update
@@ -117,6 +115,8 @@ public class Wall : MonoBehaviour
                 m_Render.sprite = m_Sprites[1];
                 // Set to next Upgrade Level
                 m_Building = EBuildingUpgrade.PILE;
+                // Add To BuilderManager
+                BuilderManager.Instance.AddWallToList(this.gameObject);
                 // Set Collider
                 if (m_Side == ESpawnerSide.LEFT)
                 {
@@ -204,6 +204,8 @@ public class Wall : MonoBehaviour
         m_Render.sprite = m_Sprites[0];
 
         m_CoinCost = 2;
+
+        BuilderManager.Instance.RemoveWallFromList(this.gameObject);
 
         Building = EBuildingUpgrade.NONE;
     }

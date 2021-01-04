@@ -1101,6 +1101,7 @@ MonoBehaviour:
   m_DefendPoint: {fileID: 86333819}
   m_Render: {fileID: 133417040}
   m_Side: 1
+  m_CurrentHitPoints: 0
 --- !u!61 &133417039
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2996,6 +2997,7 @@ MonoBehaviour:
   m_DefendPoint: {fileID: 170522618}
   m_Render: {fileID: 294699232}
   m_Side: 2
+  m_CurrentHitPoints: 0
 --- !u!61 &294699231
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5779,6 +5781,7 @@ MonoBehaviour:
   m_DefendPoint: {fileID: 1571962407}
   m_Render: {fileID: 466215084}
   m_Side: 1
+  m_CurrentHitPoints: 0
 --- !u!61 &466215083
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5997,6 +6000,7 @@ MonoBehaviour:
   m_DefendPoint: {fileID: 1999018361}
   m_Render: {fileID: 484970263}
   m_Side: 2
+  m_CurrentHitPoints: 0
 --- !u!61 &484970262
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11114,6 +11118,7 @@ MonoBehaviour:
   m_DefendPoint: {fileID: 1838501296}
   m_Render: {fileID: 949880093}
   m_Side: 2
+  m_CurrentHitPoints: 0
 --- !u!61 &949880092
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -11903,6 +11908,7 @@ MonoBehaviour:
   m_DefendPoint: {fileID: 1848475811}
   m_Render: {fileID: 964727460}
   m_Side: 1
+  m_CurrentHitPoints: 0
 --- !u!61 &964727459
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13669,6 +13675,7 @@ MonoBehaviour:
   m_DefendPoint: {fileID: 707384269}
   m_Render: {fileID: 1110270441}
   m_Side: 1
+  m_CurrentHitPoints: 0
 --- !u!61 &1110270440
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13975,6 +13982,7 @@ MonoBehaviour:
   m_DefendPoint: {fileID: 2040740287}
   m_Render: {fileID: 1144743380}
   m_Side: 1
+  m_CurrentHitPoints: 0
 --- !u!61 &1144743379
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -15599,6 +15607,7 @@ MonoBehaviour:
   m_DefendPoint: {fileID: 1613557348}
   m_Render: {fileID: 1293258229}
   m_Side: 2
+  m_CurrentHitPoints: 0
 --- !u!61 &1293258228
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17541,6 +17550,7 @@ MonoBehaviour:
   m_DefendPoint: {fileID: 779992542}
   m_Render: {fileID: 1438469534}
   m_Side: 1
+  m_CurrentHitPoints: 0
 --- !u!61 &1438469533
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17702,6 +17712,7 @@ GameObject:
   - component: {fileID: 1448931873}
   - component: {fileID: 1448931874}
   - component: {fileID: 1448931875}
+  - component: {fileID: 1448931876}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -17980,6 +17991,18 @@ MonoBehaviour:
   m_Stone: 50
   m_Iron: 50
   m_Coin: 50
+--- !u!114 &1448931876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448931865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 348889d3e9c5a3c4cb2c66ece339b34d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1471307872
 GameObject:
   m_ObjectHideFlags: 0
@@ -18394,6 +18417,7 @@ MonoBehaviour:
   m_DefendPoint: {fileID: 615290208}
   m_Render: {fileID: 1484708249}
   m_Side: 2
+  m_CurrentHitPoints: 0
 --- !u!61 &1484708248
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18895,6 +18919,7 @@ MonoBehaviour:
   m_DefendPoint: {fileID: 2044628252}
   m_Render: {fileID: 1505247772}
   m_Side: 2
+  m_CurrentHitPoints: 0
 --- !u!61 &1505247771
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -22926,6 +22951,7 @@ MonoBehaviour:
   m_DefendPoint: {fileID: 542106521}
   m_Render: {fileID: 1930889880}
   m_Side: 1
+  m_CurrentHitPoints: 0
 --- !u!61 &1930889879
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -23061,6 +23087,7 @@ MonoBehaviour:
   m_DefendPoint: {fileID: 884826500}
   m_Render: {fileID: 1939741062}
   m_Side: 2
+  m_CurrentHitPoints: 0
 --- !u!61 &1939741061
 BoxCollider2D:
   m_ObjectHideFlags: 0

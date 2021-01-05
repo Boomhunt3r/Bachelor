@@ -55,7 +55,6 @@ public class GameManager : MonoBehaviour
     private bool m_IsPaused = false;
     private bool m_IsEndGame = false;
     private bool m_Announced = false;
-    private EGameSetting m_Setting;
     private List<GameObject> m_EnemySpawnerLeftSide = new List<GameObject>();
     private List<GameObject> m_EnemySpawnerRightSide = new List<GameObject>();
     private List<GameObject> m_AllSpawnedEnemys = new List<GameObject>();
@@ -70,7 +69,6 @@ public class GameManager : MonoBehaviour
     public int TotalRabbitsSpawned { get => m_TotalRabbitsSpawned; set => m_TotalRabbitsSpawned = value; }
     public int TotalRabbits { get => m_TotalRabbits; set => m_TotalRabbits = value; }
     public bool RevengeAttack { get => m_RevengeAttack; set => m_RevengeAttack = value; }
-    public EGameSetting Setting { get => m_Setting; set => m_Setting = value; }
     public List<GameObject> AllSpawnedEnemys { get => m_AllSpawnedEnemys; set => m_AllSpawnedEnemys = value; }
     public List<GameObject> SpawnedVagrants { get => m_SpawnedVagrants; set => m_SpawnedVagrants = value; }
     public bool AlmostNight { get => m_AlmostNight; set => m_AlmostNight = value; }
@@ -82,8 +80,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        m_Setting = (EGameSetting)PlayerPrefs.GetInt("Setting");
-
         Instance = this;
     }
 
@@ -198,144 +194,56 @@ public class GameManager : MonoBehaviour
     {
         GameObject Spawner;
 
-        switch (m_Setting)
+        // Set Spawner and Rabbits similiar to Setting
+        m_EnemySpawner = 4;
+        m_TotalRabbits = 300;
+
+        // Spawn Spawner
+        for (int i = 0; i < m_EnemySpawner; i++)
         {
-            case EGameSetting.EASY:
-                // Set Spawner and Rabbits similiar to Setting
-                m_EnemySpawner = 2;
-                m_TotalRabbits = 300;
+            // Left Side
+            if (i % 2 != 0)
+            {
+                // Spawn
+                Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
+                // Set side to left
+                Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.LEFT);
+                Spawner.SetActive(true);
 
-                // Spawn Spawner
-                for (int i = 0; i < m_EnemySpawner; i++)
-                {
-                    // Left Side
-                    if (i % 2 != 0)
-                    {
-                        // Spawn
-                        Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
-                        // Set side to left
-                        Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.LEFT);
-                        Spawner.SetActive(true);
+                // If List is empty
+                if (m_EnemySpawnerLeftSide.Count == 0)
+                    // Spawner is First Spawner
+                    Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
 
-                        // If List is empty
-                        if (m_EnemySpawnerLeftSide.Count == 0)
-                            // Spawner is First Spawner
-                            Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
+                // Add to List
+                m_EnemySpawnerLeftSide.Add(Spawner);
 
-                        // Add to List
-                        m_EnemySpawnerLeftSide.Add(Spawner);
+                m_AllEnemySpawner.Add(Spawner);
+                continue;
+            }
 
-                        m_AllEnemySpawner.Add(Spawner);
-                        continue;
-                    }
+            // Right Side
+            Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
+            Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.RIGHT);
+            Spawner.SetActive(true);
 
-                    // Right Side
-                    Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
-                    Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.RIGHT);
-                    Spawner.SetActive(true);
+            if (m_EnemySpawnerRightSide.Count == 0)
+                Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
 
-                    if (m_EnemySpawnerRightSide.Count == 0)
-                        Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
+            m_EnemySpawnerRightSide.Add(Spawner);
+            m_AllEnemySpawner.Add(Spawner);
 
-                    m_EnemySpawnerRightSide.Add(Spawner);
-                    m_AllEnemySpawner.Add(Spawner);
-
-                }
-                m_LeftCollider[1].SetActive(false);
-                m_LeftCollider[2].SetActive(false);
-                m_RightCollider[1].SetActive(false);
-                m_RightCollider[2].SetActive(false);
-
-                Inventory.Instance.Coins = 12;
-                Inventory.Instance.Wood = 8;
-                Inventory.Instance.Stone = 4;
-                Inventory.Instance.Iron = 2;
-                break;
-            case EGameSetting.MEDUIM:
-                m_EnemySpawner = 4;
-                m_TotalRabbits = 200;
-
-                for (int i = 0; i < m_EnemySpawner; i++)
-                {
-                    if (i % 2 != 0)
-                    {
-                        Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
-                        Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.LEFT);
-                        Spawner.SetActive(true);
-
-                        if (m_EnemySpawnerLeftSide.Count == 0)
-                            Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
-
-                        m_EnemySpawnerLeftSide.Add(Spawner);
-                        m_AllEnemySpawner.Add(Spawner);
-                        continue;
-                    }
-
-                    Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
-                    Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.RIGHT);
-                    Spawner.SetActive(true);
-
-                    if (m_EnemySpawnerRightSide.Count == 0)
-                        Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
-
-                    m_EnemySpawnerRightSide.Add(Spawner);
-                    m_AllEnemySpawner.Add(Spawner);
-                }
-                m_LeftCollider[0].SetActive(false);
-                m_LeftCollider[2].SetActive(false);
-                m_RightCollider[0].SetActive(false);
-                m_RightCollider[2].SetActive(false);
-
-                Inventory.Instance.Coins = 12;
-                Inventory.Instance.Wood = 4;
-                Inventory.Instance.Stone = 2;
-                Inventory.Instance.Iron = 0;
-                break;
-            case EGameSetting.HARD:
-                m_EnemySpawner = 6;
-                m_TotalRabbits = 150;
-
-                for (int i = 0; i < m_EnemySpawner; i++)
-                {
-                    if (i % 2 != 0)
-                    {
-                        Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
-                        Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.LEFT);
-                        Spawner.SetActive(true);
-
-                        if (m_EnemySpawnerLeftSide.Count == 0)
-                            Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
-
-                        m_EnemySpawnerLeftSide.Add(Spawner);
-                        m_AllEnemySpawner.Add(Spawner);
-                        continue;
-                    }
-
-                    Spawner = Instantiate(m_EnemySpawnerPrefab, m_EnemySpawnerPos[i].position, Quaternion.identity);
-                    Spawner.GetComponent<EnemySpawner>().GetSpawnerSide(ESpawnerSide.RIGHT);
-                    Spawner.SetActive(true);
-
-                    if (m_EnemySpawnerRightSide.Count == 0)
-                        Spawner.GetComponent<EnemySpawner>().FirstSpawner = true;
-
-                    m_EnemySpawnerRightSide.Add(Spawner);
-                    m_AllEnemySpawner.Add(Spawner);
-                }
-                m_LeftCollider[0].SetActive(false);
-                m_LeftCollider[1].SetActive(false);
-                m_RightCollider[0].SetActive(false);
-                m_RightCollider[1].SetActive(false);
-
-                Inventory.Instance.Coins = 12;
-                Inventory.Instance.Wood = 2;
-                Inventory.Instance.Stone = 0;
-                Inventory.Instance.Iron = 0;
-                break;
-            default:
-                break;
         }
+       
+        m_LeftCollider[0].SetActive(false);
+        m_LeftCollider[2].SetActive(false);
+        m_RightCollider[0].SetActive(false);
+        m_RightCollider[2].SetActive(false);
 
-
+        Inventory.Instance.Coins = 12;
+        Inventory.Instance.Wood = 8;
+        Inventory.Instance.Stone = 4;
+        Inventory.Instance.Iron = 2;
     }
 
     private void UpdateCounter()

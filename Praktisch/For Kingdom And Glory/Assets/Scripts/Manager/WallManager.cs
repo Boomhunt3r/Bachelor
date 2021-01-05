@@ -33,21 +33,10 @@ public class WallManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(GameManager.Instance.Setting == EGameSetting.EASY)
+        for (int i = 5; i < m_LeftSideWalls.Length; i++)
         {
-            for (int i = 3; i < m_LeftSideWalls.Length; i++)
-            {
-                m_LeftSideWalls[i].SetActive(false);
-                m_RightSideWalls[i].SetActive(false);
-            }
-        }
-        if(GameManager.Instance.Setting == EGameSetting.MEDUIM)
-        {
-            for (int i = 5; i < m_LeftSideWalls.Length; i++)
-            {
-                m_LeftSideWalls[i].SetActive(false);
-                m_RightSideWalls[i].SetActive(false);
-            }
+            m_LeftSideWalls[i].SetActive(false);
+            m_RightSideWalls[i].SetActive(false);
         }
 
         Instance = this;

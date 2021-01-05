@@ -68,29 +68,11 @@ public class TownBuilding : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        switch (GameManager.Instance.Setting)
-        {
-            case EGameSetting.EASY:
-                m_CoinsPerDay = 5;
-                m_WoodPerDay = 5;
-                m_StonePerDay = 5;
-                m_IronPerDay = 5;
-                break;
-            case EGameSetting.MEDUIM:
-                m_CoinsPerDay = 3;
-                m_WoodPerDay = 3;
-                m_StonePerDay = 3;
-                m_IronPerDay = 3;
-                break;
-            case EGameSetting.HARD:
-                m_CoinsPerDay = 1;
-                m_WoodPerDay = 1;
-                m_StonePerDay = 1;
-                m_IronPerDay = 1;
-                break;
-            default:
-                break;
-        }
+        m_CoinsPerDay = 5;
+        m_WoodPerDay = 5;
+        m_StonePerDay = 5;
+        m_IronPerDay = 5;
+
         m_Upgrade = EBuildingUpgrade.NONE;
 
         m_Renderer = GetComponentInChildren<SpriteRenderer>();
@@ -125,7 +107,7 @@ public class TownBuilding : MonoBehaviour
                 if (m_Time >= m_Timer)
                 {
                     Inventory.Instance.Coins += m_CoinsPerDay;
-                    Inventory.Instance.Wood  += m_WoodPerDay; 
+                    Inventory.Instance.Wood += m_WoodPerDay;
 
                     m_Time = 0.0f;
                 }
@@ -138,7 +120,7 @@ public class TownBuilding : MonoBehaviour
                 if (m_Time >= m_Timer)
                 {
                     Inventory.Instance.Coins += m_CoinsPerDay;
-                    Inventory.Instance.Wood  += m_WoodPerDay;
+                    Inventory.Instance.Wood += m_WoodPerDay;
                     Inventory.Instance.Stone += m_StonePerDay;
 
                     m_Time = 0.0f;
@@ -166,9 +148,9 @@ public class TownBuilding : MonoBehaviour
                 if (m_Time >= m_Timer)
                 {
                     Inventory.Instance.Coins += m_CoinsPerDay;
-                    Inventory.Instance.Wood  += m_WoodPerDay;
+                    Inventory.Instance.Wood += m_WoodPerDay;
                     Inventory.Instance.Stone += m_StonePerDay;
-                    Inventory.Instance.Iron  += m_IronPerDay;
+                    Inventory.Instance.Iron += m_IronPerDay;
 
                     m_Time = 0.0f;
                 }
@@ -200,8 +182,8 @@ public class TownBuilding : MonoBehaviour
                     Inventory.Instance.Wood -= 8;
 
                     m_CoinsPerDay += m_Ressources;
-                    m_WoodPerDay  += 1;
-                    m_StonePerDay  = m_Ressources;
+                    m_WoodPerDay += 1;
+                    m_StonePerDay = m_Ressources;
 
                     m_RessourceText.text = "Daily Ressources: \n" +
                                $"{m_CoinsPerDay} Coins \n" +
@@ -222,9 +204,9 @@ public class TownBuilding : MonoBehaviour
                     Inventory.Instance.Stone -= 10;
 
                     m_CoinsPerDay += m_Ressources;
-                    m_WoodPerDay  += m_Ressources;
-                    m_StonePerDay  = m_Ressources + 1;
-                    m_IronPerDay   = m_Ressources;
+                    m_WoodPerDay += m_Ressources;
+                    m_StonePerDay = m_Ressources + 1;
+                    m_IronPerDay = m_Ressources;
 
                     m_RessourceText.text = "Daily Ressources: \n" +
                                $"{m_CoinsPerDay} Coins \n" +
@@ -245,10 +227,10 @@ public class TownBuilding : MonoBehaviour
                     m_Renderer.sprite = m_Sprites[2];
 
                     Inventory.Instance.Coins -= 10;
-                    Inventory.Instance.Iron  -= 14;
+                    Inventory.Instance.Iron -= 14;
 
                     m_StonePerDay += m_Ressources;
-                    m_IronPerDay  += m_Ressources;
+                    m_IronPerDay += m_Ressources;
 
                     m_RessourceText.text = "Daily Ressources: \n" +
                                $"{m_CoinsPerDay} Coins \n" +

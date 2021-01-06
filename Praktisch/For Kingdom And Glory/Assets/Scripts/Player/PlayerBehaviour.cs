@@ -49,6 +49,8 @@ public partial class PlayerBehaviour : MonoBehaviour
 
     private GameObject m_WallObj;
 
+    private GameObject m_Coin;
+
     private Vector2 m_PrevDirec;
 
     private Vector2 m_Dir;
@@ -121,6 +123,8 @@ public partial class PlayerBehaviour : MonoBehaviour
         m_Rigid = GetComponent<Rigidbody2D>();
         m_Render = GetComponentInChildren<SpriteRenderer>();
         m_Animator.Play("IdleAnim");
+
+        m_Coin = null;
     }
 
     // Update is called once per frame
@@ -175,8 +179,8 @@ public partial class PlayerBehaviour : MonoBehaviour
             {
                 if (Inventory.Instance.Coins > 0)
                 {
-                    Instantiate(m_CoinPrefab, m_CoinSpawnPoint.position, Quaternion.identity);
-
+                    m_Coin = Instantiate(m_CoinPrefab, m_CoinSpawnPoint.position, Quaternion.identity);
+                    VagrantManager.Instance.AddCoinsForAll(m_Coin);
                     Inventory.Instance.Coins--;
                 }
             }

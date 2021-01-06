@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
+using Spine;
 
 public partial class VagrantBehaviour : MonoBehaviour
 {
@@ -26,13 +27,11 @@ public partial class VagrantBehaviour : MonoBehaviour
     [SerializeField]
     private AudioSource m_Source;
     [Header("Job Visibility")]
-    [Header("Needs to be removed once new Assets are in")]
     [SerializeField]
     private GameObject m_BowVis;
     [SerializeField]
-    private GameObject m_HamVis;
-    [SerializeField]
-    private GameObject m_VillVis;
+    private GameObject m_HammerVis;
+
     #endregion
 
     #region private Variables
@@ -53,7 +52,6 @@ public partial class VagrantBehaviour : MonoBehaviour
     /// <summary>
     /// Villager Waypoints
     /// </summary>
-    [SerializeField]
     private GameObject[] m_VillagerPoints;
     /// <summary>
     /// Vargant Waypoints
@@ -94,6 +92,8 @@ public partial class VagrantBehaviour : MonoBehaviour
     private bool m_ReparingWall = false;
     private bool m_Hunting = false;
     private bool m_HasJob = false;
+    private bool m_IsIdle = false;
+    private bool m_ChangedSkin = false;
     #endregion
 
     #region Properties
@@ -110,14 +110,12 @@ public partial class VagrantBehaviour : MonoBehaviour
         m_Waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
         m_VillagerPoints = GameObject.FindGameObjectsWithTag("VillagerPoint");
 
-        m_CurrentDirection = Random.Range(0, m_Waypoints.Length);
         m_Target = m_Waypoints[m_CurrentDirection];
 
         m_Status = ENPCStatus.VARGANT;
 
         m_BowVis.SetActive(false);
-        m_HamVis.SetActive(false);
-        m_VillVis.SetActive(false);
+        m_HammerVis.SetActive(false);
 
         Instance = this;
     }
@@ -150,13 +148,13 @@ public partial class VagrantBehaviour : MonoBehaviour
             }
         }
 
-        if(m_Direction.x > 0.0f)
+        if (m_Direction.x > 0.0f)
         {
-            m_Sprite.transform.localScale = new Vector3(m_Sprite.transform.localScale.x, m_Sprite.transform.localScale.y, 1f);
+            m_Sprite.transform.localScale = new Vector3(Mathf.Abs(m_Sprite.transform.localScale.x), m_Sprite.transform.localScale.y, 1f);
         }
         if (m_Direction.x < 0.0f)
         {
-            m_Sprite.transform.localScale = new Vector3(-m_Sprite.transform.localScale.x, m_Sprite.transform.localScale.y, 1f);
+            m_Sprite.transform.localScale = new Vector3(-Mathf.Abs(m_Sprite.transform.localScale.x), m_Sprite.transform.localScale.y, 1f);
         }
 
         switch (m_Status)
@@ -181,7 +179,8 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         m_Direction = ((Vector2)m_Target.transform.position - m_Rigid.position).normalized;
 
-        m_Rigid.velocity = m_Direction * m_Speed * Time.deltaTime;
+        if (!m_IsIdle)
+            m_Rigid.velocity = m_Direction * m_Speed;
 
         m_AnimationTimer += Time.deltaTime;
     }
@@ -217,9 +216,16 @@ public partial class VagrantBehaviour : MonoBehaviour
         {
             if (collision.CompareTag("Coin"))
             {
+                if (collision.gameObject == null)
+                    return;
+
+                if (!m_Coins.Contains(collision.gameObject))
+                    return;
+
                 VagrantManager.Instance.RemoveCoinsForAll(collision.gameObject);
                 VagrantManager.Instance.RemoveFromList(this.gameObject);
                 VillagerManager.Instance.AddToList(this.gameObject);
+                m_ChangedSkin = false;
                 Destroy(collision.gameObject);
                 m_Status = ENPCStatus.VILLAGER;
             }
@@ -228,21 +234,27 @@ public partial class VagrantBehaviour : MonoBehaviour
         {
             if (collision.CompareTag("Hammer"))
             {
-                //VagrantManager.Instance.RemoveFromList(this.gameObject);
+                if (!m_Hammers.Contains(collision.gameObject))
+                    return;
+
                 BuilderStand.Instance.RemoveHammerFromStand(collision.gameObject);
                 VillagerManager.Instance.RemoveAllHammer(collision.gameObject);
                 VillagerManager.Instance.RemoveFromList(this.gameObject);
                 BuilderManager.Instance.AddBuilderToList(this.gameObject);
                 m_HasJob = true;
+                m_HammerVis.SetActive(true);
                 m_Status = ENPCStatus.BUILDER;
             }
             if (collision.CompareTag("Bow"))
             {
-                //VagrantManager.Instance.RemoveFromList(this.gameObject);
+                if (!m_Bows.Contains(collision.gameObject))
+                    return;
+
                 Archery.Instance.RemoveBowFromStand(collision.gameObject);
                 VillagerManager.Instance.RemoveAllBow(collision.gameObject);
                 ArcherManager.Instance.AddToList(this.gameObject);
                 VillagerManager.Instance.RemoveFromList(this.gameObject);
+                m_BowVis.SetActive(true);
                 m_HasJob = true;
                 m_Status = ENPCStatus.ARCHER;
             }
@@ -280,18 +292,19 @@ public partial class VagrantBehaviour : MonoBehaviour
                 m_Status = ENPCStatus.VARGANT;
                 EnemyManager.Instance.RemoveVillagerFromList(this.gameObject);
                 VagrantManager.Instance.AddToList(this.gameObject);
+                m_ChangedSkin = false;
                 break;
             case ENPCStatus.BUILDER:
                 m_Status = ENPCStatus.VILLAGER;
                 BuilderManager.Instance.RemoveBuilderFromList(this.gameObject);
                 VillagerManager.Instance.AddToList(this.gameObject);
+                m_HammerVis.SetActive(false);
                 break;
             case ENPCStatus.ARCHER:
                 m_Status = ENPCStatus.VILLAGER;
                 ArcherManager.Instance.RemoveFromList(this.gameObject);
                 VillagerManager.Instance.AddToList(this.gameObject);
-                break;
-            case ENPCStatus.SWORDSMAN:
+                m_BowVis.SetActive(false);
                 break;
             default:
                 break;

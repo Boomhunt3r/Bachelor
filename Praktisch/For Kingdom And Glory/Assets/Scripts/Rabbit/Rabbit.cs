@@ -40,13 +40,17 @@ public class Rabbit : MonoBehaviour
     {
         m_Rigid = GetComponent<Rigidbody2D>();
 
-        m_CurrentVelocity = Vector2.right * m_Speed * Time.deltaTime;
+        m_CurrentVelocity = Vector2.right * m_Speed;
 
         m_Rigid.velocity = m_CurrentVelocity;
 
-        m_IdleTimer = Random.Range(5.0f, 15.0f);
+        m_IdleTimer = Random.Range(1.0f, 7.5f);
 
         m_Animator.Play("Rabbit_Hop");
+
+        m_LocalScale.localScale = new Vector3(-1f, 1f, 1f);
+
+        m_GoingForward = true;
 
         Instance = this;
     }
@@ -69,14 +73,14 @@ public class Rabbit : MonoBehaviour
         {
             if (m_GoingForward)
             {
-                m_CurrentVelocity = Vector2.right * m_Speed * Time.deltaTime;
+                m_CurrentVelocity = Vector2.right * m_Speed;
                 m_LocalScale.localScale = new Vector3(-1f, 1f, 1f);
                 m_Animator.Play("Rabbit_Hop");
                 m_GoingForward = false;
             }
             else if (!m_GoingForward)
             {
-                m_CurrentVelocity = Vector2.left * m_Speed * Time.deltaTime;
+                m_CurrentVelocity = Vector2.left * m_Speed;
                 m_LocalScale.localScale = new Vector3(1f, 1f, 1f);
                 m_Animator.Play("Rabbit_Hop");
                 m_GoingForward = true;

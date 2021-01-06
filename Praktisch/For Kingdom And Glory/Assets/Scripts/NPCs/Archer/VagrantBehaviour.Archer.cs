@@ -22,10 +22,6 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         m_Rabbits = GameObject.FindGameObjectsWithTag("Rabbit").ToList();
 
-        m_BowVis.SetActive(true);
-        m_HamVis.SetActive(false);
-        m_VillVis.SetActive(false);
-
         if (GameManager.Instance.IsDay)
         {
             if (!IsAttacking)
@@ -42,6 +38,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                     if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) <= Random.Range(1.0f, 2.0f))
                     {
                         m_Rigid.velocity = new Vector2(0, 0);
+                        m_IsIdle = true;
                         m_CooldownTimer += Time.deltaTime;
                     }
 
@@ -50,6 +47,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                         m_CooldownTimer = 0.0f;
                         m_BCooldown = false;
                         m_Hunting = true;
+                        m_IsIdle = false;
                     }
                 }
 
@@ -64,6 +62,8 @@ public partial class VagrantBehaviour : MonoBehaviour
 
                     if (m_Distance <= Random.Range(1.5f, 4.5f))
                     {
+                        m_IsIdle = true;
+                        
                         m_Rigid.velocity = new Vector2(0, 0);
 
                         if (m_ShootTime >= m_ShootTimer)
@@ -85,6 +85,8 @@ public partial class VagrantBehaviour : MonoBehaviour
                 {
                     m_Rigid.velocity = new Vector2(0, 0);
                     m_ShootTime += Time.deltaTime;
+
+                    m_IsIdle = true;
 
                     if (m_ShootTime >= m_ShootTimer)
                     {

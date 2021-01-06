@@ -26,6 +26,7 @@ TagManager:
   - Smithy
   - Town
   - VagrantSpawner
+  - Cont
   layers:
   - Default
   - TransparentFX

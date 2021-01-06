@@ -34,21 +34,19 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         m_BuildWalls = GameObject.FindGameObjectsWithTag("Wall").ToList();
 
-        // Set 
-        m_BowVis.SetActive(false);
-        m_VillVis.SetActive(false);
-        m_HamVis.SetActive(true);
-
         if (m_BuildIdle)
         {
             if (Vector2.Distance(m_Target.transform.position, m_Rigid.position) <= 1.5f)
             {
                 m_BuildIdleTimer += Time.deltaTime;
 
+                m_IsIdle = true;
+
                 if (m_BuildIdleTimer >= m_BuildIdleTime)
                 {
                     m_Target = m_VillagerPoints[Random.Range(0, m_VillagerPoints.Length)];
                     m_BuildIdleTimer = 0.0f;
+                    m_IsIdle = false;
                 }
             }
         }
@@ -62,8 +60,10 @@ public partial class VagrantBehaviour : MonoBehaviour
                     m_CurrentlyReparing = false;
                     m_Target.GetComponent<Wall>().BeingRepaired = false;
                     m_BuildIdle = true;
+                    m_IsIdle = false;
                     return;
                 }
+                m_IsIdle = true;
 
                 m_BuildTimer += Time.deltaTime;
 

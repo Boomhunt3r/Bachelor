@@ -8,22 +8,23 @@ public partial class VagrantBehaviour : MonoBehaviour
 
     private void Vagrant()
     {
-
-        m_BowVis.SetActive(false);
-        m_HamVis.SetActive(false);
-        m_VillVis.SetActive(false);
+        if (!m_ChangedSkin)
+        {
+            m_Animation.Skeleton.SetSkin("V3");
+            m_ChangedSkin = true;
+        }
 
         #region Coin Behaviour
 
         if (m_Coins.Count == 0)
         {
-            m_Coins = GameObject.FindGameObjectsWithTag("Coin").ToList();
             m_Target = m_Waypoints[m_CurrentDirection];
 
             m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
 
-            if (m_Distance <= 2.5f)
+            if (m_Distance <= 0.1f)
             {
+                m_IsIdle = true;
                 m_Timer += Time.deltaTime;
 
                 m_Rigid.velocity = new Vector2(0, 0);
@@ -35,6 +36,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                     if (m_CurrentDirection > 3)
                         m_CurrentDirection = 0;
 
+                    m_IsIdle = false;
                     m_Timer = 0.0f;
                 }
             }
@@ -75,6 +77,11 @@ public partial class VagrantBehaviour : MonoBehaviour
         return Target;
     }
 
+    public void AddCoin(GameObject _Coin)
+    {
+        m_Coins.Add(_Coin);
+    }
+
     public void RemoveCoin(GameObject _Coin)
     {
         for (int i = 0; i < m_Coins.Count; i++)
@@ -86,8 +93,8 @@ public partial class VagrantBehaviour : MonoBehaviour
         }
     }
 
-    public void ChangeStartWaypoint()
+    public void ChangeStartWaypoint(int _Digit)
     {
-        m_CurrentDirection = 3;
+        m_CurrentDirection = _Digit;
     }
 }

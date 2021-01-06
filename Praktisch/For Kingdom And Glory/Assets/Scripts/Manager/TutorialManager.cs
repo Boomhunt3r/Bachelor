@@ -109,9 +109,16 @@ public class TutorialManager : MonoBehaviour
 
         if (!CheckIfTutIsOpen())
         {
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
+            if (m_ContUI.activeSelf)
             {
-                SetTutfalse();
+
+            }
+            else if (!m_ContUI.activeSelf)
+            {
+                if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
+                {
+                    SetTutfalse();
+                }
             }
         }
     }
@@ -198,6 +205,11 @@ public class TutorialManager : MonoBehaviour
             }
         }
     }
+
+    public void DeactivateFirstTut()
+    {
+        m_ContUI.SetActive(false);
+    }
     #endregion
 
     #region private functions
@@ -255,12 +267,12 @@ public class TutorialManager : MonoBehaviour
 
         if (_Obj == m_ArchText)
         {
-            if(_Obj == m_ActiveText)
+            if (_Obj == m_ActiveText)
             {
                 _Obj.SetActive(false);
                 return;
             }
-            if(_Obj != m_ActiveText)
+            if (_Obj != m_ActiveText)
             {
                 m_ActiveText.SetActive(false);
                 m_ActiveText = _Obj;

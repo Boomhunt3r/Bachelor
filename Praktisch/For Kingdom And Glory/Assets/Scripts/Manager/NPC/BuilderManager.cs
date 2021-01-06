@@ -7,7 +7,13 @@ public class BuilderManager : MonoBehaviour
 {
     public static BuilderManager Instance { get; private set; }
 
+    /// <summary>
+    /// List with all Builders
+    /// </summary>
     private List<GameObject> m_AllBuilder = new List<GameObject>();
+    /// <summary>
+    /// List with all Walls
+    /// </summary>
     private List<GameObject> m_AllWalls = new List<GameObject>();
 
     private void Awake()
@@ -18,32 +24,44 @@ public class BuilderManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // If Player not alive anymore return
         if (!GameManager.Instance.IsAlive)
             return;
 
+        // if night return
         if (GameManager.Instance.IsNight)
             return;
 
+        // if walls count is over 0
         if (m_AllWalls.Count > 0)
         {
+            // For all walls in list
             for (int w = 0; w < m_AllWalls.Count; w++)
             {
+                // if currenthitpoints from wall is lower than the maxhitpoints
+                // the building is not none and is not being repaired
                 if (m_AllWalls[w].GetComponent<Wall>().CurrentHitPoints < m_AllWalls[w].GetComponent<Wall>().MaxHitPoints &&
                     m_AllWalls[w].GetComponent<Wall>().Building != EBuildingUpgrade.NONE && 
                     !m_AllWalls[w].GetComponent<Wall>().BeingRepaired)
                 {
+                    // if builder count is over 0
                     if (m_AllBuilder.Count > 0)
                     {
+                        // for all Buildr in List
                         for (int b = 0; b < m_AllBuilder.Count; b++)
                         {
+                            // if Builder dosn't already have a wall to repair
                             if(!m_AllBuilder[b].GetComponent<VagrantBehaviour>().CheckIfHasWallToRepair())
                             {
+                                // give builder wall to repair
                                 m_AllBuilder[b].GetComponent<VagrantBehaviour>().WallToRepair(m_AllWalls[w]);
 
+                                // set wall being repaired true
                                 m_AllWalls[w].GetComponent<Wall>().BeingRepaired = true;
 
                                 break;
                             }
+                            // if builder has a wall to repair
                             else if(m_AllBuilder[b].GetComponent<VagrantBehaviour>().CheckIfHasWallToRepair())
                             {
                                 continue;
@@ -55,6 +73,11 @@ public class BuilderManager : MonoBehaviour
         }
     }
 
+    #region public functions
+    /// <summary>
+    /// Add Builder to Builder List
+    /// </summary>
+    /// <param name="_Builder">Builder to add</param>
     public void AddBuilderToList(GameObject _Builder)
     {
         if (_Builder == null)
@@ -63,6 +86,10 @@ public class BuilderManager : MonoBehaviour
         m_AllBuilder.Add(_Builder);
     }
 
+    /// <summary>
+    /// Remove Builder from Builder list
+    /// </summary>
+    /// <param name="_Builder">Builder to remove</param>
     public void RemoveBuilderFromList(GameObject _Builder)
     {
         if (_Builder == null)
@@ -81,6 +108,10 @@ public class BuilderManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Add Wall to Wall List
+    /// </summary>
+    /// <param name="_Wall">Wall to add</param>
     public void AddWallToList(GameObject _Wall)
     {
         if (_Wall == null)
@@ -89,6 +120,10 @@ public class BuilderManager : MonoBehaviour
         m_AllWalls.Add(_Wall);
     }
 
+    /// <summary>
+    /// Remove Wall from Wall List
+    /// </summary>
+    /// <param name="_Wall">Wall to remove</param>
     public void RemoveWallFromList(GameObject _Wall)
     {
         if (_Wall == null)
@@ -105,5 +140,6 @@ public class BuilderManager : MonoBehaviour
                 break;
             }
         }
-    }
+    } 
+    #endregion
 }

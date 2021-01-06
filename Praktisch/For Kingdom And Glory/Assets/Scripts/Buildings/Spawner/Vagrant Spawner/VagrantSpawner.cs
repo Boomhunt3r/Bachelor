@@ -31,9 +31,13 @@ public class VagrantSpawner : MonoBehaviour
             GameManager.Instance.SpawnedVagrants.Add(m_Vagrant);
             VagrantManager.Instance.AddToList(m_Vagrant);
             m_Amount++;
+            if(m_Amount % 2 != 0)
+            {
+                m_Vagrant.GetComponent<VagrantBehaviour>().ChangeStartWaypoint(0);
+            }
             if(m_Amount % 2 == 0)
             {
-                m_Vagrant.GetComponent<VagrantBehaviour>().ChangeStartWaypoint();
+                m_Vagrant.GetComponent<VagrantBehaviour>().ChangeStartWaypoint(3);
             }
         }
     }
@@ -56,9 +60,13 @@ public class VagrantSpawner : MonoBehaviour
                 GameManager.Instance.SpawnedVagrants.Add(m_Vagrant);
                 VagrantManager.Instance.AddToList(m_Vagrant);
                 m_Amount++;
+                if(m_Amount % 2 != 0)
+                {
+                    m_Vagrant.GetComponent<VagrantBehaviour>().ChangeStartWaypoint(0);
+                }
                 if (m_Amount % 2 == 0)
                 {
-                    m_Vagrant.GetComponent<VagrantBehaviour>().ChangeStartWaypoint();
+                    m_Vagrant.GetComponent<VagrantBehaviour>().ChangeStartWaypoint(3);
                 }
             }
             m_Timer = 0.0f;

@@ -14,10 +14,11 @@ public partial class VagrantBehaviour : MonoBehaviour
     {
         this.gameObject.tag = "Villager";
 
-        m_BowVis.SetActive(false);
-        m_HamVis.SetActive(false);
-        m_VillVis.SetActive(true);
-
+        if(!m_ChangedSkin)
+        {
+            m_Animation.Skeleton.SetSkin("V1");
+            m_ChangedSkin = true;
+        }
 
         if (m_Bows.Count == 0 && m_Hammers.Count == 0)
         {

@@ -63,6 +63,10 @@ public partial class PlayerBehaviour : MonoBehaviour
             m_WallObj = null;
             WallManager.Instance.WallObj = null;
         }
+        if (collision.CompareTag("Cont"))
+        {
+            TutorialManager.Instance.DeactivateFirstTut();
+        }
     }
     #endregion
 }

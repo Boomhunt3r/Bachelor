@@ -53,6 +53,21 @@ public class VagrantManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Add coin for all Vagrants
+    /// </summary>
+    /// <param name="_Coin">Coin to add</param>
+    public void AddCoinsForAll(GameObject _Coin)
+    {
+        if(m_AllVagrants.Count > 0)
+        {
+            for (int i = 0; i < m_AllVagrants.Count; i++)
+            {
+                m_AllVagrants[i].GetComponent<VagrantBehaviour>().AddCoin(_Coin);
+            }
+        }
+    }
+
+    /// <summary>
     /// Remove coin for all Vagrants
     /// </summary>
     /// <param name="_Coin">Coin to remove</param>

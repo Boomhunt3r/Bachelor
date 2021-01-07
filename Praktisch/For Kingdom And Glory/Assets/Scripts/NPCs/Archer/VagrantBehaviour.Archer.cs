@@ -270,6 +270,8 @@ public partial class VagrantBehaviour : MonoBehaviour
         GameObject Arrow = Instantiate(m_Arrow, m_ThrowPoint.position, Quaternion.Euler(new Vector3(0, 0, 0)));
         Arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(XVelo, YVelo);
         Arrow.GetComponent<Arrow>().Parent = this.gameObject;
+
+        m_IsIdle = false;
     }
 
     /// <summary>

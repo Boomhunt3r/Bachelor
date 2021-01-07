@@ -5,6 +5,7 @@ using System.Linq;
 public partial class VagrantBehaviour : MonoBehaviour
 {
     private List<GameObject> m_Coins = new List<GameObject>();
+    private bool m_VagrantIdle = true;
 
     private void Vagrant()
     {
@@ -16,7 +17,16 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         #region Coin Behaviour
 
+        if (m_Coins.Count > 0)
+        {
+            m_VagrantIdle = false;
+            m_IsIdle = false;
+        }
+
         if (m_Coins.Count == 0)
+            m_VagrantIdle = true;
+
+        if (m_VagrantIdle)
         {
             m_Target = m_Waypoints[m_CurrentDirection];
 
@@ -43,7 +53,7 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         }
 
-        if (m_Coins.Count != 0)
+        if (!m_VagrantIdle)
         {
             m_Target = GetClosestCoin(m_Coins);
             m_Coin = m_Target;

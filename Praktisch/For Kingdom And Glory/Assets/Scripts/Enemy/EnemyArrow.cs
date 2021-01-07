@@ -6,14 +6,23 @@ public class EnemyArrow : MonoBehaviour
     [Range(5, 20)]
     private int m_Damage = 5;
 
+    private Rigidbody2D m_Rigid;
     private float m_Timer = 0.0f;
     private bool m_Hit = false;
+
+    private void Start()
+    {
+        m_Rigid = GetComponent<Rigidbody2D>();   
+    }
+
     private void Update()
     {
         m_Timer += Time.deltaTime;
 
         if (m_Timer >= 2.5f)
             Destroy(this.gameObject);
+
+        transform.up = m_Rigid.velocity;
     }
 
     #region Collision Function

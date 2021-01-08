@@ -16,73 +16,26 @@ public class DayNightManager : MonoBehaviour
     private Color m_Night = new Color(0.0f, 0.04313726f, 0.1333333f, 0);
     [SerializeField]
     private Color m_Midnight = new Color(0.0f, 0.0f, 0.0f, 0);
-    [Header("Background Music")]
-    [SerializeField]
-    private AudioSource m_Background;
-    [SerializeField]
-    private AudioClip[] m_BackgroundMusic;
     #endregion
 
     #region private Variables
     private Camera m_Camera;
     private float m_Timer = 0.0f;
-    private float m_MusicTimer = 0.0f;
-    private float m_MusicTime;
-    private int m_CurrentClip = 0;
     private bool m_Day = true;
     private bool m_Dark = false;
     private bool m_MidNight = false;
     private bool m_Between = false;
     #endregion
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        m_CurrentClip = Random.Range(0, m_BackgroundMusic.Length);
-
-        m_MusicTime = m_BackgroundMusic[m_CurrentClip].length;
-
-        m_Background.clip = m_BackgroundMusic[m_CurrentClip];
-
-        m_Background.Play();
-
-        m_Camera = Camera.main;
+        m_Camera = Camera.main;   
     }
 
     // Update is called once per frame
     void Update()
     {
         m_Timer += Time.deltaTime;
-        m_MusicTimer += Time.deltaTime;
-
-        #region Background Music logic
-        if (m_MusicTimer >= m_MusicTime)
-        {
-
-            for (int i = 0; i < m_BackgroundMusic.Length; i++)
-            {
-                if (m_BackgroundMusic[m_CurrentClip] == m_BackgroundMusic[i])
-                {
-                    m_CurrentClip++;
-
-                    if (m_CurrentClip >= m_BackgroundMusic.Length)
-                    {
-                        m_CurrentClip = 0;
-                    }
-
-                    break;
-                }
-            }
-
-            m_MusicTime = m_BackgroundMusic[m_CurrentClip].length;
-
-            m_Background.clip = m_BackgroundMusic[m_CurrentClip];
-
-            m_Background.Play();
-
-            m_MusicTimer = 0.0f;
-        }
-        #endregion
 
         #region BackgroundColor logic
         if (m_Camera.backgroundColor == m_Noon && m_Day && !m_Dark && !m_Between && !m_MidNight)
@@ -119,11 +72,11 @@ public class DayNightManager : MonoBehaviour
         }
 
         if (m_Day && !m_Dark)
-            m_Camera.backgroundColor = Color.Lerp(m_Morning, m_Noon, m_Timer / 60);
+            m_Camera.backgroundColor = Color.Lerp(m_Morning, m_Noon, m_Timer / 30);
 
         if (!m_Day && !m_Dark && m_Between)
         {
-            m_Camera.backgroundColor = Color.Lerp(m_Noon, m_Evening, m_Timer / 40);
+            m_Camera.backgroundColor = Color.Lerp(m_Noon, m_Evening, m_Timer / 70);
         }
 
         if (m_Dark && !m_Day)

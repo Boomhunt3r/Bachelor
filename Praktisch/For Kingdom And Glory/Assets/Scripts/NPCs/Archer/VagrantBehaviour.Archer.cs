@@ -7,8 +7,8 @@ public partial class VagrantBehaviour : MonoBehaviour
     private List<GameObject> m_EnemySpawner = new List<GameObject>();
     private GameObject m_EnemyToShoot;
     private GameObject m_CurrentRabbit;
-    private float m_Cooldown = 1.5f;
-    private float m_CooldownTimer = 0.0f;
+    private float m_Cooldown = 0.2f;
+    private float m_CooldownTimer;
     private bool m_BCooldown = false;
     private bool m_IsDefending = false;
     private bool m_IsAttacking = false;
@@ -21,6 +21,8 @@ public partial class VagrantBehaviour : MonoBehaviour
         this.gameObject.tag = "Archer";
 
         m_Rabbits = GameObject.FindGameObjectsWithTag("Rabbit").ToList();
+
+        Debug.Log(m_CooldownTimer);
 
         if (GameManager.Instance.IsDay)
         {
@@ -35,7 +37,7 @@ public partial class VagrantBehaviour : MonoBehaviour
 
                 if (m_BCooldown)
                 {
-                    if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) <= Random.Range(1.0f, 2.0f))
+                    if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) <= Random.Range(1.0f, 4.0f))
                     {
                         m_Rigid.velocity = new Vector2(0, 0);
                         m_IsIdle = true;
@@ -62,6 +64,8 @@ public partial class VagrantBehaviour : MonoBehaviour
 
                     if (m_Distance <= Random.Range(1.5f, 4.5f))
                     {
+                        Debug.Log("Shot");
+
                         m_IsIdle = true;
                         
                         m_Rigid.velocity = new Vector2(0, 0);
@@ -272,6 +276,11 @@ public partial class VagrantBehaviour : MonoBehaviour
         Arrow.GetComponent<Arrow>().Parent = this.gameObject;
 
         m_IsIdle = false;
+    }
+
+    public void AddRabbit(GameObject _Rabbit)
+    {
+        m_Rabbits.Add(_Rabbit);
     }
 
     /// <summary>

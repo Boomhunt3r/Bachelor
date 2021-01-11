@@ -64,9 +64,6 @@ public class Enemy : MonoBehaviour
         m_Archer = GameObject.FindGameObjectsWithTag("Archer").ToList();
         m_Player = GameObject.FindGameObjectWithTag("Player");
 
-        if (Side == ESpawnerSide.RIGHT)
-            m_Monster.transform.localScale = new Vector3(-m_Monster.transform.localScale.x, m_Monster.transform.localScale.y, 1);
-
         if (m_Walls.Count != 0)
             m_ClosestWall = GetClosestWall(m_Walls);
 
@@ -135,30 +132,22 @@ public class Enemy : MonoBehaviour
             m_Sprite.transform.localScale = new Vector3(-Mathf.Abs(m_Sprite.transform.localScale.x), m_Sprite.transform.localScale.y, 1f);
         }
 
-        switch (Side)
+
+        if (m_Rigid.velocity.x > 0.0f)
         {
-            case ESpawnerSide.LEFT:
-                if (m_Rigid.velocity.x > 0.0f)
-                {
-                    if (m_AnimationTimer >= m_AnimationTime)
-                    {
-                        ChangeAnimation("Walk", true);
-                        m_AnimationTimer = 0.0f;
-                    }
-                }
-                break;
-            case ESpawnerSide.RIGHT:
-                if (m_Rigid.velocity.x < 0.0f)
-                {
-                    if (m_AnimationTimer >= m_AnimationTime)
-                    {
-                        ChangeAnimation("Walk", true);
-                        m_AnimationTimer = 0.0f;
-                    }
-                }
-                break;
-            default:
-                break;
+            if (m_AnimationTimer >= m_AnimationTime)
+            {
+                ChangeAnimation("Walk", true);
+                m_AnimationTimer = 0.0f;
+            }
+        }
+        if (m_Rigid.velocity.x < 0.0f)
+        {
+            if (m_AnimationTimer >= m_AnimationTime)
+            {
+                ChangeAnimation("Walk", true);
+                m_AnimationTimer = 0.0f;
+            }
         }
 
         float Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);

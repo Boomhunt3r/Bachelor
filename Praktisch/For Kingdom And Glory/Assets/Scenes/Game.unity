@@ -10180,7 +10180,7 @@ Transform:
   - {fileID: 1440779649}
   - {fileID: 958157346}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &840320947
 GameObject:
@@ -10826,7 +10826,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &928873482
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -26285,7 +26285,7 @@ PrefabInstance:
     - target: {fileID: 8022434121736257395, guid: 827894f2d3eac7643a27e9ad96b532bd,
         type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 8022434121736257395, guid: 827894f2d3eac7643a27e9ad96b532bd,
         type: 3}

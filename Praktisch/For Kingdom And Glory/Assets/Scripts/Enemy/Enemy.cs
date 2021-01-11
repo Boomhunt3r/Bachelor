@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private SkeletonAnimation m_Animation;
     [SerializeField]
+    private Transform m_Sprite;
+    [SerializeField]
     private Transform m_ThrowPoint;
     #endregion
 
@@ -122,6 +124,15 @@ public class Enemy : MonoBehaviour
                 ChangeAnimation("Idle", true);
                 m_AnimationTimer = 0.0f;
             }
+        }
+
+        if (m_Direction.x > 0.0f)
+        {
+            m_Sprite.transform.localScale = new Vector3(Mathf.Abs(m_Sprite.transform.localScale.x), m_Sprite.transform.localScale.y, 1f);
+        }
+        if (m_Direction.x < 0.0f)
+        {
+            m_Sprite.transform.localScale = new Vector3(-Mathf.Abs(m_Sprite.transform.localScale.x), m_Sprite.transform.localScale.y, 1f);
         }
 
         switch (Side)

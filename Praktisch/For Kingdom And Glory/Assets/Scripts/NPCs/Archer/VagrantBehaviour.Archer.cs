@@ -22,8 +22,6 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         m_Rabbits = GameObject.FindGameObjectsWithTag("Rabbit").ToList();
 
-        Debug.Log(m_CooldownTimer);
-
         if (GameManager.Instance.IsDay)
         {
             if (!IsAttacking)
@@ -125,6 +123,9 @@ public partial class VagrantBehaviour : MonoBehaviour
             if (!m_IsDefending)
             {
                 m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
+
+                if (m_DefendingWall != null)
+                    m_Target = m_DefendingWall;
 
                 if (m_Distance <= Random.Range(1.0f, 2.5f))
                 {
@@ -276,11 +277,6 @@ public partial class VagrantBehaviour : MonoBehaviour
         Arrow.GetComponent<Arrow>().Parent = this.gameObject;
 
         m_IsIdle = false;
-    }
-
-    public void AddRabbit(GameObject _Rabbit)
-    {
-        m_Rabbits.Add(_Rabbit);
     }
 
     /// <summary>

@@ -104,14 +104,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Speed: 175
-  m_ArrowSpeed: 750
   m_AttackTime: 1.5
   m_Health: 1
   m_Arrow: {fileID: 5542287603238390645, guid: 3e1187364cf40b44c8df8cd5105338f1, type: 3}
   m_Monster: {fileID: 6592548802828285887}
   m_Animation: {fileID: 6552057556438355389}
+  m_Sprite: {fileID: 7346845194420042326}
   m_ThrowPoint: {fileID: 1993469252}
-  m_Side: 0
 --- !u!50 &7346845194420042320
 Rigidbody2D:
   serializedVersion: 4

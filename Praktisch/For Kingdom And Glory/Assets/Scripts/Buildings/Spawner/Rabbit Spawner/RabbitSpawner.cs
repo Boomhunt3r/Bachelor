@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RabbitSpawner : MonoBehaviour
 {
-    public static RabbitSpawner Instance { get; private set; }
-
     #region Serializefield
     [Header("Spawner Settings")]
     [SerializeField]
@@ -44,8 +42,6 @@ public class RabbitSpawner : MonoBehaviour
         m_SpawnedRabbitAmount += m_RabbitsToSpawn;
 
         m_SpawnedRabbits = true;
-
-        Instance = this;
     }
 
     // Update is called once per frame

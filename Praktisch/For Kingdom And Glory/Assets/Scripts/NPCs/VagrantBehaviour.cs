@@ -85,6 +85,7 @@ public partial class VagrantBehaviour : MonoBehaviour
     private float m_Distance;
     private float m_AnimationTime = 1.0f;
     private float m_AnimationTimer = 0.0f;
+    private float m_Random = 0.0f;
     private int m_CurrentDirection;
     private int m_CurrentReparingWall;
     private bool m_HammerInRange = false;
@@ -109,6 +110,8 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         m_Waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
         m_VillagerPoints = GameObject.FindGameObjectsWithTag("VillagerPoint");
+
+        m_Random = Random.Range(1.0f, 4.0f);
 
         m_Target = m_Waypoints[m_CurrentDirection];
 

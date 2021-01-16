@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public partial class PlayerBehaviour : MonoBehaviour
@@ -40,6 +41,10 @@ public partial class PlayerBehaviour : MonoBehaviour
     private TextMeshProUGUI m_HealthText;
     [SerializeField]
     private TextMeshProUGUI m_ArmorText;
+    [SerializeField]
+    private GameObject m_BowCooldownUI;
+    [SerializeField]
+    private Image m_BowCooldown;
     #endregion
 
     #region private Variables
@@ -123,6 +128,7 @@ public partial class PlayerBehaviour : MonoBehaviour
         m_Rigid = GetComponent<Rigidbody2D>();
         m_Render = GetComponentInChildren<SpriteRenderer>();
         m_Animator.Play("IdleAnim");
+        m_BowCooldownUI.SetActive(false);
 
         m_Coin = null;
     }
@@ -220,18 +226,26 @@ public partial class PlayerBehaviour : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I))
         {
-            if(!IsInOpen)
+            if (!IsInOpen)
             {
                 InventoryManager.Instance.Active = true;
                 IsInOpen = true;
             }
-            else if(IsInOpen)
+            else if (IsInOpen)
             {
                 InventoryManager.Instance.Active = false;
                 IsInOpen = false;
             }
+        }
+
+        if (Inventory.Instance.Bow != EPlayerUpgrade.NONE)
+        {
+            if (!m_BowCooldownUI.activeSelf)
+                m_BowCooldownUI.SetActive(true);
+
+            m_BowCooldown.fillAmount = m_ShootTimer - m_Timer;
         }
 
         #region Interact

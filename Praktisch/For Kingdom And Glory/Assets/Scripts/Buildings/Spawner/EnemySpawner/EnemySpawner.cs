@@ -66,7 +66,47 @@ public class EnemySpawner : MonoBehaviour
             return;
 
         if (FirstSpawner == false)
+        {
+            if(!m_UnderAttack && m_CurrentHealth < m_MaxHealth)
+            {
+                m_CurrentHealth = m_MaxHealth;
+            }
+
+            if (m_DamageTimer >= 15.0f)
+            {
+                m_UnderAttack = false;
+
+                for (int i = 0; i < SpawnedEnemys.Count; i++)
+                {
+                    Destroy(SpawnedEnemys[i]);
+                }
+                m_Defending = false;
+            }
+
+            m_DamageTimer += Time.deltaTime;
+
+            if (m_UnderAttack)
+            {
+                if (!GameManager.Instance.RevengeAttack && m_UnderAttack)
+                {
+                    if (!m_Defending)
+                        m_Defending = true;
+
+                    if (m_Defending)
+                    {
+                        m_SpawnTimer += Time.deltaTime;
+
+                        if (m_SpawnTimer >= Random.Range(1.0f, 2.5f))
+                        {
+                            Spawn(EWaveType.DEFENDING);
+                            m_SpawnTimer = 0.0f;
+                        }
+                    }
+                }
+            }
+
             return;
+        }
 
         if (GameManager.Instance.IsDay && m_Spawned)
         {

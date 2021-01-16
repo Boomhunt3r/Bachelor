@@ -26,8 +26,7 @@ public partial class VagrantBehaviour : MonoBehaviour
         {
             if (!IsAttacking)
             {
-
-                if (!m_Hunting)
+                if (!m_Hunting && !m_BCooldown)
                 {
                     m_Target = m_VillagerPoints[Random.Range(0, m_VillagerPoints.Length)];
                     m_BCooldown = true;
@@ -35,7 +34,7 @@ public partial class VagrantBehaviour : MonoBehaviour
 
                 if (m_BCooldown)
                 {
-                    if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) <= Random.Range(1.0f, 4.0f))
+                    if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) <= m_Random)
                     {
                         m_Rigid.velocity = new Vector2(0, 0);
                         m_IsIdle = true;
@@ -62,8 +61,6 @@ public partial class VagrantBehaviour : MonoBehaviour
 
                     if (m_Distance <= Random.Range(1.5f, 4.5f))
                     {
-                        Debug.Log("Shot");
-
                         m_IsIdle = true;
                         
                         m_Rigid.velocity = new Vector2(0, 0);
@@ -83,7 +80,7 @@ public partial class VagrantBehaviour : MonoBehaviour
 
                 m_Target = GetClosestTarget(GameObject.FindGameObjectsWithTag("Enemy").ToList(), m_EnemySpawner);
 
-                if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) <= Random.Range(9.0f, 11.00f))
+                if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) <= Random.Range(3.0f, 5.0f))
                 {
                     m_Rigid.velocity = new Vector2(0, 0);
                     m_ShootTime += Time.deltaTime;

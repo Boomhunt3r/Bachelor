@@ -17,7 +17,7 @@ public class VillagerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log($"Bows: {m_Bows.Count}");
     }
 
     /// <summary>
@@ -112,7 +112,7 @@ public class VillagerManager : MonoBehaviour
             for (int i = 0; i < m_Bows.Count; i++)
             {
                 if (_Bow == m_Bows[i])
-                    m_Bows.Remove(_Bow);
+                    m_Bows.Remove(m_Bows[i]);
             }
         }
     }
@@ -161,7 +161,7 @@ public class VillagerManager : MonoBehaviour
             for (int i = 0; i < m_Hammers.Count; i++)
             {
                 if (_Hammer == m_Hammers[i])
-                    m_Hammers.Remove(_Hammer);
+                    m_Hammers.Remove(m_Hammers[i]);
             }
         }
     }

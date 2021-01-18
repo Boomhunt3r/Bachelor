@@ -154,7 +154,7 @@ public partial class PlayerBehaviour : MonoBehaviour
             if (!GameManager.Instance.IsPaused)
             {
                 m_Dir = Input.GetAxis("Horizontal") * Vector2.right * m_MovementSpeed;
-                m_Rigid.velocity = m_Dir * Time.deltaTime;
+                m_Rigid.velocity = m_Dir;
             }
 
         }

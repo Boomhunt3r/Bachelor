@@ -17,7 +17,7 @@ public class VillagerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log($"Bows: {m_Bows.Count}");
+        //Debug.Log($"Bows: {m_Bows.Count}");
     }
 
     /// <summary>

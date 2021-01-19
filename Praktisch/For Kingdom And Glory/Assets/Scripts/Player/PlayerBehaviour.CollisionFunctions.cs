@@ -10,16 +10,12 @@ public partial class PlayerBehaviour : MonoBehaviour
             if (GameManager.Instance.SpawnedVagrants.Count == 0)
             {
                 Destroy(collision.gameObject);
-                VagrantManager.Instance.RemoveCoinsForAll(collision.gameObject);
                 Inventory.Instance.Coins++;
                 return;
             }
             else
             {
-                for (int i = 0; i < GameManager.Instance.SpawnedVagrants.Count; i++)
-                {
-                    GameManager.Instance.SpawnedVagrants[i].GetComponent<VagrantBehaviour>().RemoveCoin(collision.gameObject);
-                }
+                VagrantManager.Instance.RemoveCoinsForAll(collision.gameObject);
                 Destroy(collision.gameObject);
                 Inventory.Instance.Coins++;
             }

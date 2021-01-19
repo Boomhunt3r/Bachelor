@@ -7,7 +7,8 @@ public partial class VagrantBehaviour : MonoBehaviour
     private List<GameObject> m_EnemySpawner = new List<GameObject>();
     private GameObject m_EnemyToShoot;
     private GameObject m_CurrentRabbit;
-    private float m_Cooldown = 0.2f;
+    private GameObject m_IdlePoint = null;
+    private float m_Cooldown = 1.5f;
     private float m_CooldownTimer;
     private bool m_BCooldown = false;
     private bool m_IsDefending = false;
@@ -28,7 +29,8 @@ public partial class VagrantBehaviour : MonoBehaviour
             {
                 if (!m_Hunting && !m_BCooldown)
                 {
-                    m_Target = m_VillagerPoints[Random.Range(0, m_VillagerPoints.Length)];
+                    m_IdlePoint = m_VillagerPoints[Random.Range(0, m_VillagerPoints.Length)];
+                    m_Target = m_IdlePoint;
                     m_BCooldown = true;
                 }
 
@@ -39,6 +41,11 @@ public partial class VagrantBehaviour : MonoBehaviour
                         m_Rigid.velocity = new Vector2(0, 0);
                         m_IsIdle = true;
                         m_CooldownTimer += Time.deltaTime;
+                    }
+                    if(Vector2.Distance(m_Rigid.position, m_Target.transform.position) > m_Random)
+                    {
+                        m_IsIdle = false;
+                        m_Target = m_IdlePoint;
                     }
 
                     if (m_CooldownTimer >= m_Cooldown)
@@ -69,6 +76,11 @@ public partial class VagrantBehaviour : MonoBehaviour
                         {
                             Shoot(m_Target);
                         }
+                    }
+                    if(m_Distance > Random.Range(1.5f, 4.5f))
+                    {
+                        m_IsIdle = false;
+                        m_Target = GetClosestTarget(m_Rabbits);
                     }
                 }
             }

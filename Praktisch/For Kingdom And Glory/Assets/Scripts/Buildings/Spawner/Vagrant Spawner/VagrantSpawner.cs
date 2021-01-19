@@ -39,6 +39,7 @@ public class VagrantSpawner : MonoBehaviour
             {
                 m_Vagrant.GetComponent<VagrantBehaviour>().ChangeStartWaypoint(3);
             }
+            m_Vagrant.name = $"NPC {m_Amount}";
         }
     }
 

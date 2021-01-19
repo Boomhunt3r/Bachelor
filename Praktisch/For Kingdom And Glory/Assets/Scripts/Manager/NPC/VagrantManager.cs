@@ -17,7 +17,6 @@ public class VagrantManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 
     /// <summary>
@@ -100,7 +99,7 @@ public class VagrantManager : MonoBehaviour
             {
                 if(_Coin == m_Coins[i])
                 {
-                    m_Coins.Remove(m_Coins[i]);
+                    m_Coins.Remove(_Coin);
                 }
             }
         }

@@ -4,7 +4,9 @@ using System.Linq;
 
 public partial class VagrantBehaviour : MonoBehaviour
 {
+    [SerializeField]
     private List<GameObject> m_Bows = new List<GameObject>();
+    [SerializeField]
     private List<GameObject> m_Hammers = new List<GameObject>();
     private GameObject m_CurrentBow;
     private GameObject m_CurrentHammer;

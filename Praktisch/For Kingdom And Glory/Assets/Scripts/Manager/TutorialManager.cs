@@ -104,9 +104,6 @@ public class TutorialManager : MonoBehaviour
 
     private void Update()
     {
-        if (m_ActiveText != null)
-            Debug.Log(m_ActiveText.name);
-
         if (!CheckIfTutIsOpen())
         {
             if (m_ContUI.activeSelf)

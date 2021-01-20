@@ -7,7 +7,6 @@ public class Enemy : MonoBehaviour
 {
     public static Enemy Instance { get; private set; }
 
-
     #region Serializefield
     [SerializeField]
     private float m_Speed = 25.0f;
@@ -368,6 +367,7 @@ public class Enemy : MonoBehaviour
         {
             GameManager.Instance.RemoveEnemyFromList(this.gameObject);
             EnemyManager.Instance.RemoveFromList(this.gameObject);
+            ArcherManager.Instance.RemoveEnemies(this.gameObject, Side);
             Destroy(this.gameObject);
         }
     }

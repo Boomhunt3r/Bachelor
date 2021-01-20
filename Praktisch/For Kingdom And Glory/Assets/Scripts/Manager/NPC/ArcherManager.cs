@@ -141,6 +141,7 @@ public class ArcherManager : MonoBehaviour
                     {
                         m_ArcherLeftSide[i].GetComponent<VagrantBehaviour>().EnemySpawner = GameManager.Instance.EnemySpawnerLeftSide;
                         m_ArcherLeftSide[i].GetComponent<VagrantBehaviour>().IsAttacking = true;
+                        m_ArcherLeftSide[i].GetComponent<VagrantBehaviour>().Attack();
                     }
                 }
             }
@@ -155,6 +156,7 @@ public class ArcherManager : MonoBehaviour
                     {
                         m_ArcherRightSide[i].GetComponent<VagrantBehaviour>().EnemySpawner = GameManager.Instance.EnemySpawnerRightSide;
                         m_ArcherRightSide[i].GetComponent<VagrantBehaviour>().IsAttacking = true;
+                        m_ArcherRightSide[i].GetComponent<VagrantBehaviour>().Attack();
                     }
                 }
             }
@@ -175,11 +177,87 @@ public class ArcherManager : MonoBehaviour
     }
 
     /// <summary>
-    /// TBD
+    /// Add Enemies to Archer function
     /// </summary>
-    public void ChangeSite()
+    /// <param name="_Enemy">Enemy to add</param>
+    /// <param name="_Side">Side to add to</param>
+    public void AddEnemies(GameObject _Enemy, ESpawnerSide _Side)
     {
+        if (_Enemy == null)
+            return;
 
+        if (_Side == ESpawnerSide.LEFT)
+        {
+            if (m_ArcherLeftSide.Count > 0)
+            {
+                for (int i = 0; i < m_ArcherLeftSide.Count; i++)
+                {
+                    m_ArcherLeftSide[i].GetComponent<VagrantBehaviour>().AddEnemy(_Enemy);
+                }
+            }
+        }
+        if (_Side == ESpawnerSide.RIGHT)
+        {
+            if (m_ArcherRightSide.Count > 0)
+            {
+                for (int i = 0; i < m_ArcherRightSide.Count; i++)
+                {
+                    m_ArcherRightSide[i].GetComponent<VagrantBehaviour>().AddEnemy(_Enemy);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Remove Enemies from Archer
+    /// </summary>
+    /// <param name="_Enemy">Enemy to remove</param>
+    /// <param name="_Side">Side to remove from</param>
+    public void RemoveEnemies(GameObject _Enemy, ESpawnerSide _Side)
+    {
+        if (_Enemy == null)
+            return;
+
+        if (_Side == ESpawnerSide.LEFT)
+        {
+            if (m_ArcherLeftSide.Count > 0)
+            {
+                for (int i = 0; i < m_ArcherLeftSide.Count; i++)
+                {
+                    m_ArcherLeftSide[i].GetComponent<VagrantBehaviour>().RemoveEnemy(_Enemy);
+                }
+            }
+        }
+        if (_Side == ESpawnerSide.RIGHT)
+        {
+            if (m_ArcherRightSide.Count > 0)
+            {
+                for (int i = 0; i < m_ArcherRightSide.Count; i++)
+                {
+                    m_ArcherRightSide[i].GetComponent<VagrantBehaviour>().RemoveEnemy(_Enemy);
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Add Rabbit function
+    /// </summary>
+    /// <param name="_Rabbit">Rabbit to add</param>
+    public void AddRabbit(GameObject _Rabbit)
+    {
+        if (_Rabbit == null)
+            return;
+    }
+
+    /// <summary>
+    /// Remove Rabbit function
+    /// </summary>
+    /// <param name="_Rabbit">Rabbit to remove</param>
+    public void RemoveRabbit(GameManager _Rabbit)
+    {
+        if (_Rabbit == null)
+            return;
     }
     #endregion
 }

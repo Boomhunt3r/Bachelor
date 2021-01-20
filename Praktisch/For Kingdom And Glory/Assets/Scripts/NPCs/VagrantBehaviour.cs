@@ -180,6 +180,9 @@ public partial class VagrantBehaviour : MonoBehaviour
                 break;
         }
 
+        if (m_Target == null)
+            return;
+
         m_Direction = ((Vector2)m_Target.transform.position - m_Rigid.position).normalized;
 
         if (!m_IsIdle)

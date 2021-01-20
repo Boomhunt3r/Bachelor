@@ -5,6 +5,7 @@ using System.Linq;
 public partial class VagrantBehaviour : MonoBehaviour
 {
     private List<GameObject> m_EnemySpawner = new List<GameObject>();
+    private List<GameObject> m_Enemies = new List<GameObject>();
     private GameObject m_EnemyToShoot;
     private GameObject m_CurrentRabbit;
     private GameObject m_IdlePoint = null;
@@ -23,13 +24,19 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         m_Rabbits = GameObject.FindGameObjectsWithTag("Rabbit").ToList();
 
-        if (GameManager.Instance.IsDay)
+        Debug.Log(this.gameObject.name + " Enemy Count: " + m_Enemies.Count);
+
+        if (GameManager.Instance.IsDay && !m_IsAttacking)
         {
             if (!IsAttacking)
             {
                 if (!m_Hunting && !m_BCooldown)
                 {
-                    m_IdlePoint = m_VillagerPoints[Random.Range(0, m_VillagerPoints.Length)];
+                    if (m_DefendingWall != null)
+                        m_IdlePoint = m_DefendingWall;
+                    if (m_DefendingWall == null)
+                        m_IdlePoint = m_VillagerPoints[Random.Range(0, m_VillagerPoints.Length)];
+
                     m_Target = m_IdlePoint;
                     m_BCooldown = true;
                 }
@@ -42,7 +49,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                         m_IsIdle = true;
                         m_CooldownTimer += Time.deltaTime;
                     }
-                    if(Vector2.Distance(m_Rigid.position, m_Target.transform.position) > m_Random)
+                    if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) > m_Random)
                     {
                         m_IsIdle = false;
                         m_Target = m_IdlePoint;
@@ -69,7 +76,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                     if (m_Distance <= Random.Range(1.5f, 4.5f))
                     {
                         m_IsIdle = true;
-                        
+
                         m_Rigid.velocity = new Vector2(0, 0);
 
                         if (m_ShootTime >= m_ShootTimer)
@@ -77,44 +84,25 @@ public partial class VagrantBehaviour : MonoBehaviour
                             Shoot(m_Target);
                         }
                     }
-                    if(m_Distance > Random.Range(1.5f, 4.5f))
+                    if (m_Distance > Random.Range(1.5f, 4.5f))
                     {
                         m_IsIdle = false;
                         m_Target = GetClosestTarget(m_Rabbits);
                     }
                 }
             }
-
-            if (IsAttacking)
-            {
-                if (m_EnemySpawner.Count != 0)
-                    m_Target = GetClosestTarget(m_EnemySpawner);
-
-                m_Target = GetClosestTarget(GameObject.FindGameObjectsWithTag("Enemy").ToList(), m_EnemySpawner);
-
-                if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) <= Random.Range(3.0f, 5.0f))
-                {
-                    m_Rigid.velocity = new Vector2(0, 0);
-                    m_ShootTime += Time.deltaTime;
-
-                    m_IsIdle = true;
-
-                    if (m_ShootTime >= m_ShootTimer)
-                    {
-                        ChangeAnimation("Attack", false);
-                        Shoot(m_Target);
-                    }
-                }
-            }
         }
 
-        if (GameManager.Instance.AlmostNight)
+        if (GameManager.Instance.AlmostNight && !m_IsAttacking)
         {
             m_Hunting = false;
             m_IsAttacking = false;
 
             if (m_DefendingWall != null)
                 m_Target = m_DefendingWall;
+
+            if (m_DefendingWall == null)
+                m_Target = m_VillagerPoints[Random.Range(0, m_VillagerPoints.Length)];
 
             m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
 
@@ -127,7 +115,7 @@ public partial class VagrantBehaviour : MonoBehaviour
             return;
         }
 
-        if (GameManager.Instance.IsNight)
+        if (GameManager.Instance.IsNight && !m_IsAttacking)
         {
             if (!m_IsDefending)
             {
@@ -136,7 +124,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                 if (m_DefendingWall != null)
                     m_Target = m_DefendingWall;
 
-                if (m_Distance <= Random.Range(1.0f, 2.5f))
+                if (m_Distance <= 2.5f)
                 {
                     m_Rigid.velocity = new Vector2(0, 0);
                     m_IsDefending = true;
@@ -147,10 +135,10 @@ public partial class VagrantBehaviour : MonoBehaviour
 
             if (m_IsDefending)
             {
-                if (GameManager.Instance.AllSpawnedEnemys.Count == 0)
+                if (m_Enemies.Count == 0)
                     return;
 
-                m_EnemyToShoot = GetClosestTarget(GameManager.Instance.AllSpawnedEnemys);
+                m_EnemyToShoot = GetClosestTarget(m_Enemies);
 
                 m_ShootTime += Time.deltaTime;
 
@@ -163,6 +151,34 @@ public partial class VagrantBehaviour : MonoBehaviour
                         Shoot(m_EnemyToShoot);
                         m_Source.Play();
                     }
+                }
+            }
+        }
+
+        if (IsAttacking)
+        {
+            if (m_EnemySpawner.Count != 0 && m_Enemies.Count == 0)
+                m_Target = GetClosestTarget(m_EnemySpawner);
+
+            if (m_Enemies.Count > 0)
+                m_Target = GetClosestTarget(m_Enemies, m_EnemySpawner);
+
+            if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) > 7.5f)
+            {
+                m_IsIdle = false;
+            }
+
+            if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) <= 7.5f)
+            {
+                m_Rigid.velocity = new Vector2(0, 0);
+                m_ShootTime += Time.deltaTime;
+
+                m_IsIdle = true;
+
+                if (m_ShootTime >= m_ShootTimer)
+                {
+                    ChangeAnimation("Attack", false);
+                    Shoot(m_Target);
                 }
             }
         }
@@ -244,6 +260,19 @@ public partial class VagrantBehaviour : MonoBehaviour
             }
         }
 
+        Debug.Log("Spawner: " + TargetS);
+        Debug.Log("Gegener: " + TargetT);
+
+        if (TargetT == null)
+        {
+            Target = TargetS;
+        }
+
+        if (TargetS = null)
+        {
+            Target = TargetT;
+        }
+
         if (TDist <= SDist)
         {
             Target = TargetT;
@@ -316,5 +345,37 @@ public partial class VagrantBehaviour : MonoBehaviour
         {
 
         }
+    }
+
+    /// <summary>
+    /// Add Enemy function
+    /// </summary>
+    /// <param name="_Enemy">Enemy to add</param>
+    public void AddEnemy(GameObject _Enemy)
+    {
+        m_Enemies.Add(_Enemy);
+    }
+
+    /// <summary>
+    /// Remove Enemy function
+    /// </summary>
+    /// <param name="_Enemy">Enemy to remove</param>
+    public void RemoveEnemy(GameObject _Enemy)
+    {
+        if (m_Enemies.Count > 0)
+        {
+            for (int i = 0; i < m_Enemies.Count; i++)
+            {
+                if (m_Enemies[i] == _Enemy)
+                    m_Enemies.Remove(_Enemy);
+            }
+        }
+    }
+
+    public void Attack()
+    {
+        m_IsIdle = false;
+        m_BCooldown = false;
+        m_IsDefending = false;
     }
 }

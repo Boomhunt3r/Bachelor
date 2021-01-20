@@ -6,12 +6,13 @@ public class VagrantManager : MonoBehaviour
     public static VagrantManager Instance { get; private set; }
 
     private List<GameObject> m_AllVagrants = new List<GameObject>();
+    [SerializeField]
     private List<GameObject> m_Coins = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
-        Instance = this;   
+        Instance = this;
     }
 
     // Update is called once per frame
@@ -30,7 +31,7 @@ public class VagrantManager : MonoBehaviour
 
         m_AllVagrants.Add(_Vagrant);
 
-        if(m_Coins.Count > 0)
+        if (m_Coins.Count > 0)
         {
             for (int i = 0; i < m_Coins.Count; i++)
             {
@@ -48,11 +49,11 @@ public class VagrantManager : MonoBehaviour
         if (_Vagrant == null)
             return;
 
-        if(m_AllVagrants.Count > 0)
+        if (m_AllVagrants.Count > 0)
         {
             for (int i = 0; i < m_AllVagrants.Count; i++)
             {
-                if(_Vagrant == m_AllVagrants[i])
+                if (_Vagrant == m_AllVagrants[i])
                 {
                     m_AllVagrants.Remove(_Vagrant);
                 }
@@ -66,18 +67,18 @@ public class VagrantManager : MonoBehaviour
     /// <param name="_Coin">Coin to add</param>
     public void AddCoinsForAll(GameObject _Coin)
     {
-        if(m_AllVagrants.Count > 0)
+        if (_Coin == null)
+            return;
+
+        if (m_AllVagrants.Count > 0)
         {
             for (int i = 0; i < m_AllVagrants.Count; i++)
             {
                 m_AllVagrants[i].GetComponent<VagrantBehaviour>().AddCoin(_Coin);
             }
         }
-        else if(m_AllVagrants.Count == 0)
-        {
+        if (m_AllVagrants.Count == 0)
             m_Coins.Add(_Coin);
-        }
-
     }
 
     /// <summary>
@@ -86,18 +87,18 @@ public class VagrantManager : MonoBehaviour
     /// <param name="_Coin">Coin to remove</param>
     public void RemoveCoinsForAll(GameObject _Coin)
     {
-        if(m_AllVagrants.Count > 0)
+        if (m_AllVagrants.Count > 0)
         {
             for (int i = 0; i < m_AllVagrants.Count; i++)
             {
                 m_AllVagrants[i].GetComponent<VagrantBehaviour>().RemoveCoin(_Coin);
             }
         }
-        if(m_Coins.Count > 0)
+        if (m_Coins.Count > 0)
         {
             for (int i = 0; i < m_Coins.Count; i++)
             {
-                if(_Coin == m_Coins[i])
+                if (_Coin == m_Coins[i])
                 {
                     m_Coins.Remove(_Coin);
                 }

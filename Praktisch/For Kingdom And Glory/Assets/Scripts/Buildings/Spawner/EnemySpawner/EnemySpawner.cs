@@ -194,6 +194,7 @@ public class EnemySpawner : MonoBehaviour
                     SpawnedEnemys.Add(Enemy);
                     EnemyManager.Instance.AddToList(Enemy);
                     GameManager.Instance.AllSpawnedEnemys.Add(Enemy);
+                    ArcherManager.Instance.AddEnemies(Enemy, m_Side);
                 }
                 break;
             case EWaveType.DEFENDING:
@@ -203,6 +204,7 @@ public class EnemySpawner : MonoBehaviour
                     Enemy.GetComponent<Enemy>().Side = m_Side;
                     SpawnedEnemys.Add(Enemy);
                     GameManager.Instance.AllSpawnedEnemys.Add(Enemy);
+                    ArcherManager.Instance.AddEnemies(Enemy, m_Side);
                 }
                 break;
             case EWaveType.REVENGE:

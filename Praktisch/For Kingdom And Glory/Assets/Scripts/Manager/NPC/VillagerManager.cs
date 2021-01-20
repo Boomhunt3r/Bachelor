@@ -17,7 +17,7 @@ public class VillagerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log($"Bows: {m_Bows.Count}");
+
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ public class VillagerManager : MonoBehaviour
         {
             for (int i = 0; i < m_Bows.Count; i++)
             {
-                AddAllBow(m_Bows[i]);
+                AddAllBow(m_Bows[i], _Villager);
             }
         }
 
@@ -44,7 +44,7 @@ public class VillagerManager : MonoBehaviour
         {
             for (int i = 0; i < m_Hammers.Count; i++)
             {
-                AddAllHammer(m_Hammers[i]);
+                AddAllHammer(m_Hammers[i], _Villager);
             }
         }
     }
@@ -84,9 +84,23 @@ public class VillagerManager : MonoBehaviour
                 m_AllVillager[i].GetComponent<VagrantBehaviour>().AddToBowList(_Bow);
             }
         }
-        else if (m_AllVillager.Count == 0)
+
+        m_Bows.Add(_Bow);
+    }
+
+    /// <summary>
+    /// Add Bow for all Villager
+    /// </summary>
+    /// <param name="_Bow">Bow to add</param>
+    /// <param name="_Villager">Villager bow too add to</param>
+    private void AddAllBow(GameObject _Bow, GameObject _Villager)
+    {
+        if (_Bow == null)
+            return;
+
+        if (m_AllVillager.Count > 0)
         {
-            m_Bows.Add(_Bow);
+            _Villager.GetComponent<VagrantBehaviour>().AddToBowList(_Bow);
         }
     }
 
@@ -133,14 +147,28 @@ public class VillagerManager : MonoBehaviour
                 m_AllVillager[i].GetComponent<VagrantBehaviour>().AddToHammerList(_Hammer);
             }
         }
-        else if (m_AllVillager.Count == 0)
+
+        m_Hammers.Add(_Hammer);
+    }
+
+    /// <summary>
+    /// Add Hammer to all Villager
+    /// </summary>
+    /// <param name="_Hammer">Hammer to add</param>
+    /// <param name="_Villager">Villager hammer too add to</param>
+    private void AddAllHammer(GameObject _Hammer, GameObject _Villager)
+    {
+        if (_Hammer == null)
+            return;
+
+        if (m_AllVillager.Count > 0)
         {
-            m_Hammers.Add(_Hammer);
+            _Villager.GetComponent<VagrantBehaviour>().AddToHammerList(_Hammer);
         }
     }
 
     /// <summary>
-    /// Remove hammer for alle Villagers
+    /// Remove hammer for all Villagers
     /// </summary>
     /// <param name="_Hammer">Hammer to remove</param>
     public void RemoveAllHammer(GameObject _Hammer)

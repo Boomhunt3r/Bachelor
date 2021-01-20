@@ -26,7 +26,7 @@ public partial class VagrantBehaviour : MonoBehaviour
     /// <summary>
     /// Idle State
     /// </summary>
-    private bool m_BuildIdle = false;
+    private bool m_BuildIdle = true;
 
     private void Builder()
     {
@@ -41,6 +41,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                 m_BuildIdleTimer += Time.deltaTime;
 
                 m_IsIdle = true;
+                m_Rigid.velocity = new Vector2(0, 0);
 
                 if (m_BuildIdleTimer >= m_BuildIdleTime)
                 {
@@ -55,7 +56,7 @@ public partial class VagrantBehaviour : MonoBehaviour
         {
             if (Vector2.Distance(m_Target.transform.position, m_Rigid.position) <= 1.5f)
             {
-                if(m_Target.GetComponent<Wall>().CurrentHitPoints == m_Target.GetComponent<Wall>().MaxHitPoints)
+                if (m_Target.GetComponent<Wall>().CurrentHitPoints == m_Target.GetComponent<Wall>().MaxHitPoints)
                 {
                     m_CurrentlyReparing = false;
                     m_Target.GetComponent<Wall>().BeingRepaired = false;
@@ -67,7 +68,7 @@ public partial class VagrantBehaviour : MonoBehaviour
 
                 m_BuildTimer += Time.deltaTime;
 
-                if(m_BuildTimer >= m_BuildTime)
+                if (m_BuildTimer >= m_BuildTime)
                 {
                     m_Target.GetComponent<Wall>().GetHealth(1);
 
@@ -97,6 +98,6 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         m_BuildIdle = false;
         m_CurrentlyReparing = true;
-    } 
+    }
     #endregion
 }

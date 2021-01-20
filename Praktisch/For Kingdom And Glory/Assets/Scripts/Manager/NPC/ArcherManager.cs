@@ -120,7 +120,7 @@ public class ArcherManager : MonoBehaviour
             for (int i = 0; i < m_ArcherRightSide.Count; i++)
             {
                 m_ArcherRightSide[i].GetComponent<VagrantBehaviour>().RemoveSpawner(_Spawner);
-                m_ArcherLeftSide[i].GetComponent<VagrantBehaviour>().IsAttacking = false;
+                m_ArcherRightSide[i].GetComponent<VagrantBehaviour>().IsAttacking = false;
             }
         }
     }

@@ -32,9 +32,9 @@ public class CheatManager : MonoBehaviour
             {
                 Inventory.Instance.Iron += m_Iron;
             }
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.O) || Input.GetKeyDown(KeyCode.N))
             {
-                Inventory.Instance.Coins = m_Coin;
+                Inventory.Instance.Coins += m_Coin;
             }
         }
     }

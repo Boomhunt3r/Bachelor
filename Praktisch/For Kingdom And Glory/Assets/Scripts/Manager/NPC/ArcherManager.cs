@@ -6,7 +6,9 @@ public class ArcherManager : MonoBehaviour
     public static ArcherManager Instance { get; private set; }
 
     #region private List
+    [SerializeField]
     private List<GameObject> m_ArcherLeftSide = new List<GameObject>();
+    [SerializeField]
     private List<GameObject> m_ArcherRightSide = new List<GameObject>();
     #endregion
 
@@ -53,15 +55,17 @@ public class ArcherManager : MonoBehaviour
     /// <param name="_Archer">Archer to add</param>
     public void AddToList(GameObject _Archer)
     {
+        m_Amount++;
         if (m_Amount % 2 == 0)
         {
             m_ArcherRightSide.Add(_Archer);
+            Hunting(m_ArcherRightSide);
         }
-        else
+        else if(m_Amount % 2 != 0)
         {
             m_ArcherLeftSide.Add(_Archer);
+            Hunting(m_ArcherLeftSide);
         }
-        m_Amount++;
     }
 
     /// <summary>
@@ -164,6 +168,27 @@ public class ArcherManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Hunting Function
+    /// </summary>
+    /// <param name="_Archers">List to go through</param>
+    private void Hunting(List<GameObject> _Archers)
+    {
+        int Amount = 1;
+
+        for (int i = 0; i < _Archers.Count; i++)
+        {
+            // if modulo is uneven
+            if(Amount % 2 != 0)
+                _Archers[i].GetComponent<VagrantBehaviour>().Hunter = true; // Archer is an Hunter
+            if (Amount % 2 == 0)
+                _Archers[i].GetComponent<VagrantBehaviour>().Hunter = false;
+
+            // increase amount
+            Amount++;
+        }
+    }
+
+    /// <summary>
     /// Stop Hunting function for archer
     /// </summary>
     /// <param name="_Archer">Archer to stop</param>
@@ -238,26 +263,6 @@ public class ArcherManager : MonoBehaviour
                 }
             }
         }
-    }
-
-    /// <summary>
-    /// Add Rabbit function
-    /// </summary>
-    /// <param name="_Rabbit">Rabbit to add</param>
-    public void AddRabbit(GameObject _Rabbit)
-    {
-        if (_Rabbit == null)
-            return;
-    }
-
-    /// <summary>
-    /// Remove Rabbit function
-    /// </summary>
-    /// <param name="_Rabbit">Rabbit to remove</param>
-    public void RemoveRabbit(GameManager _Rabbit)
-    {
-        if (_Rabbit == null)
-            return;
     }
     #endregion
 }

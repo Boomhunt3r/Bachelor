@@ -73,6 +73,8 @@ public partial class VagrantBehaviour : MonoBehaviour
     /// Rabbits in Game
     /// </summary>
     private List<GameObject> m_Rabbits = new List<GameObject>();
+
+    private GameObject m_TownHall = null;
     #endregion
 
     private Vector2 m_Direction;
@@ -110,6 +112,7 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         m_Waypoints = GameObject.FindGameObjectsWithTag("Waypoint");
         m_VillagerPoints = GameObject.FindGameObjectsWithTag("VillagerPoint");
+        m_TownHall = GameObject.FindGameObjectWithTag("Town");
 
         m_Random = Random.Range(1.0f, 4.0f);
 
@@ -247,6 +250,8 @@ public partial class VagrantBehaviour : MonoBehaviour
                 VillagerManager.Instance.RemoveAllHammer(collision.gameObject);
                 VillagerManager.Instance.RemoveFromList(this.gameObject);
                 BuilderManager.Instance.AddBuilderToList(this.gameObject);
+                m_Bows.Clear();
+                m_Hammers.Clear();
                 m_HasJob = true;
                 m_HammerVis.SetActive(true);
                 m_Status = ENPCStatus.BUILDER;
@@ -260,6 +265,8 @@ public partial class VagrantBehaviour : MonoBehaviour
                 VillagerManager.Instance.RemoveAllBow(collision.gameObject);
                 ArcherManager.Instance.AddToList(this.gameObject);
                 VillagerManager.Instance.RemoveFromList(this.gameObject);
+                m_Bows.Clear();
+                m_Hammers.Clear();
                 m_BowVis.SetActive(true);
                 m_HasJob = true;
                 m_Status = ENPCStatus.ARCHER;
@@ -310,6 +317,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                 m_Status = ENPCStatus.VILLAGER;
                 ArcherManager.Instance.RemoveFromList(this.gameObject);
                 VillagerManager.Instance.AddToList(this.gameObject);
+                m_Enemies.Clear();
                 m_BowVis.SetActive(false);
                 break;
             default:

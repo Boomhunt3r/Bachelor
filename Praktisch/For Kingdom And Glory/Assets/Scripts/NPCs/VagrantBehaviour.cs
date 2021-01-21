@@ -334,6 +334,8 @@ public partial class VagrantBehaviour : MonoBehaviour
                 m_BowVis.SetActive(false);
                 m_IsIdle = false;
                 m_IsAttacking = false;
+                m_Searched = false;
+                m_IsDefending = false;
                 break;
             default:
                 break;

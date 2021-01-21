@@ -13,9 +13,7 @@ public class ArcherManager : MonoBehaviour
     #endregion
 
     #region private List
-    [SerializeField]
     private List<GameObject> m_ArcherLeftSide = new List<GameObject>();
-    [SerializeField]
     private List<GameObject> m_ArcherRightSide = new List<GameObject>();
     #endregion
 

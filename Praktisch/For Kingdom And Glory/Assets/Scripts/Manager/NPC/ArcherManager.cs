@@ -30,8 +30,6 @@ public class ArcherManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(m_Amount);
-
         if (!GameManager.Instance.IsAlive)
             return;
 

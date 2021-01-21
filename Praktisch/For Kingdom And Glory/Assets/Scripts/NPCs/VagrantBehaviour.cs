@@ -5,8 +5,6 @@ using Spine;
 
 public partial class VagrantBehaviour : MonoBehaviour
 {
-    public static VagrantBehaviour Instance { get; private set; }
-
     #region SerializeField
     [SerializeField]
     protected float m_Speed = 0.5f;
@@ -122,8 +120,6 @@ public partial class VagrantBehaviour : MonoBehaviour
 
         m_BowVis.SetActive(false);
         m_HammerVis.SetActive(false);
-
-        Instance = this;
     }
     private void Update()
     {
@@ -236,6 +232,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                 VillagerManager.Instance.AddToList(this.gameObject);
                 m_ChangedSkin = false;
                 Destroy(collision.gameObject);
+                this.gameObject.tag = "Villager";
                 m_Status = ENPCStatus.VILLAGER;
             }
         }
@@ -254,6 +251,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                 m_Hammers.Clear();
                 m_HasJob = true;
                 m_HammerVis.SetActive(true);
+                this.gameObject.tag = "Builder";
                 m_Status = ENPCStatus.BUILDER;
             }
             if (collision.CompareTag("Bow"))
@@ -269,6 +267,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                 m_Hammers.Clear();
                 m_BowVis.SetActive(true);
                 m_HasJob = true;
+                this.gameObject.tag = "Archer";
                 m_Status = ENPCStatus.ARCHER;
             }
         }
@@ -297,6 +296,12 @@ public partial class VagrantBehaviour : MonoBehaviour
     #endregion
 
     #region public Function
+    /// <summary>
+    /// Step Down function
+    /// Getting called when npc gets hit
+    /// will move down an state when being hit
+    /// will go down states until he's an vagrant again
+    /// </summary>
     public void StepDown()
     {
         switch (m_Status)
@@ -305,18 +310,23 @@ public partial class VagrantBehaviour : MonoBehaviour
                 m_Status = ENPCStatus.VARGANT;
                 EnemyManager.Instance.RemoveVillagerFromList(this.gameObject);
                 VagrantManager.Instance.AddToList(this.gameObject);
+                this.gameObject.tag = "Vagrant";
                 m_ChangedSkin = false;
                 break;
             case ENPCStatus.BUILDER:
                 m_Status = ENPCStatus.VILLAGER;
                 BuilderManager.Instance.RemoveBuilderFromList(this.gameObject);
+                EnemyManager.Instance.RemoveFromBuilderList(this.gameObject);
                 VillagerManager.Instance.AddToList(this.gameObject);
                 m_HammerVis.SetActive(false);
+                this.gameObject.tag = "Villager";
                 break;
             case ENPCStatus.ARCHER:
                 m_Status = ENPCStatus.VILLAGER;
                 ArcherManager.Instance.RemoveFromList(this.gameObject);
+                EnemyManager.Instance.RemoveFromArcherList(this.gameObject);
                 VillagerManager.Instance.AddToList(this.gameObject);
+                this.gameObject.tag = "Villager";
                 m_Enemies.Clear();
                 m_BowVis.SetActive(false);
                 break;

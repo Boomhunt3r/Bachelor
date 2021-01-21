@@ -23,8 +23,6 @@ public partial class VagrantBehaviour : MonoBehaviour
 
     private void Archer()
     {
-        this.gameObject.tag = "Archer";
-
         m_Rabbits = GameObject.FindGameObjectsWithTag("Rabbit").ToList();
 
         if (IsAttacking)
@@ -59,63 +57,60 @@ public partial class VagrantBehaviour : MonoBehaviour
         {
             m_Searched = false;
 
-            if (!IsAttacking)
+            if (!m_Hunting && !m_BCooldown)
             {
-                if (!m_Hunting && !m_BCooldown)
+                m_IdlePoint = m_TownHall;
+                m_Target = m_IdlePoint;
+                m_BCooldown = true;
+            }
+
+            if (m_BCooldown)
+            {
+                if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) < m_Random)
                 {
-                    m_IdlePoint = m_TownHall;
+                    m_Rigid.velocity = new Vector2(0, 0);
+                    m_IsIdle = true;
+                    m_CooldownTimer += Time.deltaTime;
+                }
+                if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) > m_Random)
+                {
+                    m_IsIdle = false;
                     m_Target = m_IdlePoint;
-                    m_BCooldown = true;
                 }
 
-                if (m_BCooldown)
+                if (m_CooldownTimer >= m_Cooldown)
                 {
-                    if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) <= m_Random)
-                    {
-                        m_Rigid.velocity = new Vector2(0, 0);
-                        m_IsIdle = true;
-                        m_CooldownTimer += Time.deltaTime;
-                    }
-                    if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) > m_Random)
-                    {
-                        m_IsIdle = false;
-                        m_Target = m_IdlePoint;
-                    }
+                    m_CooldownTimer = 0.0f;
+                    m_BCooldown = false;
+                    m_Hunting = true;
+                    m_IsIdle = false;
+                }
+            }
 
-                    if (m_CooldownTimer >= m_Cooldown)
+            if (m_Rabbits.Count != 0 && m_Hunting && m_Hunter)
+            {
+                m_Target = GetClosestTarget(m_Rabbits);
+                m_CurrentRabbit = m_Target;
+
+                m_ShootTime += Time.deltaTime;
+
+                m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
+
+                if (m_Distance <= Random.Range(1.5f, 4.5f))
+                {
+                    m_IsIdle = true;
+
+                    m_Rigid.velocity = new Vector2(0, 0);
+
+                    if (m_ShootTime >= m_ShootTimer)
                     {
-                        m_CooldownTimer = 0.0f;
-                        m_BCooldown = false;
-                        m_Hunting = true;
-                        m_IsIdle = false;
+                        Shoot(m_Target);
                     }
                 }
-
-                if (m_Rabbits.Count != 0 && m_Hunting && m_Hunter)
+                if (m_Distance > Random.Range(1.5f, 4.5f))
                 {
+                    m_IsIdle = false;
                     m_Target = GetClosestTarget(m_Rabbits);
-                    m_CurrentRabbit = m_Target;
-
-                    m_ShootTime += Time.deltaTime;
-
-                    m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
-
-                    if (m_Distance <= Random.Range(1.5f, 4.5f))
-                    {
-                        m_IsIdle = true;
-
-                        m_Rigid.velocity = new Vector2(0, 0);
-
-                        if (m_ShootTime >= m_ShootTimer)
-                        {
-                            Shoot(m_Target);
-                        }
-                    }
-                    if (m_Distance > Random.Range(1.5f, 4.5f))
-                    {
-                        m_IsIdle = false;
-                        m_Target = GetClosestTarget(m_Rabbits);
-                    }
                 }
             }
         }
@@ -123,7 +118,6 @@ public partial class VagrantBehaviour : MonoBehaviour
         if (GameManager.Instance.AlmostNight && !m_IsAttacking)
         {
             m_Hunting = false;
-            m_IsAttacking = false;
 
             if (m_DefendingWall != null)
                 m_Target = m_DefendingWall;
@@ -132,12 +126,15 @@ public partial class VagrantBehaviour : MonoBehaviour
                 m_Target = m_VillagerPoints[Random.Range(0, m_VillagerPoints.Length)];
 
             m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
-
-            if (m_Distance <= Random.Range(1.0f, 8.5f))
+            
+            if (m_Distance <= 1.75f)
             {
                 m_Rigid.velocity = new Vector2(0, 0);
+                m_IsIdle = true;
                 m_IsDefending = true;
             }
+            if (m_Distance > 1.75f)
+                m_IsIdle = false;
 
             return;
         }
@@ -151,10 +148,15 @@ public partial class VagrantBehaviour : MonoBehaviour
                 if (m_DefendingWall != null)
                     m_Target = m_DefendingWall;
 
-                if (m_Distance <= 2.5f)
+                if (m_Distance <= 1.75f)
                 {
                     m_Rigid.velocity = new Vector2(0, 0);
+                    m_IsIdle = true;
                     m_IsDefending = true;
+                }
+                if (m_Distance > 1.75f)
+                {
+                    m_IsIdle = false;
                 }
 
                 return;
@@ -172,11 +174,11 @@ public partial class VagrantBehaviour : MonoBehaviour
                 if (m_Enemies.Count == 0 && m_Searched)
                     return;
 
-                if(m_Enemies.Count > 0 && m_Searched)
+                if (m_Enemies.Count > 0 && m_Searched)
                 {
                     for (int i = 0; i < m_Enemies.Count; i++)
                     {
-                        if(m_Enemies[i] == null)
+                        if (m_Enemies[i] == null)
                         {
                             m_Enemies.RemoveAt(i);
                         }
@@ -280,9 +282,6 @@ public partial class VagrantBehaviour : MonoBehaviour
                 SDist = Dist;
             }
         }
-
-        Debug.Log("Spawner: " + TargetS);
-        Debug.Log("Gegener: " + TargetT);
 
         if (TargetT == null)
         {

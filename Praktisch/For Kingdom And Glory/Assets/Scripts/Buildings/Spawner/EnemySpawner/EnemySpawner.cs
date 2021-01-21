@@ -72,7 +72,7 @@ public class EnemySpawner : MonoBehaviour
                 m_CurrentHealth = m_MaxHealth;
             }
 
-            if (m_DamageTimer >= 15.0f)
+            if (m_DamageTimer >= 30.0f)
             {
                 m_UnderAttack = false;
 
@@ -139,7 +139,7 @@ public class EnemySpawner : MonoBehaviour
 
         if (m_UnderAttack)
         {
-            if (m_DamageTimer >= 15.0f)
+            if (m_DamageTimer >= 30.0f)
             {
                 m_UnderAttack = false;
 

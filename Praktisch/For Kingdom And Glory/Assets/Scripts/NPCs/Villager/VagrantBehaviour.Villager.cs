@@ -14,8 +14,6 @@ public partial class VagrantBehaviour : MonoBehaviour
     #region Update function
     private void Villager()
     {
-        this.gameObject.tag = "Villager";
-
         if(!m_ChangedSkin)
         {
             m_Animation.Skeleton.SetSkin("V1");

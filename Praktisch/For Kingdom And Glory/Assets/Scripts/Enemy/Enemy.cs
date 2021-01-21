@@ -96,22 +96,22 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        if (m_Walls.Count != 0 && m_Walls != null)
+        if (m_Walls.Count != 0 || m_Walls != null)
             m_ClosestWall = GetClosestWall(m_Walls);
 
-        if (m_Villiger.Count != 0 && m_Villiger != null)
+        if (m_Villiger.Count != 0 || m_Villiger != null)
             m_ClosestVilliger = GetClosestTarget(m_Villiger);
 
-        if (m_Builder.Count != 0 && m_Builder != null)
+        if (m_Builder.Count != 0 || m_Builder != null)
             m_ClosestBuilder = GetClosestTarget(m_Builder);
 
-        if (m_Archer.Count != 0 && m_Archer != null)
+        if (m_Archer.Count != 0 || m_Archer != null)
             m_ClosestArcher = GetClosestTarget(m_Archer);
 
         m_Target = GetClosestOverall(m_ClosestWall, m_ClosestVilliger, m_ClosestBuilder, m_ClosestArcher, m_Player);
 
         m_Direction = ((Vector2)m_Target.transform.position - m_Rigid.position).normalized;
-        m_Rigid.velocity = m_Direction * m_Speed * Time.deltaTime;
+        m_Rigid.velocity = m_Direction * m_Speed;
 
         if (m_Rigid.velocity.x == 0.0f)
         {
@@ -382,12 +382,57 @@ public class Enemy : MonoBehaviour
     }
 
     /// <summary>
+    /// Add Villager to List function
+    /// </summary>
+    /// <param name="_Villager">Villager to add</param>
+    public void AddToVillagerList(GameObject _Villager)
+    {
+        m_Villiger.Add(_Villager);
+    }
+
+    /// <summary>
     /// If Villiger Destroyed
     /// Remove From List
     /// </summary>
     public void RemoveVillagerFromList(GameObject _Villager)
     {
-        m_Villiger.Remove(_Villager);
+        for (int i = 0; i < m_Villiger.Count; i++)
+        {
+            if(m_Villiger[i] == _Villager)
+            {
+                m_Villiger.Remove(_Villager);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Remove Archer from List function
+    /// </summary>
+    /// <param name="_Archer">Archer to remove</param>
+    public void RemoveArcherFromList(GameObject _Archer)
+    {
+        for (int i = 0; i < m_Archer.Count; i++)
+        {
+            if (m_Archer[i] == _Archer)
+            {
+                m_Archer.Remove(_Archer);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Remove Builder from List function
+    /// </summary>
+    /// <param name="_Builder">Buidler to remove</param>
+    public void RemoveBuilderFromList(GameObject _Builder)
+    {
+        for (int i = 0; i < m_Builder.Count; i++)
+        {
+            if (m_Builder[i] == _Builder)
+            {
+                m_Builder.Remove(_Builder);
+            }
+        }
     }
     #endregion
 }

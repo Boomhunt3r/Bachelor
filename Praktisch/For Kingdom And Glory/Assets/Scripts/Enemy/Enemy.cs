@@ -308,7 +308,7 @@ public class Enemy : MonoBehaviour
     private void Attack()
     {
         float XDistance;
-        XDistance = Random.Range(m_Target.transform.position.x - m_ThrowPoint.position.x, m_Direction.x * 5.0f);
+        XDistance = Random.Range(m_Target.transform.position.x - m_ThrowPoint.position.x, m_Direction.x * 2.5f);
 
         float YDistance;
         YDistance = Random.Range(m_Target.transform.position.y - m_ThrowPoint.position.y, 5.0f);

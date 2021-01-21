@@ -51,15 +51,24 @@ public partial class VagrantBehaviour : MonoBehaviour
                     Shoot(m_Target);
                 }
             }
+
+            return;
         }
 
         if (GameManager.Instance.IsDay && !m_IsAttacking)
         {
             m_Searched = false;
 
-            if (!m_Hunting && !m_BCooldown)
+            if (!m_Hunting && !m_BCooldown && m_Hunter)
             {
                 m_IdlePoint = m_TownHall;
+                m_Target = m_IdlePoint;
+                m_BCooldown = true;
+            }
+
+            if (!m_Hunting && !m_BCooldown && !m_Hunter)
+            {
+                m_IdlePoint = m_DefendingWall;
                 m_Target = m_IdlePoint;
                 m_BCooldown = true;
             }
@@ -126,8 +135,8 @@ public partial class VagrantBehaviour : MonoBehaviour
                 m_Target = m_VillagerPoints[Random.Range(0, m_VillagerPoints.Length)];
 
             m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
-            
-            if (m_Distance <= 1.75f)
+
+            if (m_Distance < 1.75f)
             {
                 m_Rigid.velocity = new Vector2(0, 0);
                 m_IsIdle = true;
@@ -148,7 +157,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                 if (m_DefendingWall != null)
                     m_Target = m_DefendingWall;
 
-                if (m_Distance <= 1.75f)
+                if (m_Distance < 1.75f)
                 {
                     m_Rigid.velocity = new Vector2(0, 0);
                     m_IsIdle = true;
@@ -185,22 +194,33 @@ public partial class VagrantBehaviour : MonoBehaviour
                     }
                 }
 
-                m_Rigid.velocity = new Vector2(0, 0);
-
-                m_EnemyToShoot = GetClosestTarget(m_Enemies);
-
-                m_ShootTime += Time.deltaTime;
-
-                m_Distance = Vector2.Distance(m_Rigid.position, m_EnemyToShoot.transform.position);
-
-                if (m_Distance <= 7.5f)
+                if (Vector2.Distance(m_DefendingWall.transform.position, m_Rigid.position) > 1.5f)
                 {
-                    if (m_ShootTime >= m_ShootTimer)
+                    m_Target = m_DefendingWall;
+                    m_IsIdle = false;
+                }
+                if (Vector2.Distance(m_DefendingWall.transform.position, m_Rigid.position) < 1.5f)
+                {
+                    m_IsIdle = true;
+
+                    m_Rigid.velocity = new Vector2(0, 0);
+
+                    m_EnemyToShoot = GetClosestTarget(m_Enemies);
+
+                    m_ShootTime += Time.deltaTime;
+
+                    m_Distance = Vector2.Distance(m_Rigid.position, m_EnemyToShoot.transform.position);
+
+                    if (m_Distance <= 7.5f)
                     {
-                        Shoot(m_EnemyToShoot);
-                        m_Source.Play();
+                        if (m_ShootTime >= m_ShootTimer)
+                        {
+                            Shoot(m_EnemyToShoot);
+                            m_Source.Play();
+                        }
                     }
                 }
+
             }
         }
 
@@ -315,7 +335,7 @@ public partial class VagrantBehaviour : MonoBehaviour
         m_ShootTime = 0.0f;
 
         float XDistance;
-        XDistance = Random.Range(_Target.transform.position.x - m_ThrowPoint.position.x, m_Direction.x * 5.0f);
+        XDistance = Random.Range(_Target.transform.position.x - m_ThrowPoint.position.x, m_Direction.x * 2.5f);
 
         float YDistance;
         YDistance = _Target.transform.position.y - m_ThrowPoint.position.y;

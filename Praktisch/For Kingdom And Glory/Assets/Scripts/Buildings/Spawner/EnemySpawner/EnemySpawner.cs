@@ -79,6 +79,7 @@ public class EnemySpawner : MonoBehaviour
                 for (int i = 0; i < SpawnedEnemys.Count; i++)
                 {
                     Destroy(SpawnedEnemys[i]);
+                    ArcherManager.Instance.RemoveEnemies(SpawnedEnemys[i], m_Side);
                 }
                 m_Defending = false;
             }
@@ -231,6 +232,15 @@ public class EnemySpawner : MonoBehaviour
         GameManager.Instance.RemoveSpawnerFromList(m_Side, this.gameObject);
 
         ArcherManager.Instance.RemoveSpawner(m_Side, this.gameObject);
+
+        if(m_SpawnedEnemys.Count > 0)
+        {
+            for (int i = 0; i < m_SpawnedEnemys.Count; i++)
+            {
+                Destroy(m_SpawnedEnemys[i]);
+                ArcherManager.Instance.RemoveEnemies(SpawnedEnemys[i], m_Side);
+            }
+        }
 
         Destroy(this.gameObject);
     }

@@ -5,10 +5,15 @@ public class ArcherManager : MonoBehaviour
 {
     public static ArcherManager Instance { get; private set; }
 
+    #region SerializeField
+    [SerializeField]
+    private GameObject m_LeftDef;
+    [SerializeField]
+    private GameObject m_RightDef;
+    #endregion
+
     #region private List
-    [SerializeField]
     private List<GameObject> m_ArcherLeftSide = new List<GameObject>();
-    [SerializeField]
     private List<GameObject> m_ArcherRightSide = new List<GameObject>();
     #endregion
 
@@ -35,7 +40,10 @@ public class ArcherManager : MonoBehaviour
         {
             for (int i = 0; i < m_ArcherLeftSide.Count; i++)
             {
-                m_ArcherLeftSide[i].GetComponent<VagrantBehaviour>().DefendingWall = WallManager.Instance.GetLeftWall();
+                if (WallManager.Instance.GetLeftWall() != null)
+                    m_ArcherLeftSide[i].GetComponent<VagrantBehaviour>().DefendingWall = WallManager.Instance.GetLeftWall();
+                else if (WallManager.Instance.GetLeftWall() == null)
+                    m_ArcherLeftSide[i].GetComponent<VagrantBehaviour>().DefendingWall = m_LeftDef;
             }
         }
 
@@ -43,7 +51,10 @@ public class ArcherManager : MonoBehaviour
         {
             for (int i = 0; i < m_ArcherRightSide.Count; i++)
             {
-                m_ArcherRightSide[i].GetComponent<VagrantBehaviour>().DefendingWall = WallManager.Instance.GetRightWall();
+                if (WallManager.Instance.GetRightWall() != null)
+                    m_ArcherRightSide[i].GetComponent<VagrantBehaviour>().DefendingWall = WallManager.Instance.GetRightWall();
+                else if(WallManager.Instance.GetRightWall() == null)
+                    m_ArcherRightSide[i].GetComponent<VagrantBehaviour>().DefendingWall = m_RightDef;
             }
         }
     }
@@ -61,7 +72,7 @@ public class ArcherManager : MonoBehaviour
             m_ArcherRightSide.Add(_Archer);
             Hunting(m_ArcherRightSide);
         }
-        else if(m_Amount % 2 != 0)
+        else if (m_Amount % 2 != 0)
         {
             m_ArcherLeftSide.Add(_Archer);
             Hunting(m_ArcherLeftSide);
@@ -178,7 +189,7 @@ public class ArcherManager : MonoBehaviour
         for (int i = 0; i < _Archers.Count; i++)
         {
             // if modulo is uneven
-            if(Amount % 2 != 0)
+            if (Amount % 2 != 0)
                 _Archers[i].GetComponent<VagrantBehaviour>().Hunter = true; // Archer is an Hunter
             if (Amount % 2 == 0)
                 _Archers[i].GetComponent<VagrantBehaviour>().Hunter = false;

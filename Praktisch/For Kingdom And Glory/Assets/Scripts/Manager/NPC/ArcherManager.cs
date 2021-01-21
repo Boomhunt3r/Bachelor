@@ -13,12 +13,14 @@ public class ArcherManager : MonoBehaviour
     #endregion
 
     #region private List
+    [SerializeField]
     private List<GameObject> m_ArcherLeftSide = new List<GameObject>();
+    [SerializeField]
     private List<GameObject> m_ArcherRightSide = new List<GameObject>();
     #endregion
 
     #region private Variables
-    private int m_Amount = 1;
+    private int m_Amount = 0;
     #endregion
 
     // Start is called before the first frame update
@@ -30,6 +32,8 @@ public class ArcherManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(m_Amount);
+
         if (!GameManager.Instance.IsAlive)
             return;
 
@@ -53,7 +57,7 @@ public class ArcherManager : MonoBehaviour
             {
                 if (WallManager.Instance.GetRightWall() != null)
                     m_ArcherRightSide[i].GetComponent<VagrantBehaviour>().DefendingWall = WallManager.Instance.GetRightWall();
-                else if(WallManager.Instance.GetRightWall() == null)
+                else if (WallManager.Instance.GetRightWall() == null)
                     m_ArcherRightSide[i].GetComponent<VagrantBehaviour>().DefendingWall = m_RightDef;
             }
         }
@@ -69,11 +73,35 @@ public class ArcherManager : MonoBehaviour
         m_Amount++;
         if (m_Amount % 2 == 0)
         {
+            if (m_ArcherLeftSide.Count < m_ArcherRightSide.Count)
+            {
+                m_ArcherLeftSide.Add(_Archer);
+                Hunting(m_ArcherLeftSide);
+                return;
+            }
+            else if(m_ArcherRightSide.Count < m_ArcherLeftSide.Count)
+            {
+                m_ArcherRightSide.Add(_Archer);
+                Hunting(m_ArcherRightSide);
+                return;
+            }
             m_ArcherRightSide.Add(_Archer);
             Hunting(m_ArcherRightSide);
         }
         else if (m_Amount % 2 != 0)
         {
+            if (m_ArcherRightSide.Count < m_ArcherLeftSide.Count)
+            {
+                m_ArcherRightSide.Add(_Archer);
+                Hunting(m_ArcherRightSide);
+                return;
+            }
+            else if (m_ArcherLeftSide.Count < m_ArcherRightSide.Count)
+            {
+                m_ArcherLeftSide.Add(_Archer);
+                Hunting(m_ArcherLeftSide);
+                return;
+            }
             m_ArcherLeftSide.Add(_Archer);
             Hunting(m_ArcherLeftSide);
         }

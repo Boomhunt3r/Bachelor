@@ -70,12 +70,22 @@ public partial class VagrantBehaviour : MonoBehaviour
             {
                 m_IdlePoint = m_DefendingWall;
                 m_Target = m_IdlePoint;
-                m_BCooldown = true;
+
+                if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) <= m_Random)
+                {
+                    m_Rigid.velocity = new Vector2(0, 0);
+                    m_IsIdle = true;
+                }
+                if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) > m_Random)
+                {
+                    m_IsIdle = false;
+                    m_Target = m_IdlePoint;
+                }
             }
 
             if (m_BCooldown)
             {
-                if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) < m_Random)
+                if (Vector2.Distance(m_Rigid.position, m_Target.transform.position) <= m_Random)
                 {
                     m_Rigid.velocity = new Vector2(0, 0);
                     m_IsIdle = true;
@@ -136,13 +146,13 @@ public partial class VagrantBehaviour : MonoBehaviour
 
             m_Distance = Vector2.Distance(m_Rigid.position, m_Target.transform.position);
 
-            if (m_Distance < 1.75f)
+            if (m_Distance < 1f)
             {
                 m_Rigid.velocity = new Vector2(0, 0);
                 m_IsIdle = true;
                 m_IsDefending = true;
             }
-            if (m_Distance > 1.75f)
+            if (m_Distance > 1f)
                 m_IsIdle = false;
 
             return;
@@ -157,13 +167,13 @@ public partial class VagrantBehaviour : MonoBehaviour
                 if (m_DefendingWall != null)
                     m_Target = m_DefendingWall;
 
-                if (m_Distance < 1.75f)
+                if (m_Distance < 1f)
                 {
                     m_Rigid.velocity = new Vector2(0, 0);
                     m_IsIdle = true;
                     m_IsDefending = true;
                 }
-                if (m_Distance > 1.75f)
+                if (m_Distance > 1f)
                 {
                     m_IsIdle = false;
                 }
@@ -194,12 +204,12 @@ public partial class VagrantBehaviour : MonoBehaviour
                     }
                 }
 
-                if (Vector2.Distance(m_DefendingWall.transform.position, m_Rigid.position) > 1.5f)
+                if (Vector2.Distance(m_DefendingWall.transform.position, m_Rigid.position) > 1f)
                 {
                     m_Target = m_DefendingWall;
                     m_IsIdle = false;
                 }
-                if (Vector2.Distance(m_DefendingWall.transform.position, m_Rigid.position) < 1.5f)
+                if (Vector2.Distance(m_DefendingWall.transform.position, m_Rigid.position) < 1f)
                 {
                     m_IsIdle = true;
 

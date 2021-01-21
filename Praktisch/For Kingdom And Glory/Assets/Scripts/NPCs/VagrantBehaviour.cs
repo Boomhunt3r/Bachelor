@@ -312,6 +312,8 @@ public partial class VagrantBehaviour : MonoBehaviour
                 VagrantManager.Instance.AddToList(this.gameObject);
                 this.gameObject.tag = "Vagrant";
                 m_ChangedSkin = false;
+                m_IsIdle = false;
+                m_VagrantIdle = true;
                 break;
             case ENPCStatus.BUILDER:
                 m_Status = ENPCStatus.VILLAGER;
@@ -320,6 +322,7 @@ public partial class VagrantBehaviour : MonoBehaviour
                 VillagerManager.Instance.AddToList(this.gameObject);
                 m_HammerVis.SetActive(false);
                 this.gameObject.tag = "Villager";
+                m_IsIdle = false;
                 break;
             case ENPCStatus.ARCHER:
                 m_Status = ENPCStatus.VILLAGER;
@@ -329,6 +332,8 @@ public partial class VagrantBehaviour : MonoBehaviour
                 this.gameObject.tag = "Villager";
                 m_Enemies.Clear();
                 m_BowVis.SetActive(false);
+                m_IsIdle = false;
+                m_IsAttacking = false;
                 break;
             default:
                 break;
